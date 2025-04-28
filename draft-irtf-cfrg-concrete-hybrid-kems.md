@@ -704,6 +704,27 @@ This document has no IANA actions.
 
 # Test Vectors
 
+This section describes test vectors for each of the concrete KEMs specified
+in this document.
+
+## QSF-KEM(ML-KEM-768,P-256)-XOF(SHAKE256)-KDF(SHA3-256) Test Vectors
+
+~~~~
+{::include ./spec/test-vectors-QSF-KEM(ML-KEM-768,P-256)-XOF(SHAKE256)-KDF(SHA3-256).txt}
+~~~~
+
+## KitchenSink-KEM(ML-KEM-768,X25519)-XOF(SHAKE256)-KDF(HKDF-SHA-256) Test Vectors
+
+~~~~
+{::include ./spec/test-vectors-KitchenSink-KEM(ML-KEM-768,X25519)-XOF(SHAKE256)-KDF(HKDF-SHA-256).txt}
+~~~~
+
+## QSF-KEM(ML-KEM-1024,P-384)-XOF(SHAKE256)-KDF(SHA3-256) Test Vectors
+
+~~~~
+{::include ./spec/test-vectors-QSF-KEM(ML-KEM-1024,P-384)-XOF(SHAKE256)-KDF(SHA3-256).txt}
+~~~~
+
 # Acknowledgments
 {:numbered="false"}
 
