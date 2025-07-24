@@ -265,16 +265,16 @@ output, so it is appropriate for use in hybrid KEMs with `Nss = 32`.
 
 This section instantiates the following concrete KEMs:
 
-QSF-MLKEM768-P256-SHA3256-SHAKE256:
+QSF-MLKEM768-P256:
 : A hybrid KEM composing ML-KEM-768 and P-256 using the QSF scheme, with
   SHAKE256 as the PRG and SHA3-256 as the KDF.
 
-QSF-MLKEM768-X25519-SHA3256-SHAKE256:
+QSF-MLKEM768-X25519:
 : A hybrid KEM composing ML-KEM-768 and Curve25519 using the QSF scheme, with
   SHAKE256 as the PRG and SHA3-256 as the KDF. This construction is identical
   to the X-Wing construction in {{XWING-SPEC}}.
 
-QSF-MLKEM1024-P384-SHA3256-SHAKE256:
+QSF-MLKEM1024-P384:
 : A hybrid KEM composing ML-KEM-1024 and P-384 using the QSF scheme, with
   SHAKE256 as the PRG and SHA3-256 as the KDF.
 
@@ -283,7 +283,7 @@ combiner construction from {{HYBRID-KEMS}}, the `label` to use for domain
 separation in the combiner function, as well as the PRG and KDF functions to
 use throughout.
 
-## QSF-MLKEM768-P256-SHA3256-SHAKE256 {#qsf-p256}
+## QSF-MLKEM768-P256 {#qsf-p256}
 
 This hybrid KEM is heavily based on {{XWING}}, using the QSF combiner from
 {{HYBRID-KEMS}}. In particular, it has the same exact design but uses P-256
@@ -304,7 +304,7 @@ The KEM constants for the resulting hybrid KEM are as follows:
 - `Nct`: 1121
 - `Nss`: 32
 
-## QSF-MLKEM768-X25519-SHA3256-SHAKE256 {#xwing}
+## QSF-MLKEM768-X25519 {#xwing}
 
 This hybrid KEM is identical to X-Wing {{XWING-SPEC}}. It has the following
 parameters.
@@ -326,7 +326,7 @@ The following constants for the hybrid KEM are also defined:
 - `Nct`: 1120
 - `Nss`: 32
 
-## QSF-MLKEM1024-P384-SHA3256-SHAKE256 {#qsf-p384}
+## QSF-MLKEM1024-P384 {#qsf-p384}
 
 QSF-MLKEM1024-P384-SHA3256-SHAKE256 has the following parameters:
 
