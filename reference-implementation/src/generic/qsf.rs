@@ -24,17 +24,17 @@ where
         seed: &[u8],
     ) -> Result<
         (
-            GroupT::Element,
             KemPq::EncapsulationKey,
-            GroupT::Scalar,
+            GroupT::Element,
             KemPq::DecapsulationKey,
+            GroupT::Scalar,
         ),
         KemError,
     > {
         // Expand seed using PRG
         let seed_full = PrgImpl::prg(seed);
 
-        // Split expanded seed into group and post-quantum portions
+        // Split expanded seed into post-quantum and traditional portions
         let (seed_pq, seed_t) = split(KemPq::SEED_LENGTH, GroupT::SEED_LENGTH, &seed_full)?;
 
         // Generate traditional component using group operations
@@ -44,7 +44,7 @@ where
         // Generate post-quantum key pair
         let (ek_pq, dk_pq) = KemPq::derive_key_pair(seed_pq).map_err(|_| KemError::PostQuantum)?;
 
-        Ok((ek_t, ek_pq, dk_t, dk_pq))
+        Ok((ek_pq, ek_t, dk_pq, dk_t))
     }
 }
 
@@ -59,12 +59,12 @@ where
 {
     // Hybrid constants derived from group and KEM
     const ENCAPSULATION_KEY_LENGTH: usize =
-        GroupT::ELEMENT_LENGTH + KemPq::ENCAPSULATION_KEY_LENGTH;
-    const CIPHERTEXT_LENGTH: usize = GroupT::ELEMENT_LENGTH + KemPq::CIPHERTEXT_LENGTH;
+        KemPq::ENCAPSULATION_KEY_LENGTH + GroupT::ELEMENT_LENGTH;
+    const CIPHERTEXT_LENGTH: usize = KemPq::CIPHERTEXT_LENGTH + GroupT::ELEMENT_LENGTH;
 
     const SEED_LENGTH: usize = SEED_LENGTH;
     const SHARED_SECRET_LENGTH: usize =
-        min(GroupT::SHARED_SECRET_LENGTH, KemPq::SHARED_SECRET_LENGTH);
+        min(KemPq::SHARED_SECRET_LENGTH, GroupT::SHARED_SECRET_LENGTH);
 
     const DECAPSULATION_KEY_LENGTH: usize = Self::SEED_LENGTH;
 
@@ -91,7 +91,7 @@ where
             return Err(KemError::InvalidInputLength);
         }
 
-        let (ek_t, ek_pq, _dk_t, _dk_pq) = Self::expand_decapsulation_key(seed)?;
+        let (ek_pq, ek_t, _dk_pq, _dk_t) = Self::expand_decapsulation_key(seed)?;
         let ek_hybrid = Self::EncapsulationKey::new(&ek_pq, &ek_t);
         let dk_hybrid = seed.to_vec();
 
@@ -109,6 +109,9 @@ where
         let ek_pq = KemPq::EncapsulationKey::from(ek_pq_bytes);
         let ek_t = GroupT::Element::from(ek_t_bytes);
 
+        // Encapsulate with post-quantum KEM
+        let (ct_pq, ss_pq) = KemPq::encaps(&ek_pq, rng).map_err(|_| KemError::PostQuantum)?;
+
         // Generate ephemeral scalar for traditional component using secure randomness
         let mut ephemeral_seed = vec![0u8; GroupT::SEED_LENGTH];
         rng.fill_bytes(&mut ephemeral_seed);
@@ -118,9 +121,6 @@ where
         let ct_t = GroupT::exp(&GroupT::generator(), &sk_e);
         let shared_point = GroupT::exp(&ek_t, &sk_e);
         let ss_t = GroupT::element_to_shared_secret(&shared_point);
-
-        // Encapsulate with post-quantum KEM
-        let (ct_pq, ss_pq) = KemPq::encaps(&ek_pq, rng).map_err(|_| KemError::PostQuantum)?;
 
         // Create hybrid ciphertext
         let ct_hybrid = Self::Ciphertext::new(&ct_pq, &ct_t);
@@ -146,7 +146,7 @@ where
         ct: &Self::Ciphertext,
     ) -> Result<Self::SharedSecret, KemError> {
         // Generate component decapsulation keys
-        let (_ek_t, _ek_pq, dk_t, dk_pq) = Self::expand_decapsulation_key(dk)?;
+        let (_ek_pq, _ek_t, dk_pq, dk_t) = Self::expand_decapsulation_key(dk)?;
 
         // Deserialize component ciphertexts
         let (ct_pq_bytes, ct_t_bytes) =
@@ -183,7 +183,7 @@ where
     fn to_encapsulation_key(
         dk: &Self::DecapsulationKey,
     ) -> Result<Self::EncapsulationKey, KemError> {
-        let (ek_t, ek_pq, _dk_t, _dk_pq) = Self::expand_decapsulation_key(dk)?;
+        let (ek_pq, ek_t, _dk_pq, _dk_t) = Self::expand_decapsulation_key(dk)?;
         Ok(Self::EncapsulationKey::new(&ek_pq, &ek_t))
     }
 }
@@ -197,7 +197,7 @@ where
     PrgImpl: Prg,
     Label: HybridKemLabel,
 {
-    const RANDOMNESS_LENGTH: usize = GroupT::SEED_LENGTH + KemPq::RANDOMNESS_LENGTH;
+    const RANDOMNESS_LENGTH: usize = KemPq::RANDOMNESS_LENGTH + GroupT::SEED_LENGTH;
 
     fn encaps_derand(
         ek: &Self::EncapsulationKey,
@@ -210,8 +210,8 @@ where
         let ek_t = GroupT::Element::from(ek_t_bytes);
         let ek_pq = KemPq::EncapsulationKey::from(ek_pq_bytes);
 
-        // Split randomness for traditional and post-quantum components
-        let (rand_t, rand_pq) = split(GroupT::SEED_LENGTH, KemPq::RANDOMNESS_LENGTH, randomness)?;
+        // Split randomness for post-quantum and traditional components
+        let (rand_pq, rand_t) = split(KemPq::RANDOMNESS_LENGTH, GroupT::SEED_LENGTH, randomness)?;
 
         // Generate ephemeral scalar deterministically for traditional component
         let sk_e = GroupT::random_scalar(rand_t).map_err(|_| KemError::Traditional)?;
