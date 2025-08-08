@@ -367,7 +367,7 @@ key generation followed by an encapsulation:
 * `ciphertext` - the ciphertext produced by the encapsulation operation
 * `shared_secret` - the shared secret produced by the encapsulation operation
 
-{::include reference-implementation/test_vectors.md}
+{::include test_vectors.md}
 
 # Acknowledgments
 {:numbered="false"}
