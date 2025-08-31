@@ -333,7 +333,7 @@ QSF-MLKEM1024-P384-SHA3256-SHAKE256 has the following parameters:
 * `Group_T`: P-384 {{group-nist}}
 * `KEM_PQ: ML-KEM-1024 {{mlkem}}
 * `PRG`: SHAKE-256 {{FIPS202}}
-* `KDF`: HKDF-SHA-256 {{!RFC5869}}
+* `KDF`: SHA3-256 {{FIPS202}}
 * `Label`: `QSF-P384-MLKEM1024-SHAKE256-SHA3256`
 
 The following constants for the hybrid KEM are also defined:
