@@ -1211,13 +1211,13 @@ framework and simplify implementors' choices.<a href="#section-abstract-1" class
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-concrete-hybrid-kem-instanc" class="internal xref">Concrete Hybrid KEM Instances</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-gc-mp256" class="internal xref">GC-MP256</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-mlkem768-p256" class="internal xref">MLKEM768-P256</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
-                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-gc-mx25519" class="internal xref">GC-MX25519</a></p>
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-mlkem768-x25519" class="internal xref">MLKEM768-X25519</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-gc-mp384" class="internal xref">GC-MP384</a></p>
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-mlkem1024-p384" class="internal xref">MLKEM1024-P384</a></p>
 </li>
             </ul>
 </li>
@@ -1560,10 +1560,10 @@ SHAKE256 as the PRG and SHA3-256 as the KDF.<a href="#section-4-2.6.1" class="pi
 combiner construction from <span>[<a href="#HYBRID-KEMS" class="cite xref">HYBRID-KEMS</a>]</span>, the <code>label</code> to use for domain
 separation in the combiner function, as well as the PRG and KDF functions to
 use throughout.<a href="#section-4-3" class="pilcrow">¶</a></p>
-<div id="gc-mp256">
+<div id="mlkem768-p256">
 <section id="section-4.1">
-        <h3 id="name-gc-mp256">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-gc-mp256" class="section-name selfRef">GC-MP256</a>
+        <h3 id="name-mlkem768-p256">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-mlkem768-p256" class="section-name selfRef">MLKEM768-P256</a>
         </h3>
 <p id="section-4.1-1">This hybrid KEM combines ML-KEM-768 with P-256 using the GC framework from
 <span>[<a href="#HYBRID-KEMS" class="cite xref">HYBRID-KEMS</a>]</span>. It has the following components:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
@@ -1581,7 +1581,7 @@ use throughout.<a href="#section-4-3" class="pilcrow">¶</a></p>
             <p id="section-4.1-2.4.1"><code>KDF</code>: SHA3-256 <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span><a href="#section-4.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.1-2.5">
-            <p id="section-4.1-2.5.1"><code>Label</code>: <code>GC-MP256</code><a href="#section-4.1-2.5.1" class="pilcrow">¶</a></p>
+            <p id="section-4.1-2.5.1"><code>Label</code>: <code>|-()-|</code> (0x7C2D28292D7C)<a href="#section-4.1-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-4.1-3">The KEM constants for the resulting hybrid KEM are as follows:<a href="#section-4.1-3" class="pilcrow">¶</a></p>
@@ -1604,10 +1604,10 @@ use throughout.<a href="#section-4-3" class="pilcrow">¶</a></p>
         </ul>
 </section>
 </div>
-<div id="gc-mx25519">
+<div id="mlkem768-x25519">
 <section id="section-4.2">
-        <h3 id="name-gc-mx25519">
-<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-gc-mx25519" class="section-name selfRef">GC-MX25519</a>
+        <h3 id="name-mlkem768-x25519">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-mlkem768-x25519" class="section-name selfRef">MLKEM768-X25519</a>
         </h3>
 <p id="section-4.2-1">This hybrid KEM combines ML-KEM-768 with X25519 using the GC framework from
 <span>[<a href="#HYBRID-KEMS" class="cite xref">HYBRID-KEMS</a>]</span>. It is identical to the X-Wing construction from <span>[<a href="#XWING-SPEC" class="cite xref">XWING-SPEC</a>]</span>.
@@ -1626,35 +1626,33 @@ It has the following components:<a href="#section-4.2-1" class="pilcrow">¶</a><
             <p id="section-4.2-2.4.1"><code>KDF</code>: SHA3-256 <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span><a href="#section-4.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.2-2.5">
-            <p id="section-4.2-2.5.1"><code>Label</code>: <code>\.//^\</code><a href="#section-4.2-2.5.1" class="pilcrow">¶</a></p>
+            <p id="section-4.2-2.5.1"><code>Label</code>: <code>\.//^\</code> (0x5C2E2F2F5E5C)<a href="#section-4.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-4.2-3">(This label does not follow the same pattern as the other KEMs here, but was
-chosen for compatibility with the X-Wing specification.)<a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">The following constants for the hybrid KEM are also defined:<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">The following constants for the hybrid KEM are also defined:<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.2-5.1">
-            <p id="section-4.2-5.1.1"><code>Nseed</code>: 32<a href="#section-4.2-5.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4.2-4.1">
+            <p id="section-4.2-4.1.1"><code>Nseed</code>: 32<a href="#section-4.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.2-5.2">
-            <p id="section-4.2-5.2.1"><code>Nek</code>: 1216<a href="#section-4.2-5.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-4.2-4.2">
+            <p id="section-4.2-4.2.1"><code>Nek</code>: 1216<a href="#section-4.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.2-5.3">
-            <p id="section-4.2-5.3.1"><code>Ndk</code>: 32<a href="#section-4.2-5.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-4.2-4.3">
+            <p id="section-4.2-4.3.1"><code>Ndk</code>: 32<a href="#section-4.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.2-5.4">
-            <p id="section-4.2-5.4.1"><code>Nct</code>: 1120<a href="#section-4.2-5.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-4.2-4.4">
+            <p id="section-4.2-4.4.1"><code>Nct</code>: 1120<a href="#section-4.2-4.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.2-5.5">
-            <p id="section-4.2-5.5.1"><code>Nss</code>: 32<a href="#section-4.2-5.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-4.2-4.5">
+            <p id="section-4.2-4.5.1"><code>Nss</code>: 32<a href="#section-4.2-4.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
-<div id="gc-mp384">
+<div id="mlkem1024-p384">
 <section id="section-4.3">
-        <h3 id="name-gc-mp384">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-gc-mp384" class="section-name selfRef">GC-MP384</a>
+        <h3 id="name-mlkem1024-p384">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-mlkem1024-p384" class="section-name selfRef">MLKEM1024-P384</a>
         </h3>
 <p id="section-4.3-1">This hybrid KEM combines ML-KEM-1024 with P-384 using the GC framework from
 <span>[<a href="#HYBRID-KEMS" class="cite xref">HYBRID-KEMS</a>]</span>. It has the following components:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
@@ -1672,7 +1670,7 @@ chosen for compatibility with the X-Wing specification.)<a href="#section-4.2-3"
             <p id="section-4.3-2.4.1"><code>KDF</code>: SHA3-256 <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span><a href="#section-4.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.3-2.5">
-            <p id="section-4.3-2.5.1"><code>Label</code>: <code>GC-MP384</code><a href="#section-4.3-2.5.1" class="pilcrow">¶</a></p>
+            <p id="section-4.3-2.5.1"><code>Label</code>: ` | /-` (0x207C202F2D5C)<a href="#section-4.3-2.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-4.3-3">The following constants for the hybrid KEM are also defined:<a href="#section-4.3-3" class="pilcrow">¶</a></p>
@@ -1943,10 +1941,10 @@ encapsulation_key = ec7b50cddc8360f98b189bac73d395ef947b37d84538
                     40b1a3431ee0cf27b23a50373d59976d82b5b1ce165f
                     4aa1361157afad564081c85777584dd6058a1a4663b5
                     3234d7264fbac6877351d1928c6780f77d4720933727
-                    1e305370df9aeffb74d7c75de55c006e2b2a04543177
-                    6285566bae7850f159e48785033cc873483318ff8fe1
-                    6d6704e27c58dafa540fdc1bd5b2676bf6c11d8c11b0
-                    cda6a00ab6d51865dc417fd9a4cd75bc75
+                    1e305370df9aeffb74d7c75de55c006e2b2a048e3ae3
+                    cfd5a5fb7d4d18c612217e2341d498e9f219b1d59300
+                    c409c651a110491626b0fcd544b8c53705ba9b8f1e6e
+                    be4c71106cb35df0aad865763e2423b840
 decapsulation_key = 01010101010101010101010101010101010101010101
                     01010101010101010101
 ciphertext = 639b91c267be1f9f509e0af149fef93cd34e51a4ac47a61488e
@@ -1991,12 +1989,12 @@ ciphertext = 639b91c267be1f9f509e0af149fef93cd34e51a4ac47a61488e
              13689114cc8bae472e447ff332d6e9c2c8c7ae1d1fe049556ee
              9a10dc8e693421efbd8bd33be8c7ab17b217c084f2eb3626695
              c9a0e33cc14363bfe401eb9596902f15f057b57d25b4e855d1a
-             120847d238a8d6d3252084870c11f21767047dd7c3364b822fa
-             9ed79b48276463e61e7214301c958c819178166d493d7808fb5
-             39ef7839245ee9f0aa389bfa59f699bd08d4162bf795c40b0ad
-             6f12d5d88d3
-shared_secret = 0a0768e2475eb7897799ac2e5d3abae0632792cd3d2221eb
-                ac2c04fa7cd973fc
+             120847d238a8d6d3252084870c11f217670456092b796aeafab
+             cf7f8370fafa5e8082e16be1c0627800e8c43a48574129e2107
+             395d03221f1da93403b2f9e2f39245d5782131a0a3815911bfa
+             a8d1e2536a1
+shared_secret = 66bef78c4678a0c482cf74b92c4a6af96aee6323d58a6dbd
+                d4c1ec8b8445d55b
 </pre><a href="#appendix-A.1-1" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.1-2">
@@ -2060,10 +2058,10 @@ encapsulation_key = 08118d8819772292c976ec971ee3039195800c823544
                     7272c8ac2c69b01f715dda83377aa093a044541f6000
                     848ab1ea65cab1345135a4552be42b27c4b980065694
                     134a90d436f0e091b02a02aa99eac7339907afbbc158
-                    a5127540423f23f6927eff66915d745f4d420429c616
-                    584bcf40266e76a4fdf4ac3e97d59846e35d78ceaccd
-                    6c18cee23a17138b7cb335f5fa41a187feaf6d3d8b2e
-                    d74f5f0229e21bc49383a4b5703f5566c7
+                    a5127540423f23f6927eff66915d745f4d42044079b3
+                    23d6ba5172553e7ec15d3df2c9a7e4040d7038ad1a7c
+                    a7b378ee5acdc3688ad98aa416f556da5ad416e3659d
+                    a310eb300615281946d601784bf7715afe
 decapsulation_key = 02020202020202020202020202020202020202020202
                     02020202020202020202
 ciphertext = 9f1e8a081df4ed9a885fc0ba3bfb486d8ee2f8ac6f266da8a89
@@ -2108,12 +2106,12 @@ ciphertext = 9f1e8a081df4ed9a885fc0ba3bfb486d8ee2f8ac6f266da8a89
              72bb399ec9131bbf045d72d976eb1a0fce6ee96259217e68eab
              c8cb901a754ef2ca3a676973388df73ca15e7e3b5c42cdb76c2
              5a517bf8fd8ac213848b2012827f54ba32dc1f41c6c4a191201
-             f5d4b786dac400dcfc753619a40deba89e047605f6f67428ee1
-             e74339879fabbbe103c3e70a662bac46123739a191b05db2688
-             96b6dd3de798de9c0ab8a5ae7df2ca8a35e54cbe067a1f7a4fa
-             a0c0dc8d6b6
-shared_secret = 9dacefd3fbb6b185981bcb5c6da1a581b8e524cb57d76e1f
-                7dc049ce4009a2fd
+             f5d4b786dac400dcfc753619a40deba89e04a84eba1493314f2
+             f2e9504bca5208159e13cd48494140fc73757c7f8f9af071a2d
+             ead5aaa45a04277d0a637b769f87ed0e2cf3c4e340009cbbc19
+             bbe19e8f51c
+shared_secret = 78da5eb62de0f8891183c58aa804dd4643a1434e26bc9d24
+                133d1b8a67755f81
 </pre><a href="#appendix-A.1-2" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.1-3">
@@ -2177,10 +2175,10 @@ encapsulation_key = 04ccc68ebb7b60c6148fa94574ebaedb9c5ce5eb1ad6
                     1d3c01983f851474c3832297019a808ef64957d79025
                     78981d9231b382169d533a2202e95d18f152e8fc25b6
                     15bb8a65482a2167df6ab2811c73bf8fefbec077f1e6
-                    68494d422443a083b9619254ec3e6bc6f302045d90b2
-                    833b706048aac3cb4e2b2a5ec9f49db4273e10826366
-                    e55a75d8b04cfba62a67cb3d67d2e63ed1f8b86354b9
-                    32575b4996f6940080907d0163b083c17c
+                    68494d422443a083b9619254ec3e6bc6f30204e2608c
+                    618115767bbb0267e3ceacfa1e8687c5cd2029655015
+                    8cd10f39cc0ed545f69a26c432dde0b889b71acf9889
+                    e7d12f547e3aaf73a12803079aed7d068a
 decapsulation_key = 03030303030303030303030303030303030303030303
                     03030303030303030303
 ciphertext = afeb7fab4803f703396c5bc22ca664b75a7b81b9dc03584bb0b
@@ -2225,12 +2223,12 @@ ciphertext = afeb7fab4803f703396c5bc22ca664b75a7b81b9dc03584bb0b
              5323372c4eec287e164f00a4b07073262a0256db2621115662d
              41e3e80922855e2325f25603d4857569dca15b3e932de1dea30
              a019fc0173f721f52d3bdc9b9317040e3ffa383e625f3500f59
-             92a2c0ddc94b908499c271de76614a419b04d5b051c92391df6
-             c31f11905f8e1b19906483a048b649e74203b9de807923870f5
-             bd98ab5d1dea6146a820d659785592dee356b7e8b033cd5db83
-             8833215a3e4
-shared_secret = 1bf5a62f893ff397f522954d0d32ae4e858f7b48edb37686
-                9bc3fa70e03c1e4d
+             92a2c0ddc94b908499c271de76614a419b04a5b90addc8682bb
+             5fa24e51268e40691e7b56f3c1be53f2b1a204e1f975b88ec9f
+             0fd6f33a1dff1b1540cd678d18982560835ddad82e628737745
+             0fead31c00a
+shared_secret = 7d9a2612fd4d84d8c2632fe9fc429ab9fce42fbbc83d5659
+                fc81871283840666
 </pre><a href="#appendix-A.1-3" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.1-4">
@@ -2294,10 +2292,10 @@ encapsulation_key = 6afa82ec0b8e8449591cb9a11be36dc43146c18a6ad3
                     130d26b5c35322138133c083aba300a5def2c4f0d94d
                     4267a2ad23420b768c77d8a1f0428536667d2df42127
                     012291511a8c72738b82f0cff83b9315330886d61118
-                    0d2383cf551afec4aa7515eb138a398eb44c040857c2
-                    1b5c91e83f15e33da581445049f38cdd8093a33c2285
-                    83fd246fbef7d629f46204cec60e328587358fa288b6
-                    9f5a0906747fca02ea28e729a2e5a10283
+                    0d2383cf551afec4aa7515eb138a398eb44c0497c63f
+                    b69362b6b4cb0683a32eb4f828825cf2e00cdf45a5a3
+                    241877ff36161de30c69c1f21e279ee129a23e9057ac
+                    459fbdf34f2483280639e94254d955cee4
 decapsulation_key = 04040404040404040404040404040404040404040404
                     04040404040404040404
 ciphertext = 5563e6ac6c17bcedc54dd9b5d4d9200a26bbf37cbba4520dc3b
@@ -2342,12 +2340,12 @@ ciphertext = 5563e6ac6c17bcedc54dd9b5d4d9200a26bbf37cbba4520dc3b
              039c4de633f886ae8f99b815bb045ea9085cf0b5c0c00c9fe61
              b62e7aab077da5c2b1ee012d8795af2e0c8b2bc2a6e1e693da0
              4166bb0e2fb4ee23056a707f898b4c42882144011a3f964596e
-             6392dc0c03b1d2d42e1e5fe73664f5e08a04f011018673a8b9c
-             8a8bd057d177e1de60c05950b5f78bc6f5bd96b65ec632d59b6
-             ffbf34713951f9a50e4beb7e09fdd6b4f7cfbdc0cc2a256dae0
-             5692c826f71
-shared_secret = ea82dd6d4770e8dc06e397cea38c5c9552fcc59331120bef
-                1a9d0d52eac100f5
+             6392dc0c03b1d2d42e1e5fe73664f5e08a04109eb4bccda2cee
+             dc8c4e5665d8b496a8c6c2121daf59317bda029ff3e2b6bd666
+             6378d377b3b2d4bd055612fc6993f5cd4b9179cdc5afca14ace
+             85e0f41737f
+shared_secret = f08eb470d49ecd5d5ef3433652a55c846dbd23c2faaf2bd9
+                cd5c08be549bb78b
 </pre><a href="#appendix-A.1-4" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.1-5">
@@ -2411,10 +2409,10 @@ encapsulation_key = 33393446a76c2c01b44da5696d8452b29ab7b9178776
                     3d5d974963a524bf708c44e198dd212dfcf69213a42e
                     32e6b7c860148ed38c51002b83b0c4b979b52a753bf2
                     c3381c027623b8a8251e60f55524b56b959a14d84637
-                    086a15567717dbda7aff9fd61d09589ac8c004de2fce
-                    2ab9f006de17b6ce7e091ee5de1ea8cfa5b0e4996b88
-                    d984742107c26f2814ded4b669c0b1b8dc59360121f4
-                    c68d3b8d16a325cc60f93096e1708f743c
+                    086a15567717dbda7aff9fd61d09589ac8c004e263be
+                    f841b63021a8f98fb0e33cfa49d00de16441f5d9e793
+                    b57c889464d0c459e9d0f791354953cb1dcae886f0be
+                    4f6e21fe3cb4bd0b499dda08cd8ea98f5e
 decapsulation_key = 05050505050505050505050505050505050505050505
                     05050505050505050505
 ciphertext = a083650d2b620cfb6f4ddb90b2532901e907567ad865cff4cf1
@@ -2459,12 +2457,12 @@ ciphertext = a083650d2b620cfb6f4ddb90b2532901e907567ad865cff4cf1
              df51578055eaea720b004d332297fcfb8949d76626c560e4ae8
              d4496f8eabc44b89c8bc754077a3e98eebaa42bb40157990999
              bc97b75752328e16c9914e2d5a5501adc284cdce2e38912133f
-             c3766e190556da05aae2c5144ed88835c5041a25524954e5e48
-             0a08915f6ed84cf08a601005d0a59bd4ba7fac379eb292885c7
-             87ca20cb59653688588eb8c9fd2323d1588a27f359bebcd3a7d
-             1e5dcdec71c
-shared_secret = fbe8006adeb8b7ce0d870aabd42f0a2249dd3785cccaabaf
-                a9ca2d6f397f4cb8
+             c3766e190556da05aae2c5144ed88835c50428d6151758d9d71
+             0066da80325e55e8fce14b501fe22b3e21c102e3463c8cc8a6b
+             fba24f2910c7efd87b45e7c89ca698cea7a9e6ee63d41facb5c
+             d098859e064
+shared_secret = d88d0513e42cf91e3a2741a6061ecc681bdb42777b05e8c6
+                e3ff8517a9737b7c
 </pre><a href="#appendix-A.1-5" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.1-6">
@@ -2528,10 +2526,10 @@ encapsulation_key = c3f9a6305222862c2c89ec0dbd805c547b2120405ba8
                     8c418118e2472c66511ab558aa06f03fd8fc15f10a20
                     99dc4df1360d15910d2a7747d8abab40fa3d77b7470d
                     8477cd63024aa40268f55139d37548223ed5823f1368
-                    05752c0b5f7f23edfd90a89dd1f90ee344df0430d31b
-                    2475cb0e2fee812fb8da4b25e0683d072fda1416a4d3
-                    eb781440adac6ee3dbe85ae457231cbc0a0ca0f1897e
-                    a494eb5929868be6d368714b14a0642919
+                    05752c0b5f7f23edfd90a89dd1f90ee344df042c6c68
+                    7ad86471e696b6a5db99a34c2582f18874804809d211
+                    93de7a806956c46dd04e19bc793fd2294518a4e0ee62
+                    abb0e7bf16b334be1097499ef6642b9fae
 decapsulation_key = 06060606060606060606060606060606060606060606
                     06060606060606060606
 ciphertext = 2dab7ef4158735394e4b2d1baff5dbdc5fbc381370e6224a68d
@@ -2576,12 +2574,12 @@ ciphertext = 2dab7ef4158735394e4b2d1baff5dbdc5fbc381370e6224a68d
              ecb6faaa6b5396a3aa8d59d2af8170a5021570d54f604eb56a1
              ce95c719852398a18212e82453b2d78df144be6841a02070ad2
              fb2c2d8633bb43a4f4ce5eeee46807fc163a80e9b1d62e8dc17
-             b2ae3b8727d847e09bd34eca1a429f4f0c044ca4bf3b390564f
-             9f4c4ecf836034bb62ba95c379496463d4aae38da6810b3b828
-             f13ecf5573956791585b4b86828c57099e317807d7bb08306a7
-             465c1c95ff3
-shared_secret = c4fe6ed9548fba1b58fffa90f727ea7b924634da909aefef
-                9bc16be98f7ddfba
+             b2ae3b8727d847e09bd34eca1a429f4f0c04376ce871d42658c
+             3af966afca4469f17f08adebd0aa9485fb835f75c245633adcb
+             58bd9027bfe0bfe39aaf05e769d4222c8d36d02f0812aa97ac0
+             cc541cf7797
+shared_secret = 45a2fd9923c36e424d51b1e0f944449f262dce559af03659
+                882d3b8f92a0efb0
 </pre><a href="#appendix-A.1-6" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.1-7">
@@ -2645,10 +2643,10 @@ encapsulation_key = 0e12760b95266a50a52bc6ba3df697c1261d3ba51098
                     7243551dc31b884867b3e9418c1d5196f83b2e7edca5
                     5cb21dcee430969366fd02a85debbd759763010cb918
                     b13460c33bda4b43c2aaec2b4d19800eb45b65c915f8
-                    b969eff9e9e356faea1c9cf69659599b22f504aab505
-                    745921bc992205410fe817ad8348c7a462145d071bb5
-                    a496c61440af67aab87d548eb74ac7c7aabeb55ca96f
-                    0ddd75e7d4f79a94f9e255071850b44a5f
+                    b969eff9e9e356faea1c9cf69659599b22f5042bc8be
+                    06ff56493e3d69055ad701ccefc0250eb380808a988c
+                    8a3b0316204eb9b4eb12237c62a23688738fa2d86a27
+                    2f22fe9bec3dead6965464efc4e73ed8dc
 decapsulation_key = 07070707070707070707070707070707070707070707
                     07070707070707070707
 ciphertext = 26d724c1bd7c15d10d752fcfabd1e7b607ebdd692cd830ce0b4
@@ -2693,12 +2691,12 @@ ciphertext = 26d724c1bd7c15d10d752fcfabd1e7b607ebdd692cd830ce0b4
              fee761462a44635f3f96e8bd3b7f8676c4ee84f11502f148706
              f861dd42afbff6a1b15c71968909c05da779e8a57a295aaed25
              a713966505c8d6aebe03811ec107a8def0bd13e187ac4d680b8
-             f67c8227ebc44f7d0482254b1f8fcaf64004b9f125f0c1f34d3
-             95a4af1c91dc1a00542ab0f9dc408608c911a3664c5634bfcf1
-             ce668a9ce7b4789e564ed093fb9641ee7ddc4cf980d7f1112ce
-             5ae0bd4d8f8
-shared_secret = 074c03f73ad09d0dfdd2e472ed057059e58e9afeb6248e16
-                6e288cb4a3bbc375
+             f67c8227ebc44f7d0482254b1f8fcaf64004c6ca6f916ffc533
+             d4e6530f50add3dfa06e49d7365e2a7875faf97407f5f17aca8
+             6bfa5908f6a12de78840ed138e328798b2dd2032b2f158c25fa
+             7d0191b6ad5
+shared_secret = a1b1b843bbc65c1e8f0f3c98df1f2ec0ba416b07cfd859da
+                b0e58fc0a032702d
 </pre><a href="#appendix-A.1-7" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.1-8">
@@ -2762,10 +2760,10 @@ encapsulation_key = 003180282264d14206367c682c2a282a58c114675507
                     b546337428a7364ec49539709dad61943a545088c754
                     e27c857910713376b859e392d0554a09c04d29aa8adb
                     8754a491059903221d689fbaee7d0a714487053a812b
-                    f22bd20bcc6b3aba85396dac337ad43e549404b16c47
-                    d2a79526ec74a049b5d847c3ac2557de5770f73cfcd8
-                    1a5afa5c603599b7a3600937ffada0c01dc7bf1230fb
-                    4dd1d687dce01eebfcf12c12e6eed07b40
+                    f22bd20bcc6b3aba85396dac337ad43e549404bf6b93
+                    b6129e8ab03540d132973b66b056b470bf307f6e85ce
+                    ac5c016645f51cd4194da6494f5a109bd4909e8662e8
+                    71aa4b248d44dff9bb2e07d770176d8eef
 decapsulation_key = 08080808080808080808080808080808080808080808
                     08080808080808080808
 ciphertext = 5fc45cdb79e29d66d5bd1c5988ebe427d388e750a9529ffd445
@@ -2810,12 +2808,12 @@ ciphertext = 5fc45cdb79e29d66d5bd1c5988ebe427d388e750a9529ffd445
              66cb4663d6feb8f82fa8870d99e2c04f824419dad318f7539f5
              7562fbb44a7b36c788dca917d01840ef784e16c20a6112ac08b
              8435be2cf0ccb9389f7daa274fd3222fe2bb7002002581353a0
-             cecd41b1532c4f6e1160b5a060e8b0691904e5d29021d51a455
-             7b1d01250249a946caa78565b4ddd63ffb1c1e2454603e82ce6
-             dd8942983c209787b6f710e6609885de5a75c6d64bd03ea00b6
-             51acabfcfa9
-shared_secret = a189c3f3fff311fb0766063a7ec3c3aa2ddfcd9dbf6bed9b
-                5ef2adfe176613f8
+             cecd41b1532c4f6e1160b5a060e8b06919042edaee768e9d122
+             1077a823738659732440b58f6a014b5f4aa690424c987e508ec
+             78bb618846b1111c2947e1229a8fdd90104ffbc9d52cd29b17e
+             fb56e2725f2
+shared_secret = 09c2bdab0120b1c3c3f69ce665885f4909e76769d0eb6583
+                55bc98f14e9c7f27
 </pre><a href="#appendix-A.1-8" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.1-9">
@@ -2879,10 +2877,10 @@ encapsulation_key = 460393d6222435d92a68eb6b2384ae414ba04199ac14
                     245982aea0b39c24a67effe65a91b211ad7334f8e485
                     8a3b7d0ef21b3e443c0cb64e089408006b103f3841ca
                     b70b046b98e2c8aed94ad683208e265424b077389c2a
-                    c6571f216fac52e35cd280e51aaf6632816204593189
-                    5898b84c2a1f8b651d724b81084093e8d66541e09270
-                    8696befd2c9147feda06a4bc0ff3c952dd6cc6b675ee
-                    7920ac6cf7a9b076da3e8592da9b8fa16d
+                    c6571f216fac52e35cd280e51aaf66328162046a0125
+                    cdfff9178b3bfdda7c9db345cfad4aa218061f6149e1
+                    5be847cce8a625354c3c0a487e66d4808af17631ccc7
+                    5fd75d0a65420040e5e63e511bf5c758ea
 decapsulation_key = 09090909090909090909090909090909090909090909
                     09090909090909090909
 ciphertext = 502d67d509de322c330afb8695533e1195b5789828c6a697c74
@@ -2927,12 +2925,12 @@ ciphertext = 502d67d509de322c330afb8695533e1195b5789828c6a697c74
              49d44222985c2b62949bd22047260bf9bb2643e339fc93c48e3
              ed677f17a01018ee77622cee89368175c963c7f5c6d54e1a76c
              c2db7c909afbb755a3c8aabd995676a6d0c83eecf85275734cf
-             fb522b246e4979d0a3902bd94f77844b5e04b5f271bd84e2a99
-             228745681782fd6fb27fc11414f64c92d14b576430626df9a52
-             cd9f413d7a61efef8cecd3a7229c1463e66cf89670458d84fcc
-             27bfb6a31bb
-shared_secret = e10c8301f774c86e42b99d78b1d80a1b23f24c0e8e3cc699
-                909b3b4934becd97
+             fb522b246e4979d0a3902bd94f77844b5e0407fc7949fbf3246
+             df5c3d720aaa8ea682b663459ac20f118d38b034051b20f0d19
+             5c29b3bfd9d46d3f2c806447aa233db542913935cd2028c9449
+             6ad8429bae5
+shared_secret = 47d51a27761c953b0cb8c85090a353ef7e3f8e19a70e7783
+                9498d35552a7ad22
 </pre><a href="#appendix-A.1-9" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.1-10">
@@ -2996,10 +2994,10 @@ encapsulation_key = 789cc2596ab7acca896ff86496bb7eefe3027658c0e2
                     9ef949b800a9035efb671e677788c78a4c0571ad17c1
                     78e71da32c6f698989f07c0f3c261d7d72567fa041b6
                     c1b2485988644acbb6d082cb8251d3c1949e170c8ff5
-                    ec3fed5e47c6c8c4433090b67ed59d6ea7bf046fe8a0
-                    c884f205e6d89eac9caf309214342ddb49e0eef02f9c
-                    c807af1b8f071800f4f09d97b49d5bbf2f23cf679fcf
-                    94febc88255e84c83164e12af188314e2a
+                    ec3fed5e47c6c8c4433090b67ed59d6ea7bf0401fe7c
+                    0f118acd621ac59b6952d5bbcb67b6ccdc884ce8d296
+                    2946cd5d3debe81c2ef5ea438ca6e822081fc35339cd
+                    03e62012faea21b840e6415db53999a568
 decapsulation_key = 0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a
                     0a0a0a0a0a0a0a0a0a0a
 ciphertext = ad25cf9795a85b863accfe693c579be5cb711cb778813a2d7d4
@@ -3044,12 +3042,12 @@ ciphertext = ad25cf9795a85b863accfe693c579be5cb711cb778813a2d7d4
              6debe1e8e58d479a4eb0cd43d4ec4804c355b7f9be9f9e3ef01
              f2141b6bc8463fb59ec751a76bd7072dd633131b68bfdd61a24
              a3efebf9091572b0f9c5421ed042f5b275acc9e06766c1bc539
-             b56e21ac8aa3b8437abdb320217df25d0704b07bbeefc9a5184
-             ca520c2db37759bb89428e5610402c5992e533329befbca199b
-             f7d5126cd385efe0bed2b0dbb81921b8aecd9178449d90df2fc
-             2bc26bf8500
-shared_secret = 5328675f3b87498ece5683880445c03135607047bff2de97
-                1a7ede738ca65a06
+             b56e21ac8aa3b8437abdb320217df25d07049acab8f4f347ad0
+             d5b5e9a105a68d2534c53585b7e48a08dd3795fef0f1f24b834
+             cb1b58f209ffd7875883b9f90bdeb0e055776bee62814215b1a
+             87665277ced
+shared_secret = f888afac6a578d4139474a6dc47dbfa6ab92d04169ea2669
+                b760da6f17363a0a
 </pre><a href="#appendix-A.1-10" class="pilcrow">¶</a>
 </div>
 </section>
@@ -4276,11 +4274,11 @@ encapsulation_key = aaf1a021634fec71b29ab42268b37923040ea1fb1172
                     8bd1b8422028287b8c3c12fc3ef11c82fc5933f90556
                     26950d2aa493b9042311600dd8968a29235f4d8a6610
                     d43130f482376076ddd4242a7936e3753d82e7f1d617
-                    16357e24805004a42d64eef7b3c0138810f0083e9d1f
-                    de05d8e62f6fb67655adbd138bb6e128f12f31116d4a
-                    e430352eb5caf7f795d7a3878ca2e04e074625f6890e
-                    93822760075c812bb09b87137dd010e44b481b22367d
-                    a0a1e4f3bc5acc2eb2a88f5976e97f
+                    16357e24805004028197a8c9d00ea47b6fbb911dd427
+                    eb3d94f5e54a71a179de2895e31c30c9df91b1644b40
+                    47b74f89178c08c98b0b40e07b5553ae0b0951560a1e
+                    112bf6700131111628d7de3a3935b63cad3965e72621
+                    6a998f373c9e7a96eeabeba02abeed
 decapsulation_key = 15151515151515151515151515151515151515151515
                     15151515151515151515
 ciphertext = adb67c8e5e9f138c844b5ee6e7ebe3e69893b271c8e572468dc
@@ -4344,13 +4342,13 @@ ciphertext = adb67c8e5e9f138c844b5ee6e7ebe3e69893b271c8e572468dc
              edcd7b64a1c1b86f7967d432dae4d9e62f632276115fc44b86b
              115c9a11d1062aeeb6677a43c7d9cd0dd1dc005666ba94c16ef
              998f9802c4c79e43c100706677a49b891655a8a4eb19b7b6bec
-             37996c12f651dc6b89a4ea8e204c16f27b770f76a58a2512c81
-             2eba5fd2e2570372b95310c427417ad04da75711105f253380e
-             c54172e13e253a57e80a7705cb642fccc84460cba225e4baa3f
-             62eec91d5253a3b5c3dc9f979584f067712ca3c4c927096ef80
-             5e251d6948b7360
-shared_secret = 4237229e0ea768f0d1d5a0d1f0459e27e9ae4bf9039f9e73
-                58002bbbc8ae81ce
+             37996c12f651dc6b89a4ea8e20472f5246af4399f7d1eb1df2e
+             7546be276589ac648bfe96a0ad5a7e964af37b33b28a5e85fae
+             8d82c83a314f8530d37a541e211ac0992c54cd50de538d9dcb8
+             db81f7e96403fa0a95b6ab857166eb57ddb17a5c49863d05eca
+             762b9e260643583
+shared_secret = f239f0e21b42e7f49874c707b82613a22c1293171b595e12
+                0b8e1e0688d33397
 </pre><a href="#appendix-A.3-1" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.3-2">
@@ -4433,11 +4431,11 @@ encapsulation_key = 34c8409d789a7ed7af367c211f413a67c58256617adf
                     59435b4d43d73217442577572b6b9c4cca4a08f81c68
                     b1f32720232c336808a62649bb2904fa54af42fd38ff
                     2b31f9599b05a03bde7c386b4a431e2e481f0cd54cea
-                    dd3baa6ec92f04f09dadb4e5c7ea9ce3f560360e0327
-                    205fe94d0901a4a166c66b65535eb57322e03d8bb275
-                    0cae03719251034211d2868c5f26e5f3c76d522ef728
-                    ab4562e0d03896ae993f5096f9ebe291f96a9f60fe1a
-                    908acedc1858a3bb422b332bffa99b
+                    dd3baa6ec92f0479a72f1d9486215368ee70c4d14bc1
+                    41b211a03b1e69988df118730f997c49f3886404253c
+                    ac452e9a291ae551534d26b6dc2b5bc7c0bdbf54dc7e
+                    341dcfc5808ba67757f154c192cee24dd5bc1e7a0980
+                    cbe66fe14fcb52ffb08dc313124f6e
 decapsulation_key = 16161616161616161616161616161616161616161616
                     16161616161616161616
 ciphertext = d45e9a292ba329fc780d8a04d22476c3f1796cad6c14931ca12
@@ -4501,13 +4499,13 @@ ciphertext = d45e9a292ba329fc780d8a04d22476c3f1796cad6c14931ca12
              2ece6e082b035a574cb159c2705ddd7c359c219f029d56b2c31
              514cb695f03adbfdef923b9454c066cd899e9c966856c7e2e0a
              0b3bfba019d53f289d539c04ba805099f95bbec6f7398138d63
-             484275bc4f7c41bcb1b1990090446c9b6d81d3a890a8e18a72d
-             b587487814bc6588c2d175b7613181cda5594b003a830ef6f67
-             3758d0185c1165f6b3cdfb6e73ab22c39d15a077a95296f4bbb
-             fb7f09ec1afe9011f664a3960cae7ae4cadadc343dc18a50a0e
-             d4a9c7fe0c87b05
-shared_secret = d32de061d565bc31d8a9afedbfe33b6002246f8c14df2e80
-                38d7ab0d00738055
+             484275bc4f7c41bcb1b19900904602330fabb82cf9de2f7b9a8
+             762e750094d6adeaaec166449384c49efaa78585c7c5514a592
+             261fd72767d71432fe48d5bcbe3c57da85f52bbfc85ee3e0c5d
+             49d290c4ceb699f4a5fa6d21186a841c94a2f429dc4307d426f
+             03ff8781cf3b8d7
+shared_secret = 65101094a8cd734765f07a9e0ddaffb9f5329b72125fd732
+                51bc21d151c65f7f
 </pre><a href="#appendix-A.3-2" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.3-3">
@@ -4590,11 +4588,11 @@ encapsulation_key = 15d0c471817d96a4a774e20088e0612f9681a8677d19
                     3d3cc45ebc8464ee981f4c38bdf6165719d757301bbb
                     ff5c4118c81c21e5642202688381714640c4d5891407
                     8f1470fa3cf38a6c462b395a55fd33c824388e9970b3
-                    0200eaaee2d2042891e6075912d8f31a0d286a60de4c
-                    f40987bb0c82e6b5342773a1378d15b468d29f55c238
-                    c01776be322213cb197aaa09c2d5ff58eacec13f951c
-                    fe42cbcd91f2c481ed2b44e1deb0dfdd55e99ec3ec9e
-                    41907fd2fc7defa2568d65383acf67
+                    0200eaaee2d204c2042fe14172c179ee90a349022635
+                    c364a682279da2a3ef3e73bb53389f93d5481d8fcafd
+                    de3047edb5a1a84d9b0a730ce47cc4c4c7e39b02201b
+                    522b2510b3c99e173e4b61c34d53ed1b0623612b9ff2
+                    1578645e15885716620e6f6878a0f3
 decapsulation_key = 17171717171717171717171717171717171717171717
                     17171717171717171717
 ciphertext = 808e3bc16b52cf2c47d4301d9a1d9e0cf0865a3a58d76d29094
@@ -4658,13 +4656,13 @@ ciphertext = 808e3bc16b52cf2c47d4301d9a1d9e0cf0865a3a58d76d29094
              420c2fe3f2ee71d26d6514db3ad3681e23bff9a9888cadf2ac9
              27b4ff244cc98abfaf42b30faa25af7eebd4014c5ef9f99a407
              c9f42fa3d7c21e8423f2ac4d0e2538acb5153008121a1002032
-             aac66be61c59d2bef92172ebf042e96f4efc9829f8e9d181e73
-             2ab44ab27aa40f92b6cf73efda829e1e9d86eb5f0a8e394286b
-             a88059514dc1622a1438a4560bd9f51b4c8bdda6305bd3a2e22
-             5366f006a504b7c893c37eaf2a8e7a2d20a49639cfbabf212c3
-             13ec0db689fa2c4
-shared_secret = df00bbf5fdf9a0b5cac893c94a0f2895aec46e1447d04559
-                e2a76e90388e258a
+             aac66be61c59d2bef92172ebf047f3fece48bf07518950c94f2
+             95b8b54e04d5c590b5cace0f69cf2c20643f114a4b47b038219
+             060cffd5e3e7ee8d628fd6fe870314ad7ffc035bb1bde6db043
+             7cac07da950e03576bee0a2d7e22cfd7bc28a30bfaca3793b18
+             0fab08d32005131
+shared_secret = 2dcb36647cdf7c0242843e5713ae750854515c0b5620b797
+                21af64f87a7c6d27
 </pre><a href="#appendix-A.3-3" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.3-4">
@@ -4747,11 +4745,11 @@ encapsulation_key = baa2ac888c48dc1bce27fc5e064c1108dbb3418372e1
                     91fb3041c7b11932211bf7806643f6098d286b214a7c
                     e0651ce772231d89c00926c18e71332126608b00f10a
                     ceeb4c30c3269153cdb6c6a142c5ef3a024d0bbd807d
-                    9ef1c0b5e801044fa9f23cb787147f44dab6feaf64cc
-                    785770ffa12fc6b6a734fc1a151757e54d07801cbc45
-                    a420659695fbcc1c17fe6768ac4f6d51b2e120d5b01a
-                    87c55bf15c6ff299d5cfb58d90cbe28815b29103a07d
-                    e2ef7b5fb41854e317d6bf6cb711c1
+                    9ef1c0b5e80104b1b264d4204af01ff86d1d9456c74f
+                    a70d28918a937331aa1eae2a482660e2cb87beada1c0
+                    df923f6c86cf012703444d2d0a1c3d2fa6ff465cf3f6
+                    bf6be1a271d4965311634113458d14710359cf23d562
+                    231d1a92311d94d347e55334891532
 decapsulation_key = 18181818181818181818181818181818181818181818
                     18181818181818181818
 ciphertext = 9d568d0fbbac32c3e5dbc9a162895d43c86929105e06a2b86bd
@@ -4815,13 +4813,13 @@ ciphertext = 9d568d0fbbac32c3e5dbc9a162895d43c86929105e06a2b86bd
              71abe5845bc71e3f34be67c860b02a05a3ebbbfc60b5fb8f76c
              f061c32a3350ec5d0209a832c2588760b0c02e054e01f5aaffc
              82f8c2c21d8436e7e9bc3a4d42810c7ad55b7f1b07b216d8717
-             c83b9449ab3454151d4fc51f30449518493b84f9326488cb6c8
-             badfed3f5c273cb2a332d4d15926ebc019a5d436a7b6f648c44
-             114cce5a592b9eccb877d8e7a19452fe9b9c6ec6e254e61996b
-             93859fa54a89c356cb45d391d3a3af064be804f68123ad9f48a
-             f9dd34f3ff78c1d
-shared_secret = 6c82e9e7a081a07bfd3dc490a83ec46652a08e1b9f33fbda
-                9e05f9c7d467aa23
+             c83b9449ab3454151d4fc51f30482ba1a9833ed3272adbe1f0e
+             de04bc9e08ab9ff09bd6d33a7c20eed773d1b577de19d891595
+             344881de55d8fa2a0c9c2bf12491a5b755b310197a3011ad4ad
+             eafadb006fd653dfd3a51395a519b14935f21720346e06eef32
+             b24bd9213957381
+shared_secret = 8e0c463339b9b6d42a19c9e8471b1a39f41fbbb3f368497a
+                54f48e00c22f7aa4
 </pre><a href="#appendix-A.3-4" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.3-5">
@@ -4904,11 +4902,11 @@ encapsulation_key = 2796a9ba586540a5806a2ccaf3e1001e5acfddbab4e6
                     5e39f17c43930b2adcc7bc409b99f84d8ebb30a9d07e
                     609228f95b339924572b613aa1c83b37bc12f290de3d
                     a969b4821ca3d147c268858e12cd34d131b650b522e3
-                    4d8a64833d2704a6b90f4031ff3be7af352eaf36f77c
-                    d1d67aceeac3f1231feaadc2339674e523e46b397e4c
-                    4c7d883bbdedde31163a3e20411168a150ca3050f2f6
-                    d38d513fa4ea3ad534041d490643909acb19d87b8157
-                    29e70e6d3ac4d131bc33cf5c941680
+                    4d8a64833d27045a2de2a5bf23d1aae89ab6b8e71521
+                    67db263440c2eefd8bd1ee6931e0d949a003f8c07bec
+                    45d258c08ec2466a9ed6de320a34c11b049ece9c2665
+                    0eaddc5277e92df92cc0d6e2d36288083ff52a8e3d67
+                    e9ee311708d8af861a0105c90d20fb
 decapsulation_key = 19191919191919191919191919191919191919191919
                     19191919191919191919
 ciphertext = eb14ac3b1fbc5ab8237447613d1b926db309d8d04061a387ae0
@@ -4972,13 +4970,13 @@ ciphertext = eb14ac3b1fbc5ab8237447613d1b926db309d8d04061a387ae0
              96c22c4ca3d449871c62d2867fc5b3a091fe9400db024aa1236
              7e85880df41946e4ffc3aee8a2f0ceaa716ee815f028dedb032
              62f8ce74205675199a546544cd7181d277bad604db567b6c389
-             c9ecc2e74088ab23722dc1db004cbc13a249c9b1935426db3a1
-             96100a20f6ce89b8922e1fdaa0dc5417d4d02695f77b30c6272
-             1c225116fc2796ca9d96b439d1462a8a86ed5f05adf96223941
-             6bc13c2da8e59c9e257a3e13fef2fa70e4b9c29654f3e7b2f91
-             e5cb8f68ee5ecd1
-shared_secret = 7558e205c03312fccb5d9e9b835d17ca05006d328a60cb0b
-                10c1401e39277884
+             c9ecc2e74088ab23722dc1db004a905bceb1656d02329d6d89a
+             15a1d7dfea399729f2c0880a36476d5fadf6151718e003a92a4
+             32f81f82e7b2c79d023bcd952ab7bddbe4156802d4b042a9415
+             14a38a083dc6a3e300ceed661233d896c8750399b7d6bb19984
+             4e205316c3cc670
+shared_secret = 9ca6f440681bc673d9b186e89af791fdcff2eebedb72c77d
+                aaf337e38f70cc92
 </pre><a href="#appendix-A.3-5" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.3-6">
@@ -5061,11 +5059,11 @@ encapsulation_key = f6967466a9b112e72931158e5f81a236f70911a8a564
                     7fdff0263690091ee4a501316144f2bb91863db2c193
                     88fc86f348668e8986468a66787ca8c144b57311eb31
                     ce4777bf2ef63a04acd7b8af41ae667f07b67f323bb9
-                    9e67b5eedd3c04aeda2cf9a8a358cddf96b8c7de90ce
-                    e54e2e47a294d4556f98bb46fa1b933fcbce6fd3a1fc
-                    c60baec96fd45960a393b94087fa2e4232ea4e6e1bae
-                    3c1e18556b19c01d6687b854cedf3481b4d4c8dab5f6
-                    3988c0d25c2baf616a567cdf9cc366
+                    9e67b5eedd3c040781a0659d7f68197845e2df985528
+                    8ca29208a5e54e7905d2ab13b193b8819b3e2dc034a2
+                    a4e088709cdf67dff858eb34ae3dd0a3ba01b877ff78
+                    24a75d2f6c850e5be4090cb717a26ba724137dbf0f47
+                    03d88adf83a896217a029440df17b5
 decapsulation_key = 1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a
                     1a1a1a1a1a1a1a1a1a1a
 ciphertext = 33e2c220c53aceda19510032786b40f86ee667d08948dd87ea0
@@ -5129,13 +5127,13 @@ ciphertext = 33e2c220c53aceda19510032786b40f86ee667d08948dd87ea0
              b31e6a23d0f96933c48d957c305a21029f947ef6284fd0fa464
              5dfdf77cf9a1b68087ebb7f5a9bbedf5281b65a97c1a36b6480
              ece9c5e7dc0d48496cd2f684dcd8a75c4d8eacd985403d50bab
-             3142a14d9768567788c0d44530438c4f67183fb1d19ca764ad1
-             004a0ac35b60eb7fa8801bea5769d5e4aa7494c5f48a7533c80
-             f78600fefe642b21168ab4f45249ccf886b6d4ec11722560d7f
-             01ecbf570230d1c47a62de1dac4731cde14b22bde0e5584b229
-             dd3a325056e6157
-shared_secret = af9f48a4772c5d002f2593b2733e17979706c4de6fcc8f25
-                5b97d1deeacfbb8d
+             3142a14d9768567788c0d445304ffe4b98e49bb796a657792cc
+             cbe74217ea4dd6246512244b6fc47db5abeea9f2534a039fa69
+             3b25d9f18a3d636d091f9710933973501c8c292fcb083356714
+             321c1c13b8399f29e091d2408aaeea6045a049c5397a8ef3a6a
+             245f28bcc488ad1
+shared_secret = 1fc746be451e67119c342b2c0e2463c1e8b005273376ac02
+                740d4d4bbafef4be
 </pre><a href="#appendix-A.3-6" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.3-7">
@@ -5218,11 +5216,11 @@ encapsulation_key = 354247b8f152e6f80bcbc8bfbc7960e175a350e88952
                     30a15b6f118ac0825a38df3a6800458381177bbc2420
                     9bab2c81489658cc4cd8accae3748a9807bfbef99b96
                     0b391a0d001af11ab4ffbc4b4e307d06540c01299d92
-                    76b9ebf44e4204be7ae6836dfebe0809ee1f5a442802
-                    fee76ac11f8a98ca88076441da8be1c9ff3134da0b85
-                    01b86f75377eacd6b5f471a203b20219a3b26a8c5493
-                    d32a649c0f0334908bcd14e477070410b17d0b425e61
-                    8e6ec23dd94359e441b29f48220c03
+                    76b9ebf44e420429663ce3411b05cb756685c817bef3
+                    aae800b7c082b2f444e6be7852e781baa1f73c35d31f
+                    f0d6ebb7ffeb25e84d3c553c8e8915e97c61b5323d50
+                    1fe33fb2c851fed41ac814ad3dacd35bb672bd2e4b3a
+                    5e589758133ae6361d8d613da5bd5e
 decapsulation_key = 1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b
                     1b1b1b1b1b1b1b1b1b1b
 ciphertext = b996ac47051fbb8056f71fd7eafda17ed3c24324be3a1c31c03
@@ -5286,13 +5284,13 @@ ciphertext = b996ac47051fbb8056f71fd7eafda17ed3c24324be3a1c31c03
              5aa36d474bd909af8578ed5d57e2088fd4b21e9147118ac6dc8
              6fec0065609781ff0ed08db70cb605914e4f49d31ba81e4503d
              7dad463a7e32b168804b3a597eebb7f7d33161015b93b25bf50
-             62b5fd2286d3dade878d336ac04b8d9c337f9ebc51c1c325f73
-             86b138491c2858922262f0ea687559fdc16a7ac7090e72d5dfb
-             6d8276e81ffc05e99935f5eb8e17c4821e7d83edfac0029b667
-             4a2b04af76818cf9aaf1ce0d25988c6fd15117e11103ca99f7e
-             4e4c8a01f0be1fd
-shared_secret = 073bcc367eb9bbdef613bbdbfe83e12eb465d7ca6f277282
-                76cc725ddcfa08ed
+             62b5fd2286d3dade878d336ac04fa3a2e92c5e6d3bdfdb92168
+             b1281d5e49014533dd842c4bf4bfe63363dde9dbde8453245e7
+             bdd321191b1a7fff81e0cfb234182ff25ddb6cb4e41a49fabb5
+             a23eeb9caeb13eb625d0e770490f2519f2997509800a1767de6
+             315d08282ddffbf
+shared_secret = 8db1d72652d077f5799873d62a857bfa11a4b100dfd8f563
+                d4fb0eaea7f4b820
 </pre><a href="#appendix-A.3-7" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.3-8">
@@ -5375,11 +5373,11 @@ encapsulation_key = 1789722e5b1b776b2694a8cc09abb755caaa40510e52
                     bd064a79a328a570d2c27c686efb67a85eacb6a0f060
                     a4a70a1b0543189c0ea9425e8b3a21a3384e6f884f64
                     94acee2c4ce69dff7477eff2dba096b6dd6ca98ad89d
-                    b00fc906bfe4045a863143843d1b803a9f4f90dbeed8
-                    5f29ade0b984fa864fd71b55d92060acbc74588f88b9
-                    f55f2e6fc4aa36ec405273a335ce7831ccc8becfef2d
-                    d05c15e013515e62512890dbeca15a52ae940e4369c9
-                    454643a96e50ee4758be80c2dc520b
+                    b00fc906bfe40471eb9e0293c54a22bfbe0764242529
+                    edbd307225f5163b6bab23219f8bf0443959c2d01329
+                    443ef3f458c6903a8a97fcbc5a3ff5c2309f4efdc93f
+                    72ef1f97e46510e97a1caa4f1531d9254b0bb578f557
+                    daa02937cff0a0249009b91c6871b0
 decapsulation_key = 1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c
                     1c1c1c1c1c1c1c1c1c1c
 ciphertext = f657f164385b651bc4351558e7d755311edc8a088c0d91953b6
@@ -5443,13 +5441,13 @@ ciphertext = f657f164385b651bc4351558e7d755311edc8a088c0d91953b6
              114858d4553d2d42dfa72c80148510d356c7d08d74b61068ae5
              943e83fbb5b30428d8c2e366fabd5af5e12d74ed41f9968f58b
              7e2d69aef4dd8af69472ff944175fcc66f58279e23bad51405a
-             799dec4b1cd16f5969bb52d0a047f763bb2ea176ee23579897c
-             ae353050aa5cb8afe1ef6e8393f7e46dbffc719165efa04211e
-             5b923d7dddb79e1620349536b07c4982dc3728d46ec5402cc0a
-             dfab7f0ca146c7337ce209b5ffee425b158d3695efa07192b01
-             f05d64c91b5eca1
-shared_secret = a948baf0a7d459f37c24f48fef8c557ef6310d34176fdde8
-                c7a0b51824679ccf
+             799dec4b1cd16f5969bb52d0a04551586b12a5f1fea4501f29f
+             5b4d15d84d1c57793bd0928eac777b8db2b87b1d5c853846330
+             b5b02422c44876f3644760793208883da66181aacc10be80ad4
+             fc78b6290dac33723cdc44807f7816477c58de2718798a139a2
+             6dff26f55bcfd8d
+shared_secret = c6e31746ba2dc55d2175913f2a391b43fd4d3a3230665855
+                1e19864bc45d6451
 </pre><a href="#appendix-A.3-8" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.3-9">
@@ -5532,11 +5530,11 @@ encapsulation_key = 82f93e3a3c70a697c18089639eb7c261783960c13551
                     148071c767f599fa4911da4c70c7684d90328fd768c4
                     25f4c628a2c26f394a421097c5e86196b018d93eff99
                     35d785ec57390247c03891c60e878ebeff96c70be8e6
-                    ec4811a1437d0436e37ad069a20ab2ccbe8d1044a2ae
-                    96c0f3f760b52e83ac196f0eaec1c9d6a596ebdad674
-                    12f176ca0a0d2336ff35450641aa0b3e8799c0f9dab2
-                    094c2394bae436dae17168c1a3e4841da9f25de83b0d
-                    232312d1d26bf914ff25e206813ff3
+                    ec4811a1437d04dc7971ced8dcc77d0a7cd916e93187
+                    1eeb255e4d301601bc98db7eef8d684250ef0ee46740
+                    7da5e60f003509dc3ac26c951903a71e7f8e9fcd838a
+                    ce54a3c22dba9b617566904c35cf5322fcf6a945abae
+                    003de6961790db5b48c4dacadb75de
 decapsulation_key = 1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d1d
                     1d1d1d1d1d1d1d1d1d1d
 ciphertext = 132e94760eff85f0d9a14bb41a7f186e7dc10ed062c7935d601
@@ -5600,13 +5598,13 @@ ciphertext = 132e94760eff85f0d9a14bb41a7f186e7dc10ed062c7935d601
              9f257a0c6dad9784c5e2dfd93e0ba20273a266c43f7ce4cb751
              244480c0b234b617253b2314ba234441e1c943a70d0707144a5
              7c4573d2597860d52ff2d6e39c8a028008985fbe2163b3bd7c2
-             9f9603e72009adb7c6e19c50204d3598f10e3a2ffaa1cfd0a04
-             8575b4e69af244bec424d78339a4815cf6e55c86796063f1e5b
-             82a8189a8dea3e8fb3d0b19e1d7808060f1e1d159cc8119db89
-             aaea6ee3d8cfd380d97dbdcf74631ff15e7fe6fa2cbb0fe0e9c
-             1ee74e451ccd8cb
-shared_secret = 587b2042034f01c0b972936f2345a85152dec78a2262e98d
-                e70861b2232ef742
+             9f9603e72009adb7c6e19c502047aaf418214ccc1e20360123d
+             b09770bf3e9e7f5b98aa5bbacff3408c0ce134aab6553d8b5ca
+             85be8d375a7d371fb00b6968609ef8dcd29f21ee9390eebea3c
+             3d8cc0dc433b10b531d5a8c07ec335d295dec3b515768d69e5f
+             13937fbad0e271d
+shared_secret = c27f453cf3be21e896e66fe1d03ef1cc6290d7be29c08522
+                3e7080b96916a94e
 </pre><a href="#appendix-A.3-9" class="pilcrow">¶</a>
 </div>
 <div class="alignLeft art-text artwork" id="appendix-A.3-10">
@@ -5689,11 +5687,11 @@ encapsulation_key = 59041edef6759e7b62c0b415c2861ce8a17093b7aece
                     7edc637f22dace0e9179aecc2a38012059f223f9246e
                     06178687043a84b431d0d7c5db3880272bb7fa70b016
                     7e7ed787f0a77d6b4bf335506118838d058f3086a2a6
-                    327790bd142204110e629564e3d915b5e7eb014c5a34
-                    86f29119cfa9be3a370cd12f8d3b3dfcf72fa544312b
-                    d8e869acd151cbed6d75ee03d03382c06a016936dffc
-                    5417b19b40e43062351bd861908618e5e1517f135720
-                    254b29d5100c905ec71fad6a6370ac
+                    327790bd142204699c6ca767622197847df8ebc49365
+                    c36e005862e717c69c18139a8482c60555129de5c1be
+                    5d0f1fe8568dcf2b1c9b6f2a3c1e0615a5ded6e4a3d4
+                    24773234d0bd31d85d422562723a845d521298be90ce
+                    5514e1ccad7552d09de79bf2f9398e
 decapsulation_key = 1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e
                     1e1e1e1e1e1e1e1e1e1e
 ciphertext = 34f22084527b72c042edadbd29ccb01467ca602bc5fce4acbae
@@ -5757,13 +5755,13 @@ ciphertext = 34f22084527b72c042edadbd29ccb01467ca602bc5fce4acbae
              192bde83d83fbf0ee09bb22c4a3ee40445a238f60dbe870b723
              10cf7c8d4f375598bcc6ede8d9fbc2820c07bbfdfecdda7018e
              b8b465d39405cb9d2d342357227507f608bde2d7609384b9b6e
-             c488bf3444b091eb310b0366f046985bfc9cd6b357fc66537b7
-             3a500c241f47923df457da34aa5fc9b699fc57a4946ccaffe2c
-             3eb14aa30bbdf8581fdad43218aee64a16faade6de75ec56887
-             507268c3b4cc4fbfb7cfa71ad9f0f856c82c4609542f9e0cd4c
-             d4c846ea17d019b
-shared_secret = 5ae36a67a40d6c21eb741c06ad124deefc73c4acb874b198
-                2a5f8e8715a354d2
+             c488bf3444b091eb310b0366f049e4a3e080164e826f516b7d7
+             87a24e1278fe094a193db5282be6b085d3609d19d73b51c6819
+             2234e5ab88abbaa2541fd8535c21fff4052acfc1945d849e6f1
+             7186ed2ddf657a83f01fa0d999440ea9cf31ed6dd716a1ee884
+             aa41c282e17e84b
+shared_secret = b89effb39a1488b20fbd7353e2319ab90d2737b2527de8ff
+                1d73b5245a54819f
 </pre><a href="#appendix-A.3-10" class="pilcrow">¶</a>
 </div>
 </section>
