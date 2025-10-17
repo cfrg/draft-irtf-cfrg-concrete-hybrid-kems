@@ -1334,7 +1334,7 @@ input element (or point) <code>p</code> and the scalar <code>x</code>, according
 for the curve specified in <span>[<a href="#SP800-186" class="cite xref">SP800-186</a>]</span>.<a href="#section-3.1.1-4.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.1.1-4.2">
-              <p id="section-3.1.1-4.2.1"><code>RandomScalar(seed) -&gt; k</code>: Implemented using rejection sampling from an XOF,
+              <p id="section-3.1.1-4.2.1"><code>RandomScalar(seed) -&gt; k</code>: Implemented using rejection sampling from a PRG,
 as described below.<a href="#section-3.1.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.1.1-4.3">
@@ -1343,20 +1343,21 @@ the elliptic curve point <code>p</code>, encoded as an <code>Nss</code>-byte str
 Field-Element-to-Octet-String function in <span>[<a href="#SEC1" class="cite xref">SEC1</a>]</span>.<a href="#section-3.1.1-4.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.1.1-5">The RandomScalar algorithm depends on an XOF, with the following API:<a href="#section-3.1.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1.1-5">The RandomScalar algorithm depends on an pseudo-random generator (PRG), with the
+following API:<a href="#section-3.1.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1.1-6.1">
-              <p id="section-3.1.1-6.1.1"><code>Init(seed) -&gt; state</code>: Provide the <code>seed</code> as input to the XOF, producing a
-state of the XOF from which bytes can be read.<a href="#section-3.1.1-6.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3.1.1-6.1.1"><code>Init(seed) -&gt; state</code>: Initialize a new state of the pseudo-random generator
+based on the provided seed.<a href="#section-3.1.1-6.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.1.1-6.2">
-              <p id="section-3.1.1-6.2.1"><code>Read(state, n) -&gt; data</code>: Read <code>n</code> pseudo-random bytes from the XOF, updating
+              <p id="section-3.1.1-6.2.1"><code>Read(state, n) -&gt; data</code>: Read <code>n</code> pseudo-random bytes from the PRG, updating
 <code>state</code> to reflect that this read has happened.<a href="#section-3.1.1-6.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.1.1-7">A hybrid KEM using these curves <span class="bcp14">MUST</span> specify the XOF that should be used.  All
+<p id="section-3.1.1-7">A hybrid KEM using these curves <span class="bcp14">MUST</span> specify the PRG that should be used.  All
 of the hybrid KEMs in this document use SHAKE256 <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span>.<a href="#section-3.1.1-7" class="pilcrow">¶</a></p>
-<p id="section-3.1.1-8">Given an XOF, the RandomScalar algorithm is defined as follows:<a href="#section-3.1.1-8" class="pilcrow">¶</a></p>
+<p id="section-3.1.1-8">Given a PRG, the RandomScalar algorithm is defined as follows:<a href="#section-3.1.1-8" class="pilcrow">¶</a></p>
 <div class="lang-pseudocode sourcecode" id="section-3.1.1-9">
 <pre>
 def RandomScalar(seed):

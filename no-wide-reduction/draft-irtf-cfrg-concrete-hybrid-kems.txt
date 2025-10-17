@@ -163,25 +163,26 @@ Table of Contents
       to the group law for the curve specified in [SP800-186].
 
    *  RandomScalar(seed) -> k: Implemented using rejection sampling from
-      an XOF, as described below.
+      a PRG, as described below.
 
    *  ElementToSharedSecret(p) -> ss: The shared secret is the X
       coordinate of the elliptic curve point p, encoded as an Nss-byte
       string using the Field-Element-to-Octet-String function in [SEC1].
 
-   The RandomScalar algorithm depends on an XOF, with the following API:
+   The RandomScalar algorithm depends on an pseudo-random generator
+   (PRG), with the following API:
 
-   *  Init(seed) -> state: Provide the seed as input to the XOF,
-      producing a state of the XOF from which bytes can be read.
+   *  Init(seed) -> state: Initialize a new state of the pseudo-random
+      generator based on the provided seed.
 
-   *  Read(state, n) -> data: Read n pseudo-random bytes from the XOF,
+   *  Read(state, n) -> data: Read n pseudo-random bytes from the PRG,
       updating state to reflect that this read has happened.
 
-   A hybrid KEM using these curves MUST specify the XOF that should be
+   A hybrid KEM using these curves MUST specify the PRG that should be
    used.  All of the hybrid KEMs in this document use SHAKE256
    [FIPS202].
 
-   Given an XOF, the RandomScalar algorithm is defined as follows:
+   Given a PRG, the RandomScalar algorithm is defined as follows:
 
    def RandomScalar(seed):
      state = XOF.Init(seed)
