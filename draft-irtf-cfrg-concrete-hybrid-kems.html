@@ -1614,10 +1614,10 @@ use throughout.<a href="#section-4-3" class="pilcrow">¶</a></p>
 It has the following components:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.2-2.1">
-            <p id="section-4.2-2.1.1"><code>Group_T</code>: Curve25519 <a href="#group-curve25519" class="auto internal xref">Section 3.1.2</a><a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-4.2-2.1.1"><code>KEM_PQ</code>: ML-KEM-768 <a href="#mlkem" class="auto internal xref">Section 3.2.1</a><a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.2-2.2">
-            <p id="section-4.2-2.2.1"><code>KEM_PQ</code>: ML-KEM-768 <a href="#mlkem" class="auto internal xref">Section 3.2.1</a><a href="#section-4.2-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-4.2-2.2.1"><code>Group_T</code>: Curve25519 <a href="#group-curve25519" class="auto internal xref">Section 3.1.2</a><a href="#section-4.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.2-2.3">
             <p id="section-4.2-2.3.1"><code>PRG</code>: SHAKE-256 <span>[<a href="#FIPS202" class="cite xref">FIPS202</a>]</span><a href="#section-4.2-2.3.1" class="pilcrow">¶</a></p>
@@ -1751,7 +1751,65 @@ for being a secure pseudorandom generator.<a href="#section-5-4.4.1" class="pilc
       <h2 id="name-iana-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-6-1">This document has no IANA actions.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">This document requests that the following values be added to the "Hybrid KEM
+Labels" registry:<a href="#section-6-1" class="pilcrow">¶</a></p>
+<span id="name-hybrid-kem-labels"></span><div id="iana-table">
+<table class="center" id="table-1">
+        <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-hybrid-kem-labels" class="selfRef">Hybrid KEM Labels</a>
+        </caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Label</th>
+            <th class="text-left" rowspan="1" colspan="1">Fw</th>
+            <th class="text-left" rowspan="1" colspan="1">PQ Component</th>
+            <th class="text-left" rowspan="1" colspan="1">T Component</th>
+            <th class="text-left" rowspan="1" colspan="1">KDF</th>
+            <th class="text-left" rowspan="1" colspan="1">PRG</th>
+            <th class="text-left" rowspan="1" colspan="1">Nseed</th>
+            <th class="text-left" rowspan="1" colspan="1">Nss</th>
+            <th class="text-left" rowspan="1" colspan="1">Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">"|-()-|"</td>
+            <td class="text-left" rowspan="1" colspan="1">GC</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
+            <td class="text-left" rowspan="1" colspan="1">Curve25519</td>
+            <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
+            <td class="text-left" rowspan="1" colspan="1">SHAKE-256</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+            <td class="text-left" rowspan="1" colspan="1">[RFCXXXX]</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">"\.//^\"</td>
+            <td class="text-left" rowspan="1" colspan="1">GC</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
+            <td class="text-left" rowspan="1" colspan="1">Curve25519</td>
+            <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
+            <td class="text-left" rowspan="1" colspan="1">SHAKE-256</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+            <td class="text-left" rowspan="1" colspan="1">[RFCXXXX]</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">" | /-\"</td>
+            <td class="text-left" rowspan="1" colspan="1">GC</td>
+            <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
+            <td class="text-left" rowspan="1" colspan="1">Curve25519</td>
+            <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
+            <td class="text-left" rowspan="1" colspan="1">SHAKE-256</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+            <td class="text-left" rowspan="1" colspan="1">32</td>
+            <td class="text-left" rowspan="1" colspan="1">[RFCXXXX]</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<p id="section-6-3">[ RFC EDITOR: Please replace "XXXX" above with the number assigned to this RFC ]<a href="#section-6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">

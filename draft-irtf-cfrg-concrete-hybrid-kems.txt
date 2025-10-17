@@ -341,9 +341,9 @@ Table of Contents
    framework from [HYBRID-KEMS].  It is identical to the X-Wing
    construction from [XWING-SPEC].  It has the following components:
 
-   *  Group_T: Curve25519 Section 3.1.2
-
    *  KEM_PQ: ML-KEM-768 Section 3.2.1
+
+   *  Group_T: Curve25519 Section 3.1.2
 
    *  PRG: SHAKE-256 [FIPS202]
 
@@ -430,7 +430,27 @@ Table of Contents
 
 6.  IANA Considerations
 
-   This document has no IANA actions.
+   This document requests that the following values be added to the
+   "Hybrid KEM Labels" registry:
+
+   +========+==+=========+==========+========+======+=====+===+=========+
+   |Label   |Fw|PQ       |T         |KDF     |PRG   |Nseed|Nss|Reference|
+   |        |  |Component|Component |        |      |     |   |         |
+   +========+==+=========+==========+========+======+=====+===+=========+
+   |"|-()-|"|GC|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
+   |        |  |KEM-768  |          |        |256   |     |   |         |
+   +--------+--+---------+----------+--------+------+-----+---+---------+
+   |"\.//^\"|GC|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
+   |        |  |KEM-768  |          |        |256   |     |   |         |
+   +--------+--+---------+----------+--------+------+-----+---+---------+
+   |" | /-\"|GC|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
+   |        |  |KEM-768  |          |        |256   |     |   |         |
+   +--------+--+---------+----------+--------+------+-----+---+---------+
+
+                         Table 1: Hybrid KEM Labels
+
+   [ RFC EDITOR: Please replace "XXXX" above with the number assigned to
+   this RFC ]
 
 7.  References
 
