@@ -173,7 +173,7 @@ Table of Contents
 
    The group constants for the P-256 group are as follows:
 
-   *  Nseed: 48
+   *  Nseed: 32
 
    *  Nscalar: 32
 
@@ -183,7 +183,7 @@ Table of Contents
 
    The group constants for the P-384 group are as follows:
 
-   *  Nseed: 72
+   *  Nseed: 48
 
    *  Nscalar: 48
 
