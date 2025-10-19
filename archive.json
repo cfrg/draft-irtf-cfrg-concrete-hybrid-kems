@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-16T01:27:31.970334+00:00",
+  "timestamp": "2025-10-19T01:45:13.837830+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -79,16 +79,24 @@
       "id": "I_kwDOMmh5WM69TN29",
       "title": "port over support for curves from generic document that they meet nominal group requirements ",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/6",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dconnolly",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-06-25T14:42:40Z",
-      "updatedAt": "2025-06-25T14:42:40Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-17T20:47:31Z",
+      "closedAt": "2025-10-17T20:47:31Z",
+      "comments": [
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed in #26 ",
+          "createdAt": "2025-10-17T20:47:31Z",
+          "updatedAt": "2025-10-17T20:47:31Z"
+        }
+      ]
     },
     {
       "number": 9,
@@ -140,7 +148,7 @@
       "id": "I_kwDOMmh5WM6-Gop1",
       "title": "Update instance `Decaps()`'s to match seed expansion in -generic",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/10",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dconnolly",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -149,9 +157,17 @@
       "labels": [],
       "body": "Depends on https://github.com/cfrg/draft-irtf-cfrg-hybrid-kems/issues/58",
       "createdAt": "2025-06-30T18:06:32Z",
-      "updatedAt": "2025-06-30T18:07:34Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-17T20:46:57Z",
+      "closedAt": "2025-10-17T20:46:57Z",
+      "comments": [
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think this one is OBE.  We need to update the implementation, but that's code, not pseudocode.",
+          "createdAt": "2025-10-17T20:46:57Z",
+          "updatedAt": "2025-10-17T20:46:57Z"
+        }
+      ]
     },
     {
       "number": 11,
@@ -176,7 +192,7 @@
       "id": "I_kwDOMmh5WM6-GpgZ",
       "title": "Update I-D pseudocode",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/12",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dconnolly",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -185,9 +201,17 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-06-30T18:08:06Z",
-      "updatedAt": "2025-06-30T18:08:06Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-17T20:44:25Z",
+      "closedAt": "2025-10-17T20:44:25Z",
+      "comments": [
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "There isn't any pseudocode in the I-D.",
+          "createdAt": "2025-10-17T20:44:25Z",
+          "updatedAt": "2025-10-17T20:44:25Z"
+        }
+      ]
     },
     {
       "number": 14,
@@ -218,19 +242,19 @@
       "id": "I_kwDOMmh5WM7HibUX",
       "title": "Suspect RandomScalar impl for P256/P384 in ref-impl",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/18",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ilaril",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "According to the document, RandomScalar for P-256/P-384 reduces \"modulo the group order\".\n\nHowever, for P-256 that seems to be implemented in `<P256Scalar as From<&[u8]>>::from()` in `reference-implementation/src/groups/p256.rs`, which seems use modulus `ffffffff 00000001 00000000 00000000 00000000 ffffffff ffffffff ffffffff`, which is the P-256 base field size, not group order (Safecurves gives `ffffffff 00000000 ffffffff ffffffff bce6faad a7179e84 f3b9cac2 fc632551` as the group order)\n\nP-384 seems to have analogous issue: P-384 implementation seems to be `<P384Scalar as From<&[u8]>>::from()` in `reference-implementation/src/groups/p384.rs`, which seems to use modulus `ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fffffffe ffffffff 00000000 00000000 ffffffff`, which is the P-384 base field size, not group order (Safecurves gives `ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff c7634d81 f4372ddf 581a0db2 48b0a77a ecec196a ccc52973` as the group order).\n\nEdit: Changing the moduli does give something that is interoperable with my own implementation.",
       "createdAt": "2025-08-23T07:01:32Z",
-      "updatedAt": "2025-09-01T22:03:42Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-16T03:29:23Z",
+      "closedAt": "2025-10-16T03:29:23Z",
       "comments": [
         {
           "author": "FiloSottile",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Fixed by #21",
           "createdAt": "2025-09-01T22:03:42Z",
           "updatedAt": "2025-09-01T22:03:42Z"
@@ -353,15 +377,15 @@
       "id": "I_kwDOMmh5WM7QXuF1",
       "title": "Consistency in hybrid KEM name and label",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/23",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "QSF-MLKEM768-P256-SHA3256-SHAKE256 is called QSF-MLKEM768-P256-SHA3256-SHAKE256 but the label transposes the MLKEM768 and the P256: QSF-P256-MLKEM768-SHAKE256-SHA3256.  And I just realized it transposes the PRG and KDF too.  Same with QSF-MLKEM1024-P384-SHA3256-SHAKE256.  If you keep similar labels, please at least make the name and label consistent.\n\nDon't get me started about using backslash, a common escape character, in the label for X-Wing.\n",
       "createdAt": "2025-10-08T15:16:28Z",
-      "updatedAt": "2025-10-15T15:29:11Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-17T20:45:47Z",
+      "closedAt": "2025-10-17T20:45:46Z",
       "comments": [
         {
           "author": "ounsworth",
@@ -369,6 +393,13 @@
           "body": "Yes please.\n\nYou're feeding ML-KEM into the KEM Combiner first, so it should be first in the label.\n\n\n> Don't get me started about using backslash, a common escape character, in the label for X-Wing.\n\n+1.\nI know that X-Wing has deployed, and this ship has sailed, but this is going to cause YEARS of headaches.\nFun fact: if you do the naive thing and put this into python:\n\n```\nlabel = \"\\.//^\\\"\n```\nthen `\\.` is interpreted as a single character, and `\\\"` does something weird. You have to do:\n\n```\nlabel = \"\\\\.//^\\\\\"\n```\n\nI wasted an hour on this, and I'm relatively expert at this. The choice to use a backslash here is gonna lead to bugs and CVEs, no question in my mind. I know it's too late to change it, but .... grumble.",
           "createdAt": "2025-10-15T15:29:11Z",
           "updatedAt": "2025-10-15T15:29:11Z"
+        },
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This has been resolved via #27  and #28 -- by explicitly breaking the connection between names and labels, because it's not necessary.\n\n@ounsworth - We tried to address these concerns in #28 by adding explicit hex encoding of the labels.",
+          "createdAt": "2025-10-17T20:45:46Z",
+          "updatedAt": "2025-10-17T20:45:46Z"
         }
       ]
     },
@@ -377,16 +408,24 @@
       "id": "I_kwDOMmh5WM7QmdtL",
       "title": "Compressed vs uncompressed EC point",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/24",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "danvangeest",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "The draft currently says EC points are in compressed representation but @bifurcation says you've agreed on uncompressed and are using it for the text vectors.  So be sure to update the draft to say uncompressed.",
       "createdAt": "2025-10-09T16:00:07Z",
-      "updatedAt": "2025-10-09T16:00:07Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-10-16T21:37:26Z",
+      "closedAt": "2025-10-16T21:37:26Z",
+      "comments": [
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Looks like this was addressed in #17 ",
+          "createdAt": "2025-10-16T21:37:26Z",
+          "updatedAt": "2025-10-16T21:37:26Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -684,21 +723,21 @@
       "id": "PR_kwDOMmh5WM6cimPS",
       "title": "Add a section explaining how to select a framework",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/7",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bifurcation",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This PR adds a section about how concrete instantiations should be selected generally, and uses the framework to justify the instantiations in the document.\r\n\r\nFixes #6 ",
       "createdAt": "2025-06-28T17:07:23Z",
-      "updatedAt": "2025-07-17T14:00:20Z",
+      "updatedAt": "2025-10-16T21:29:38Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "bc349c5b009d2245dfa925a85b915208fa48f9ea",
       "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "headRefName": "why",
       "headRefOid": "eca283609b0f30ec02970d6b8ad8fc0ce548aa07",
-      "closedAt": null,
+      "closedAt": "2025-10-16T21:29:38Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -744,6 +783,13 @@
           "body": "The only claim I think is not correct is QSF construction needing nominal group. I think everything else is correct, but writing a proof looks like it is going to be very annoying.",
           "createdAt": "2025-07-17T14:00:20Z",
           "updatedAt": "2025-07-17T14:00:20Z"
+        },
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing because it's obsolete and folks didn't seem sanguine.",
+          "createdAt": "2025-10-16T21:29:38Z",
+          "updatedAt": "2025-10-16T21:29:38Z"
         }
       ],
       "reviews": [
@@ -1038,21 +1084,21 @@
       "id": "PR_kwDOMmh5WM6geqj9",
       "title": "Remove KDF and PRG names from the hybrid KEM name",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/15",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "rohanmahy",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "All of the example hybrid KEMs here use SHAKE-256 for PRG and SHA3-256 for KDF, respectively. Rather than have a very long name KEM, we should have a shorter name for the hybrid KEM by omitting these parameters. If we end up generating more hybrid KEMs with the same traditional and PQ KEM components, but different KDF/PRF, we can assign a short suffix afterwards to identify the other hybrid KEM by PRG and KDF variations",
       "createdAt": "2025-07-24T15:30:48Z",
-      "updatedAt": "2025-10-16T00:09:59Z",
+      "updatedAt": "2025-10-17T20:08:25Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "4f6ce977f57a54c51d5814f76a2b48dfb3bb4ce8",
       "headRepository": "rohanmahy/draft-irtf-cfrg-concrete-hybrid-kems",
       "headRefName": "patch-1",
       "headRefOid": "e5359e722bda7e0cb930e97f16b416efe3f5df06",
-      "closedAt": null,
+      "closedAt": "2025-10-17T20:08:24Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -1084,6 +1130,27 @@
           "body": "We have been around this circle many times now. Deirdre has valiantly presented the arguments for why A) shared-seed keygen is important for security, and B) why it is so important for security that we should force incompatibility (via different labels) for things that do shared-seed-keygen and those that don't.\r\n\r\nI think it's fair to say that the community has spoken, and Deirdre is in the rough. And that's not through lack of effort or lack of good scientific justification. I respect Deirdre's position, and I am grateful to her for educating us, but I think as a community we have weighed the alternatives and decided that the MAL-BIND stuff just isn't important enough to justify the operational and interoperability headaches that this is gonna induce.\r\n\r\nSo I vote for \"Remove the keygen PRG from the label\". You need it, of course, as part of the alg definition so that you can successfully import a shared-seed private key and get back the correct expanded private key, and I would argue that anything required for interop should be explicit, but I don't think the KeyGen method should be in the KEM Combiner label where they will affect the Encaps / Decaps process.\r\n\r\nThat said, @rohanmahy the choice of KDF for the KEM Combiner does matter pretty importantly for interop of Encap / Decap. And I believe that anything that matters for interop should be in the name / label, cause that's where the domain separation vulnerability gremlins hang out.\r\n\r\nWe're going to submit LAMPS Composite KEMs for WGLC any day now, and we're gonna ship with labels like `QSF-MLKEM768-P256-SHA3256`. I guess, since LAMPS will publish first, the HPKE community gets to decide whether you want to align with LAMPS for compatibility, or intentionally not align to force non-compatibility; we've simply run out of time to align on this, gotta ship, so it's up to you.\r\n\r\n\r\n (Also, I would also love to do cross-compatibility testing of our test vectors, but it looks like this repo hasn't been updated since August when I last did unsuccessful cross-testing)",
           "createdAt": "2025-10-15T23:18:27Z",
           "updatedAt": "2025-10-16T00:09:59Z"
+        },
+        {
+          "author": "rohanmahy",
+          "authorAssociation": "NONE",
+          "body": "> What about new uniquely-identifying names, such as 'T-65', 'T-70', etc?\r\n\r\n@dconnolly, I would not want something as divorced from the names of the components or their\r\nconsequences. I could easily see a typo between T-76 and T-67 and a mildly\r\ndyslexic code reviewer resulting in a massive zero day.\r\n\r\nAs the number of combinations of PRG and KDF are small, I don't have a\r\nproblem with *the combo of PRG and KDF* having a short fixed sequence (PK1 or C1).",
+          "createdAt": "2025-10-16T04:08:16Z",
+          "updatedAt": "2025-10-16T04:08:16Z"
+        },
+        {
+          "author": "rohanmahy",
+          "authorAssociation": "NONE",
+          "body": "> We have been around this circle many times now. Deirdre has valiantly presented the arguments for why A) shared-seed keygen is important for security, and B) why it is so important for security that we should force incompatibility (via different labels) for things that do shared-seed-keygen and those that don't.\r\n> \r\n> I think it's fair to say that the community has spoken, and Deirdre is in the rough. And that's not through lack of effort or lack of good scientific justification. I respect Deirdre's position, and I am grateful to her for educating us, but I think as a community we have weighed the alternatives and decided that the MAL-BIND stuff just isn't important enough to justify the operational and interoperability headaches that this is gonna induce.\r\n> \r\n> So I vote for \"Remove the keygen PRG from the label\". You need it, of course, as part of the alg definition so that you can successfully import a shared-seed private key and get back the correct expanded private key, and I would argue that anything required for interop should be explicit, but I don't think the KeyGen method should be in the KEM Combiner label where they will affect the Encaps / Decaps process.\r\n> \r\n> That said, @rohanmahy the choice of KDF for the KEM Combiner does matter pretty importantly for interop of Encap / Decap. And I believe that anything that matters for interop should be in the name / label, cause that's where the domain separation vulnerability gremlins hang out.\r\n> \r\n> We're going to submit LAMPS Composite KEMs for WGLC any day now, and we're gonna ship with labels like `QSF-MLKEM768-P256-SHA3256`. I guess, since LAMPS will publish first, the HPKE community gets to decide whether you want to align with LAMPS for compatibility, or intentionally not align to force non-compatibility; we've simply run out of time to align on this, gotta ship, so it's up to you.\r\n> \r\n> (Also, I would also love to do cross-compatibility testing of our test vectors, but it looks like this repo hasn't been updated since August when I last did unsuccessful cross-testing)\r\n\r\nHi Deirdre, Mike,\r\n\r\nHow about QSF-MLKEM768-P256-C1 or even C1-Q-ML768-P256  for Combination 1\r\nof QSF with ML-KEM767 and p256. The registration of C1 specifies the\r\nKDF (SHA3-256) and the seed creation PRG.\r\n\r\nLikewise C1-Q-ML768-ED25519.\r\n\r\nThat way our full MLS ciphersuite names might actually have a prayer of\r\nfitting on a screen of debugging or in a page of RFC text.\r\n-rohan\r\n\r\n@dconnolly @ounsworth ",
+          "createdAt": "2025-10-16T04:10:50Z",
+          "updatedAt": "2025-10-16T04:10:50Z"
+        },
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing in favor of https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/28",
+          "createdAt": "2025-10-17T20:08:24Z",
+          "updatedAt": "2025-10-17T20:08:24Z"
         }
       ],
       "reviews": [
@@ -1163,7 +1230,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-08-08T01:33:57Z",
-      "updatedAt": "2025-08-28T15:22:06Z",
+      "updatedAt": "2025-10-16T03:28:05Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "ee686337b57917673d666c23eba79fecd7a539d0",
@@ -1276,24 +1343,26 @@
       "id": "PR_kwDOMmh5WM6mLVFh",
       "title": "Fix P-256/P-384 scalar moduli in reference implementation",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/21",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "FiloSottile",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes #18",
       "createdAt": "2025-08-31T18:50:46Z",
-      "updatedAt": "2025-09-01T22:03:49Z",
+      "updatedAt": "2025-10-16T03:29:23Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "46ff59b532ed6bfd47777e4306269334f84ae776",
-      "headRepository": "FiloSottile/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRepository": null,
       "headRefName": "main",
       "headRefOid": "9f25f46e12cb7e5c094b5772191d18d5088747ce",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-10-16T03:29:22Z",
+      "mergedAt": "2025-10-16T03:29:22Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "878ccd0ac8c500bca30f51a77f9714544a4b0b55"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1308,8 +1377,488 @@
           "createdAt": "2025-09-01T11:32:05Z",
           "updatedAt": "2025-09-01T11:32:05Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7HQSd3",
+          "commit": {
+            "abbreviatedOid": "9f25f46"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-16T03:29:15Z",
+          "updatedAt": "2025-10-16T03:29:15Z",
+          "comments": []
         }
       ]
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOMmh5WM6t_3fp",
+      "title": "Use the uncompressed representation for NIST curve points",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/25",
+      "state": "CLOSED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-16T03:28:43Z",
+      "updatedAt": "2025-10-16T03:31:56Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "46ff59b532ed6bfd47777e4306269334f84ae776",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "compress",
+      "headRefOid": "ffa159142d1646ba3b82aa22e4a79fe2f677faf7",
+      "closedAt": "2025-10-16T03:31:56Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Duplicate.",
+          "createdAt": "2025-10-16T03:31:56Z",
+          "updatedAt": "2025-10-16T03:31:56Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOMmh5WM6uNGbt",
+      "title": "Fill in the security considerations",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/26",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This just ticks the boxes that are laid out in the generic doc.  The citations are copy/pasted from there.",
+      "createdAt": "2025-10-17T01:55:17Z",
+      "updatedAt": "2025-10-17T01:55:24Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "878ccd0ac8c500bca30f51a77f9714544a4b0b55",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "sec-cons",
+      "headRefOid": "e59ccb44201f79784a5eaba5715b0a413d99082a",
+      "closedAt": "2025-10-17T01:55:24Z",
+      "mergedAt": "2025-10-17T01:55:24Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "e5cf606105c70d43db56a2e2357922d6c46ffee6"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOMmh5WM6uNJ3V",
+      "title": "Align names with the latest generic draft",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/27",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The latest generic draft defines frameworks along Group/KEM and Universal/C2PRI axes.  All of the instantiations in this doc use a Group for the T component, and the C2PRI-assuming combiner, thus the GC framework.\r\n\r\nThe names are intended to be compact but mnemonic: `<framework>-<PQ><T>`.  I have only included a number (~security level) for the T part because it seemed sufficient.",
+      "createdAt": "2025-10-17T02:05:57Z",
+      "updatedAt": "2025-10-17T20:20:06Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "529653c88fe391313efbf0cc63443941a67ea0ed",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "names",
+      "headRefOid": "52973781e6ea94f0cef206dc4a26deb2aff46001",
+      "closedAt": "2025-10-17T20:20:06Z",
+      "mergedAt": "2025-10-17T20:20:06Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "4d999266273f498c862716f5ea54f019a35e82e3"
+      },
+      "comments": [
+        {
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "My weak opinion on names is that they should serve most effectively the widest population that will use them, which in our case is presumably sysadmins, not cryptographers. Sysadmins almost certainly don't care about \"frameworks\" especially when all the defined hybrids use the same framework! They will look for the two components in the name, though. GC-MX25519 etc. strike me as suboptimal, the \"GC-\" part is kinda useless, and \"M\" does not communicate ML-KEM-768 to me. (\"Is MX25519 a new curve?\" is a valid question.) Why not just MLKEM768-X25519?\r\n\r\nMy strong opinion on names is **please pick and stabilize labels**. I don't care how they are called, I care that I want to roll out post-quantum age using HPKE and none of this matters as much as the delay.",
+          "createdAt": "2025-10-17T10:11:58Z",
+          "updatedAt": "2025-10-17T10:11:58Z"
+        },
+        {
+          "author": "rohanmahy",
+          "authorAssociation": "NONE",
+          "body": "Hmm, `GC-MP256` (which I could live with) is certainly nicer than `GC-MLKEM768-P256-SHA3256-SHAKE256` (which I cannot condone).\r\n\r\nI would be quite happy with `GC1-MLKEM768-P256` for GC framework with KDF/PRG parameter set number 1 (SHA3-256 and SHAKE256) using MK-KEM768 and p256 algorithms.\r\n\r\nI'm not sure it is obvious to most developers if `GC-MP384` is using ML-KEM768 or ML-KEM1024, because ML-KEM768 was designed to reach the 192-bit security level.\r\n\r\nCc: @ounsworth",
+          "createdAt": "2025-10-17T10:37:30Z",
+          "updatedAt": "2025-10-17T10:37:30Z"
+        },
+        {
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Is there a reason to include the framework in the concrete instantiation name if a given combination of primitives only makes sense with one framework?",
+          "createdAt": "2025-10-17T12:37:04Z",
+          "updatedAt": "2025-10-17T12:37:04Z"
+        },
+        {
+          "author": "rohanmahy",
+          "authorAssociation": "NONE",
+          "body": "> Is there a reason to include the framework in the concrete instantiation name if a given combination of primitives only makes sense with one framework?\r\n\r\nBut some combinations of primitives actually *do* make sense with different frameworks. Concrete has just chosen ones we think are going to be widely used, not the only ones that are relevant.",
+          "createdAt": "2025-10-17T15:23:29Z",
+          "updatedAt": "2025-10-17T15:23:29Z"
+        },
+        {
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Are you saying some combinations make sense with a different framework (which is fine, I am not saying to abolish frameworks altogether, but there would still be only one hybrid for each combination) or that there are combinations that make sense with multiple frameworks simultaneously? The latter makes little sense to me, what's an example?",
+          "createdAt": "2025-10-17T15:47:51Z",
+          "updatedAt": "2025-10-17T15:47:51Z"
+        },
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, one can use P256 and MLKEM768 with (old name) QSF and HQB, depending\r\non whether you need to rely on C2PRI or not, or whether you want to match\r\nthe NIST hybrid kem combiner or not (the latter, basically)\r\n\r\nOn Fri, Oct 17, 2025, 11:48\u202fAM Filippo Valsorda ***@***.***>\r\nwrote:\r\n\r\n> *FiloSottile* left a comment\r\n> (cfrg/draft-irtf-cfrg-concrete-hybrid-kems#27)\r\n> <https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/27#issuecomment-3416121980>\r\n>\r\n> Are you saying some combinations make sense with a different framework\r\n> (which is fine, I am not saying to abolish frameworks altogether, but there\r\n> would still be only one hybrid for each combination) or that there are\r\n> combinations that make sense with multiple frameworks simultaneously? The\r\n> latter makes little sense to me, what's an example?\r\n>\r\n> \u2014\r\n> Reply to this email directly, view it on GitHub\r\n> <https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/27#issuecomment-3416121980>,\r\n> or unsubscribe\r\n> <https://github.com/notifications/unsubscribe-auth/AAEHAANNC76OJRT5UDENNHD3YEFT3AVCNFSM6AAAAACJNYCQJ6VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZTIMJWGEZDCOJYGA>\r\n> .\r\n> You are receiving this because your review was requested.Message ID:\r\n> ***@***.***>\r\n>\r\n",
+          "createdAt": "2025-10-17T15:52:36Z",
+          "updatedAt": "2025-10-17T15:52:36Z"
+        },
+        {
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Ok, but we know C2PRI holds for ML-KEM, so the right choice for this combination is QSF. Why have a research group and a concrete-kems doc at all if not to select the one correct framework for each combination?\nMessage ID: ***@***.***>",
+          "createdAt": "2025-10-17T15:58:26Z",
+          "updatedAt": "2025-10-17T15:58:26Z"
+        },
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Ok, but we know C2PRI holds for ML-KEM, so the right choice for this combination is QSF. Why have a research group and a concrete-kems doc at all if not to select the one correct framework for each combination? Message ID: ***@***.***>\r\n\r\nThere are multiple factors for 'right choice', unfortunately. This document is instantiating some, but we were tasked with creating generic and concrete documents to serve multiple needs, including future documents to define concrete instances that may use similar components (such as P-256 as a nominal group and ML-KEM-768) in one of the other frameworks, so clearly separating them is good. \r\n\r\nCryptographically, we don't have to encode any information into the label, as long as they don't collide and ideally aren't prefixes/extensions of each other, but I understand why people would want some sort of semantic meaning. I just don't know if we can get there with these length restrictions.\r\n\r\nI like the weird ascii art fwiw",
+          "createdAt": "2025-10-17T16:17:13Z",
+          "updatedAt": "2025-10-17T16:17:13Z"
+        },
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > Ok, but we know C2PRI holds for ML-KEM, so the right choice for this combination is QSF. Why have a research group and a concrete-kems doc at all if not to select the one correct framework for each combination? Message ID: _**@**_.***>\r\n> \r\n> There are multiple factors for 'right choice', unfortunately. This document is instantiating some, but we were tasked with creating generic and concrete documents to serve multiple needs, including future documents to define concrete instances that may use similar components (such as P-256 as a nominal group and ML-KEM-768) in one of the other frameworks, so clearly separating them is good.\r\n> \r\n> Cryptographically, we don't have to encode any information into the label, as long as they don't collide and ideally aren't prefixes/extensions of each other, but I understand why people would want some sort of semantic meaning. I just don't know if we can get there with these length restrictions.\r\n> \r\n> I like the weird ascii art fwiw\r\n\r\nWe merged https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/28 to nail down the labels independent of the names",
+          "createdAt": "2025-10-17T20:08:12Z",
+          "updatedAt": "2025-10-17T20:08:12Z"
+        },
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I don't think it's really about the right or wrong choice.  This is the choice we have made, and we're the first, so we can claim the good / default names.  So we could, for example, use something like `MLKEM768-X25519` for the algorigthms in this doc, and if someone comes along and wants to do the same with SHA2, they could call it `MLKEM768-X25519-SHA2` or if they want to remove the C2PRI assumption, `MLKEM768-X25519-conservative`.\r\n\r\nI do like the thought experiment that @FiloSottile poses, basically \"what do we want people to type into their OpenSSL config?\" (Not that we're authoritative for that, but this doc will have influence.) For that, `MLKEM768-X25519` seems pretty good.",
+          "createdAt": "2025-10-17T20:13:48Z",
+          "updatedAt": "2025-10-17T20:13:48Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOMmh5WM6uUwYM",
+      "title": "Make labels consistent and name-agnostic",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/28",
+      "state": "MERGED",
+      "author": "FiloSottile",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We already have the weird label for X25519 + ML-KEM-768, and it looks\r\nlike the conversation around names will drag on for a while longer, so\r\nlet's just make labels consistent and name-agnostic, so we can request\r\nIANA codepoints and ship implementations without blocking on names.\r\n\r\nX25519 + ML-KEM-768 is a rebel X-Wing fighter.\r\n\r\n    \\./\r\n    /^\\\r\n\r\nP-256 + ML-KEM-1024 is an imperial TIE fighter.\r\n\r\n    |-()-|\r\n\r\nP-384 + ML-KEM-1024 is a heavy imperial Lambda shuttle.\r\n\r\n     |\r\n    /-\\\r\n\r\nThey are all six characters, and not more annoying than the X-Wing one\r\nthat implementers have to deal with anyway.\r\n",
+      "createdAt": "2025-10-17T14:30:29Z",
+      "updatedAt": "2025-10-17T20:07:44Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "e5cf606105c70d43db56a2e2357922d6c46ffee6",
+      "headRepository": "FiloSottile/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "labels",
+      "headRefOid": "a6b3a24e72c3b37e7204ecca0ab4cb5444f5eded",
+      "closedAt": "2025-10-17T20:06:52Z",
+      "mergedAt": "2025-10-17T20:06:52Z",
+      "mergedBy": "dconnolly",
+      "mergeCommit": {
+        "oid": "529653c88fe391313efbf0cc63443941a67ea0ed"
+      },
+      "comments": [
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I don't hate it \n\n// @bifurcation @bwesterb ",
+          "createdAt": "2025-10-17T14:33:40Z",
+          "updatedAt": "2025-10-17T14:33:40Z"
+        },
+        {
+          "author": "sophieschmieg",
+          "authorAssociation": "NONE",
+          "body": "I like it. Fun little Easteregg, solves the impasse, and consistent with what is already shipped (X-Wing).",
+          "createdAt": "2025-10-17T14:34:35Z",
+          "updatedAt": "2025-10-17T14:34:35Z"
+        },
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I don't recall if this document needs an updated IANA section based on the generic doc",
+          "createdAt": "2025-10-17T14:35:18Z",
+          "updatedAt": "2025-10-17T14:35:18Z"
+        },
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I don't recall if this document needs an updated IANA section based on the generic doc\n\nYeah:\n\nhttps://github.com/cfrg/draft-irtf-cfrg-hybrid-kems/pull/82\n",
+          "createdAt": "2025-10-17T14:36:50Z",
+          "updatedAt": "2025-10-17T14:36:50Z"
+        },
+        {
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I don't recall if this document needs an updated IANA section based on the generic doc\r\n\r\nLooks like that will require picking framework names and so on, but since only the label ends up on the wire, we can start shipping interoperable implementations without blocking on it. (We do need an IANA codepoint for HPKE, but that's a separate discussion once we have stable labels.)",
+          "createdAt": "2025-10-17T14:42:03Z",
+          "updatedAt": "2025-10-17T14:42:03Z"
+        },
+        {
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Updated the TIE fighter art based on [community feedback](https://mastodon.social/@sethmlarson/115390118569659776).",
+          "createdAt": "2025-10-17T15:46:03Z",
+          "updatedAt": "2025-10-17T15:46:03Z"
+        },
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I can dig it.  I like the idea of making the labels expclitly name-agnostic, so that we can lock them in even if there's more name debate.\r\n\r\nThe only caveat that comes to mind is that Mike Ounsworth noted that backslashes add some ambiguity in how you write the strings in some programming languages.  I think we can help avoid this by just writing out the hex bytes next to the ASCII.\r\n\r\nI can do that in a follow-on, as well as adding the IANA registry entries.",
+          "createdAt": "2025-10-17T19:46:47Z",
+          "updatedAt": "2025-10-17T19:46:47Z"
+        },
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I can dig it. I like the idea of making the labels expclitly name-agnostic, so that we can lock them in even if there's more name debate.\r\n> \r\n> The only caveat that comes to mind is that Mike Ounsworth noted that backslashes add some ambiguity in how you write the strings in some programming languages. I think we can help avoid this by just writing out the hex bytes next to the ASCII.\r\n> \r\n> I can do that in a follow-on, as well as adding the IANA registry entries.\r\n\r\nyeah having the hex encoding as well will be nice",
+          "createdAt": "2025-10-17T19:55:35Z",
+          "updatedAt": "2025-10-17T19:55:35Z"
+        },
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I will update https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/27 to leave the labels alone.",
+          "createdAt": "2025-10-17T20:07:44Z",
+          "updatedAt": "2025-10-17T20:07:44Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7HyJRq",
+          "commit": {
+            "abbreviatedOid": "47b903e"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-17T19:56:10Z",
+          "updatedAt": "2025-10-17T19:56:10Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7HyLg_",
+          "commit": {
+            "abbreviatedOid": "47b903e"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-17T19:59:35Z",
+          "updatedAt": "2025-10-17T19:59:35Z",
+          "comments": [
+            {
+              "originalPosition": 72,
+              "body": "```suggestion\n* `Label`: `|-()-|`\n\nIn hexadecimal, `Label` is given by `7C2D28292D7C`.\n\nThe KEM constants for the resulting hybrid KEM are as follows:\n```",
+              "createdAt": "2025-10-17T19:59:35Z",
+              "updatedAt": "2025-10-17T19:59:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7HyL3z",
+          "commit": {
+            "abbreviatedOid": "47b903e"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-17T20:00:10Z",
+          "updatedAt": "2025-10-17T20:00:10Z",
+          "comments": [
+            {
+              "originalPosition": 107,
+              "body": "```suggestion\n* `Label`: ` | /-\\`\n\nIn hexadecimal, `Label` is given by `207C202F2D5C`.\n\n\nThe following constants for the hybrid KEM are also defined:\n```",
+              "createdAt": "2025-10-17T20:00:10Z",
+              "updatedAt": "2025-10-17T20:00:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7HyM3i",
+          "commit": {
+            "abbreviatedOid": "47b903e"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-17T20:01:35Z",
+          "updatedAt": "2025-10-17T20:01:35Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "```suggestion\n* `Label`: `\\.//^\\`\n\nIn hexadecimal, `Label` is given by `5C2E2F2F5E5C`.\n\nThe following constants for the hybrid KEM are also defined:\n```",
+              "createdAt": "2025-10-17T20:01:35Z",
+              "updatedAt": "2025-10-17T20:01:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7HyNFt",
+          "commit": {
+            "abbreviatedOid": "47b903e"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-17T20:01:55Z",
+          "updatedAt": "2025-10-17T20:01:55Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "```suggestion\r\n* `Label`: ` \\| /-\\` (0x207C202F2D5C)\r\n```\r\n\r\nFor some reason, the `|` character with spaces trips up kramdown.",
+              "createdAt": "2025-10-17T20:01:55Z",
+              "updatedAt": "2025-10-17T20:02:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7HyNvd",
+          "commit": {
+            "abbreviatedOid": "47b903e"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-17T20:03:08Z",
+          "updatedAt": "2025-10-17T20:03:08Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n* `Label`: `|-()-|` (0x7C2D28292D7C)\r\n```",
+              "createdAt": "2025-10-17T20:03:08Z",
+              "updatedAt": "2025-10-17T20:03:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7HyPdS",
+          "commit": {
+            "abbreviatedOid": "5020a19"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-17T20:05:31Z",
+          "updatedAt": "2025-10-17T20:05:32Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "```suggestion\n* `Label`: `\\.//^\\` (0x5C2E2F2F5E5C)\n```",
+              "createdAt": "2025-10-17T20:05:31Z",
+              "updatedAt": "2025-10-17T20:05:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7HyP-e",
+          "commit": {
+            "abbreviatedOid": "a6b3a24"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-17T20:06:26Z",
+          "updatedAt": "2025-10-17T20:06:26Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7HyQTV",
+          "commit": {
+            "abbreviatedOid": "a6b3a24"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-17T20:07:04Z",
+          "updatedAt": "2025-10-17T20:07:04Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOMmh5WM6uYe46",
+      "title": "Add IANA registrations",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/29",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-17T20:40:46Z",
+      "updatedAt": "2025-10-17T20:43:11Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "4d999266273f498c862716f5ea54f019a35e82e3",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "iana",
+      "headRefOid": "7f04b70dceb9617c0807a86e5b0f17d46fdd92bc",
+      "closedAt": "2025-10-17T20:43:11Z",
+      "mergedAt": "2025-10-17T20:43:11Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "458e68f912474368d0999233622f537a933d5a31"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOMmh5WM6uY_sK",
+      "title": "Use rejection sampling for NIST curves",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/30",
+      "state": "OPEN",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #22 \r\n\r\nThe main difficult thing about this process is that it introduces an PRG, from which candidates are sampled.  This overlaps in terminology with the generic draft, but I think the requirements are the same.\r\n\r\nThe rejection sampling loop is copied from RFC9180, but simplified.  It also doesn't have any domain separation; not clear whether that is needed here.",
+      "createdAt": "2025-10-17T21:34:59Z",
+      "updatedAt": "2025-10-17T21:35:58Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "458e68f912474368d0999233622f537a933d5a31",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "no-wide-reduction",
+      "headRefOid": "21d13b45e9c0d2af03d8bfdd01bef3a0e45b0d1d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
