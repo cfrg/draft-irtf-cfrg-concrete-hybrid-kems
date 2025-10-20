@@ -326,15 +326,15 @@ Table of Contents
    This section instantiates the following concrete KEMs:
 
    MLKEM768-P256:  A hybrid KEM composing ML-KEM-768 and P-256 using the
-      GC framework, with SHAKE256 as the PRG and SHA3-256 as the KDF.
+      CG framework, with SHAKE256 as the PRG and SHA3-256 as the KDF.
 
    MLKEM768-X25519:  A hybrid KEM composing ML-KEM-768 and Curve25519
-      using the GC framework, with SHAKE256 as the PRG and SHA3-256 as
+      using the CG framework, with SHAKE256 as the PRG and SHA3-256 as
       the KDF.  This construction is identical to the X-Wing
       construction in [XWING-SPEC].
 
    MLKEM1024-P384:  A hybrid KEM composing ML-KEM-1024 and P-384 using
-      the GC framework, with SHAKE256 as the PRG and SHA3-256 as the
+      the CG framework, with SHAKE256 as the PRG and SHA3-256 as the
       KDF.
 
    Each instance specifies the PQ and traditional KEMs being combined,
@@ -344,7 +344,7 @@ Table of Contents
 
 4.1.  MLKEM768-P256
 
-   This hybrid KEM combines ML-KEM-768 with P-256 using the GC framework
+   This hybrid KEM combines ML-KEM-768 with P-256 using the CG framework
    from [HYBRID-KEMS].  It has the following components:
 
    *  Group_T: P-256 Section 3.1.1
@@ -371,7 +371,7 @@ Table of Contents
 
 4.2.  MLKEM768-X25519
 
-   This hybrid KEM combines ML-KEM-768 with X25519 using the GC
+   This hybrid KEM combines ML-KEM-768 with X25519 using the CG
    framework from [HYBRID-KEMS].  It is identical to the X-Wing
    construction from [XWING-SPEC].  It has the following components:
 
@@ -399,7 +399,7 @@ Table of Contents
 
 4.3.  MLKEM1024-P384
 
-   This hybrid KEM combines ML-KEM-1024 with P-384 using the GC
+   This hybrid KEM combines ML-KEM-1024 with P-384 using the CG
    framework from [HYBRID-KEMS].  It has the following components:
 
    *  Group_T: P-384 Section 3.1.1
@@ -471,13 +471,13 @@ Table of Contents
    |Label   |Fw|PQ       |T         |KDF     |PRG   |Nseed|Nss|Reference|
    |        |  |Component|Component |        |      |     |   |         |
    +========+==+=========+==========+========+======+=====+===+=========+
-   |"|-()-|"|GC|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
+   |"|-()-|"|CG|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
    |        |  |KEM-768  |          |        |256   |     |   |         |
    +--------+--+---------+----------+--------+------+-----+---+---------+
-   |"\.//^\"|GC|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
+   |"\.//^\"|CG|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
    |        |  |KEM-768  |          |        |256   |     |   |         |
    +--------+--+---------+----------+--------+------+-----+---+---------+
-   |" | /-\"|GC|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
+   |" | /-\"|CG|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
    |        |  |KEM-768  |          |        |256   |     |   |         |
    +--------+--+---------+----------+--------+------+-----+---+---------+
 
@@ -554,7 +554,7 @@ Table of Contents
 
    [CDM23]    Cremers, C., Dax, A., and N. Medinger, "Keeping Up with
               the KEMs: Stronger Security Notions for KEMs and automated
-              analysis of KEM-based protocols",
+              analysis of KEM-based protocols", 2023,
               <https://eprint.iacr.org/2023/1933.pdf>.
 
    [KSMW2024] Kraemer, J., Struck, P., and M. Weishaupl, "Binding
@@ -4565,7 +4565,9 @@ A.3.  MLKEM1024-P384
 
 Acknowledgments
 
-   [[ TODO ]]
+   Thanks to Chris Wood and Britta Hale for contributions to early
+   versions of this document.  Thanks to Filippo Valsorda for the ASCII
+   art labels for the non-X-Wing hybrid KEMs.
 
 Authors' Addresses
 

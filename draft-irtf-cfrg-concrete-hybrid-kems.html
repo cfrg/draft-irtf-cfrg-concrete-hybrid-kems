@@ -1576,20 +1576,20 @@ output, so it is appropriate for use in hybrid KEMs with <code>Nss = 32</code>.<
 <span class="break"></span><dl class="dlParallel" id="section-4-2">
         <dt id="section-4-2.1">MLKEM768-P256:</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.2">
-          <p id="section-4-2.2.1">A hybrid KEM composing ML-KEM-768 and P-256 using the GC framework, with
+          <p id="section-4-2.2.1">A hybrid KEM composing ML-KEM-768 and P-256 using the CG framework, with
 SHAKE256 as the PRG and SHA3-256 as the KDF.<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-4-2.3">MLKEM768-X25519:</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.4">
-          <p id="section-4-2.4.1">A hybrid KEM composing ML-KEM-768 and Curve25519 using the GC framework, with
+          <p id="section-4-2.4.1">A hybrid KEM composing ML-KEM-768 and Curve25519 using the CG framework, with
 SHAKE256 as the PRG and SHA3-256 as the KDF. This construction is identical
 to the X-Wing construction in <span>[<a href="#XWING-SPEC" class="cite xref">XWING-SPEC</a>]</span>.<a href="#section-4-2.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-4-2.5">MLKEM1024-P384:</dt>
         <dd style="margin-left: 1.5em" id="section-4-2.6">
-          <p id="section-4-2.6.1">A hybrid KEM composing ML-KEM-1024 and P-384 using the GC framework, with
+          <p id="section-4-2.6.1">A hybrid KEM composing ML-KEM-1024 and P-384 using the CG framework, with
 SHAKE256 as the PRG and SHA3-256 as the KDF.<a href="#section-4-2.6.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
@@ -1603,7 +1603,7 @@ use throughout.<a href="#section-4-3" class="pilcrow">¶</a></p>
         <h3 id="name-mlkem768-p256">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-mlkem768-p256" class="section-name selfRef">MLKEM768-P256</a>
         </h3>
-<p id="section-4.1-1">This hybrid KEM combines ML-KEM-768 with P-256 using the GC framework from
+<p id="section-4.1-1">This hybrid KEM combines ML-KEM-768 with P-256 using the CG framework from
 <span>[<a href="#HYBRID-KEMS" class="cite xref">HYBRID-KEMS</a>]</span>. It has the following components:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.1-2.1">
@@ -1647,7 +1647,7 @@ use throughout.<a href="#section-4-3" class="pilcrow">¶</a></p>
         <h3 id="name-mlkem768-x25519">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-mlkem768-x25519" class="section-name selfRef">MLKEM768-X25519</a>
         </h3>
-<p id="section-4.2-1">This hybrid KEM combines ML-KEM-768 with X25519 using the GC framework from
+<p id="section-4.2-1">This hybrid KEM combines ML-KEM-768 with X25519 using the CG framework from
 <span>[<a href="#HYBRID-KEMS" class="cite xref">HYBRID-KEMS</a>]</span>. It is identical to the X-Wing construction from <span>[<a href="#XWING-SPEC" class="cite xref">XWING-SPEC</a>]</span>.
 It has the following components:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1692,7 +1692,7 @@ It has the following components:<a href="#section-4.2-1" class="pilcrow">¶</a><
         <h3 id="name-mlkem1024-p384">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-mlkem1024-p384" class="section-name selfRef">MLKEM1024-P384</a>
         </h3>
-<p id="section-4.3-1">This hybrid KEM combines ML-KEM-1024 with P-384 using the GC framework from
+<p id="section-4.3-1">This hybrid KEM combines ML-KEM-1024 with P-384 using the CG framework from
 <span>[<a href="#HYBRID-KEMS" class="cite xref">HYBRID-KEMS</a>]</span>. It has the following components:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.3-2.1">
@@ -1813,7 +1813,7 @@ Labels" registry:<a href="#section-6-1" class="pilcrow">¶</a></p>
         <tbody>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">"|-()-|"</td>
-            <td class="text-left" rowspan="1" colspan="1">GC</td>
+            <td class="text-left" rowspan="1" colspan="1">CG</td>
             <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
             <td class="text-left" rowspan="1" colspan="1">Curve25519</td>
             <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
@@ -1824,7 +1824,7 @@ Labels" registry:<a href="#section-6-1" class="pilcrow">¶</a></p>
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">"\.//^\"</td>
-            <td class="text-left" rowspan="1" colspan="1">GC</td>
+            <td class="text-left" rowspan="1" colspan="1">CG</td>
             <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
             <td class="text-left" rowspan="1" colspan="1">Curve25519</td>
             <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
@@ -1835,7 +1835,7 @@ Labels" registry:<a href="#section-6-1" class="pilcrow">¶</a></p>
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">" | /-\"</td>
-            <td class="text-left" rowspan="1" colspan="1">GC</td>
+            <td class="text-left" rowspan="1" colspan="1">CG</td>
             <td class="text-left" rowspan="1" colspan="1">ML-KEM-768</td>
             <td class="text-left" rowspan="1" colspan="1">Curve25519</td>
             <td class="text-left" rowspan="1" colspan="1">SHA3-256</td>
@@ -1920,7 +1920,7 @@ Labels" registry:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="CDM23">[CDM23]</dt>
         <dd>
-<span class="refAuthor">Cremers, C.</span>, <span class="refAuthor">Dax, A.</span>, and <span class="refAuthor">N. Medinger</span>, <span class="refTitle">"Keeping Up with the KEMs: Stronger Security Notions for KEMs and automated analysis of KEM-based protocols"</span>, <span>&lt;<a href="https://eprint.iacr.org/2023/1933.pdf">https://eprint.iacr.org/2023/1933.pdf</a>&gt;</span>. </dd>
+<span class="refAuthor">Cremers, C.</span>, <span class="refAuthor">Dax, A.</span>, and <span class="refAuthor">N. Medinger</span>, <span class="refTitle">"Keeping Up with the KEMs: Stronger Security Notions for KEMs and automated analysis of KEM-based protocols"</span>, <time datetime="2023" class="refDate">2023</time>, <span>&lt;<a href="https://eprint.iacr.org/2023/1933.pdf">https://eprint.iacr.org/2023/1933.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="KSMW2024">[KSMW2024]</dt>
         <dd>
@@ -6049,7 +6049,9 @@ shared_secret = 4b1669c2ee59f29d643ca2e340b9ea6af2ddfb96c3710f93
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-B-1">[[ TODO ]]<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">Thanks to Chris Wood and Britta Hale for contributions to early versions of this
+document. Thanks to Filippo Valsorda for the ASCII art labels for the
+non-X-Wing hybrid KEMs.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
