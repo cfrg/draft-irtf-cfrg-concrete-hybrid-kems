@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-19T01:45:13.837830+00:00",
+  "timestamp": "2025-10-21T01:37:38.364211+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -297,15 +297,15 @@
       "id": "I_kwDOMmh5WM7JGPsj",
       "title": "Avoid wide reduction in P-256 and P-384 RandomScalar",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/22",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "FiloSottile",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Currently, an implementation of P-256 and P-384 QSF hybrids needs a wide reduction implementation to reduce a 48 or 72 byte value to a scalar. This is not obviously available in implementations.\n\nNote that when used in HPKE this is also inconsistent with how pure P-256 and P-384 keys are derived in DHKEM, which uses rejection sampling in DeriveKeyPair (RFC 9180 Section 7.1.3).\n\nI think there are arguments both for rejection sampling and for wide reduction, but having *both* in a HPKE implementation for the same curve is annoying. Since rejection sampling is fixed in RFC 9180, I suggest we change RandomScalar in this draft.\n\nNormally, the annoyance of rejection sampling is introducing a XOF or DRBG or KDF or whatever, which DHKEM solves with a built-in KDF, but here the RandomScalar input is already an arbitrary sized uniform PRG output from expandDecapsulationKey, so we can just request a \"seed\" which is wide enough to bring the probability of rejection down to the security level.\n\nFor P-256, that means a Nseed of 128, since the probability of rejection is [< 2\u207b\u00b3\u00b2](https://www.wolframalpha.com/input?i=log2%281+-+115792089210356248762697446949407573529996955224135760342422259061068512044369+%2F+2%5E256%29) and the security level is 128 bits-ish.\n\nThe RandomScalar algorithm would be to try seed[:32] and return it if < q, otherwise try seed[32:64], otherwise seed[64:96], otherwise seed[96:], otherwise fatal.\n\nFor P-384, that means Nseed of 48, since the probability of even a single rejection is [< 2\u207b\u00b9\u2079\u2074](https://www.wolframalpha.com/input?i=log2%281+-+39402006196394479212279040100143613805079739270465446667946905279627659399113263569398956308152294913554433653942643+%2F+2%5E384%29).\n\nWe will need to specify that the RandomScalar input needs to be uniformly distributed, but since it's only ever a PRG output, I don't expect that will be a problem.\n\nWhat do folks think?",
       "createdAt": "2025-09-01T22:17:39Z",
-      "updatedAt": "2025-09-18T08:35:11Z",
-      "closedAt": null,
+      "updatedAt": "2025-10-20T20:57:06Z",
+      "closedAt": "2025-10-20T20:57:06Z",
       "comments": [
         {
           "author": "bwesterb",
@@ -316,7 +316,7 @@
         },
         {
           "author": "FiloSottile",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> Given a 48 byte scalar s, split it as `s = a 2^256 + b`, where `b<2^256`. Clearly `s mod p = ((a mod p) (2^256 mod p) + (b mod p) mod p)`. Hardcoding (2^256 mod p), you only need the existing reduction, multiplication, addition and splitting.\n\n[I do like that trick](https://words.filippo.io/wide-reduction/), yes :)\n\n> I'd say this is not too hard at all, and easier to test than rejection sampling.\n\nReduction is a bit easier to test, agreed. As I said there are pros and cons to both, and I am not expressing a universal preference. The point is that HPKE already requires rejection sampling and the associated tests.\n\n> having two different ways to do rejection sampling is not ideal.\n\nAgreed aesthetically, but in terms of what is required of the underlying ECC implementation, every rejection sampling is the same: it just needs SetBytesOrError.\n\n> To stick with DHKEM's rejection sampling, we need to import HPKE idiosyncratic Extract/Expand and labelling. Also we need to pass that label correctly. That seems way too messy.\n\nYeah, let's definitely not import the actual HPKE flavor.\n\n(This all would not be necessary if prime order groups were ever specified as an abstraction that includes scalar and element maps from uniform bytes, like ristretto255 does, but I guess it is way too late to complain about that.)",
           "createdAt": "2025-09-02T12:38:06Z",
           "updatedAt": "2025-09-02T12:38:06Z"
@@ -330,7 +330,7 @@
         },
         {
           "author": "FiloSottile",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> On the other hand, if we're going to deviate enough that actual code reuse won't work, we might as well do a simpler thing.\n\nDisagree with this. The specific flavor of rejection sampling is glue I am not very worried about writing twice. Wide reduction vs. set-or-reject are trickier lower-level APIs with constant timed-ness issues and per-curve details.\n\n(I am neutral-or-positive about the rest of the comment, though!)",
           "createdAt": "2025-09-15T23:05:37Z",
           "updatedAt": "2025-09-15T23:06:03Z"
@@ -344,7 +344,7 @@
         },
         {
           "author": "FiloSottile",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I suspect shifting or rotating might be (fine in practice but) hard to prove ok in theory: if you reject once, your next sample is not uniform, but biased by the necessarily high value of the bits you have.\n\nI am not sure why the seed needs to be proportional to the security level. The main argument against a wide seed IMHO is that most of the time 3/4 of the seed will be malleable for the same key, which is not great _if the seed is ever exposed_, but is it? AFAICT all exposed APIs of the hybrid KEM construction take PRG inputs.",
           "createdAt": "2025-09-15T23:30:30Z",
           "updatedAt": "2025-09-15T23:30:30Z"
@@ -365,10 +365,17 @@
         },
         {
           "author": "FiloSottile",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Oh if you want NIST SP 800-56A compliance, it's going to be quite a bit harder. You need to be able to claim that the process is equivalent to pulling candidates from a NIST SP 800-90A DRBG. Not sure that's worth doing, though, given the seed generation itself might not be NIST compliant.\n\nI still don't have a strong opinion on the rejection sampling flavor, they all seem ok to me.\n\n> It seems pretty obvious that if U is a uniform random variable over N bits and P is a permutation of N-bit strings, then P(U) is also a uniform random variable over N bits. The permutation just shuffles around the distribution, which ends up looking the same. P(U) is not uniform conditioned on U, in fact it is determined, but that's also true if P is a PRG -- what's important for the cryptography is that the private key is uniformly random unless you know the seed.\n\nP(U) is not a uniform random variable if you already know something about U, and reject(U) == true is something. Take an extreme case, where we reject if the first 64 bits are all 0: P(U) will be far from uniform, since we know 64 bits are 0 and the rest are random.",
           "createdAt": "2025-09-18T08:35:10Z",
           "updatedAt": "2025-09-18T08:35:10Z"
+        },
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This PR on the generic document might help:\n\nhttps://github.com/cfrg/draft-irtf-cfrg-hybrid-kems/pull/91",
+          "createdAt": "2025-10-19T23:20:15Z",
+          "updatedAt": "2025-10-19T23:20:15Z"
         }
       ]
     },
@@ -1839,24 +1846,140 @@
       "id": "PR_kwDOMmh5WM6uY_sK",
       "title": "Use rejection sampling for NIST curves",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/30",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "bifurcation",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes #22 \r\n\r\nThe main difficult thing about this process is that it introduces an PRG, from which candidates are sampled.  This overlaps in terminology with the generic draft, but I think the requirements are the same.\r\n\r\nThe rejection sampling loop is copied from RFC9180, but simplified.  It also doesn't have any domain separation; not clear whether that is needed here.",
       "createdAt": "2025-10-17T21:34:59Z",
-      "updatedAt": "2025-10-17T21:35:58Z",
+      "updatedAt": "2025-10-21T01:07:21Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "37bd5b42876e0fa713887aa4aa29e05891339f22",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "no-wide-reduction",
+      "headRefOid": "ff73e766a0e4a142e34138fec7da495920b6cabb",
+      "closedAt": "2025-10-20T20:57:05Z",
+      "mergedAt": "2025-10-20T20:57:05Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "229317edc1935cdc54f1ed96e2a838264289295c"
+      },
+      "comments": [
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This turned out to be easy to add to the reference implementation, because [`NonZeroScalar::random()` implements exactly the rejection sampling loop we need](https://docs.rs/elliptic-curve/0.13.8/src/elliptic_curve/scalar/nonzero.rs.html#45).  The only work was to wrap SHAKE256 in the required RNG interface.",
+          "createdAt": "2025-10-19T04:41:04Z",
+          "updatedAt": "2025-10-19T04:41:04Z"
+        },
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thinking on it a bit, the idea of passing a PRG to RandomScalar and DeriveKeyPair actually seems pretty compelling.  It lets you skip the seed expansion as an intermediate step (as @FiloSottile notes).  And I think it might help clean up the two key generation options.  I'll raise a PR on the generic doc.  Quick sketch:\r\n\r\n``` diff\r\n-def expandDecapsKeyK(seed):\r\n-    seed_full = PRG(seed)\r\n-    (seed_PQ, seed_T) = split(KEM_PQ.Nseed, KEM_T.Nseed, seed_full)\r\n-    (ek_PQ, dk_PQ) = KEM_PQ.DeriveKeyPair(seed_PQ)\r\n-    (ek_T, dk_T) = KEM_T.DeriveKeyPair(seed_T)\r\n-    return (ek_PQ, ek_T, dk_PQ, dk_T)\r\n-\r\n-def DeriveKeyPair(seed):\r\n-    (ek_PQ, ek_T, dk_PQ, dk_T) = expandDecapsKeyK(seed)\r\n-    return (concat(ek_PQ, ek_T), seed)\r\n-\r\n-def GenerateKeyPair(prg):\r\n-    seed = random(Nseed)\r\n-    return DeriveKeyPair(seed)\r\n+def expandDecapsKeyK(prg):\r\n+    (ek_PQ, dk_PQ) = KEM_PQ.GenerateKeyPair(prg)\r\n+    (ek_T, dk_T) = KEM_T.GenerateKeyPair(prg)\r\n+    return (ek_PQ, ek_T, dk_PQ, dk_T)\r\n+\r\n+def DeriveKeyPair(seed):\r\n+    prg = PRG.init(seed)\r\n+    (ek_PQ, ek_T, dk_PQ, dk_T) = expandDecapsKeyK(prg)\r\n+    return (concat(ek_PQ, ek_T), seed)\r\n+\r\n+def GenerateKeyPair(prg):\r\n+    seed = random(Nseed)\r\n+    return DeriveKeyPair(seed)\r\n+\r\n+def GenerateKeyPair(prg):\r\n+    (ek_PQ, ek_T, dk_PQ, dk_T) = expandDecapsKeyK(prg)\r\n+    return (concat(ek_PQ, ek_T), (dk_PQ, dk_T))\r\n```",
+          "createdAt": "2025-10-19T18:38:29Z",
+          "updatedAt": "2025-10-19T18:38:29Z"
+        },
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The latest commit updates the reference implementation to match the PRG-centric formulation in https://github.com/cfrg/draft-irtf-cfrg-hybrid-kems/pull/91.",
+          "createdAt": "2025-10-20T04:23:04Z",
+          "updatedAt": "2025-10-20T04:23:04Z"
+        },
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It looks like there is not agreement among the authors to merge https://github.com/cfrg/draft-irtf-cfrg-hybrid-kems/pull/91 right now, so I have reverted this to the earlier state, which calls SHA-3 internally to RandomScalar.",
+          "createdAt": "2025-10-20T20:57:00Z",
+          "updatedAt": "2025-10-20T20:57:00Z"
+        },
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I still find it a bit redundant to take a seed from a PRG in expandDecapsKeyG or from a random source in prepareEncapsG, and then pass it to a PRG again. It feels like an artifact of the abstractions of the two documents this is split over.\r\n> \r\n> What if RandomScalar took a PRG? In expandDecapsKeyG, it requires no changes: first read KEM_PQ.Nseed, then pass to RandomScalar. In prepareEncapsG, we can pass a random source as a PRG, and then in [Appendix A](https://cfrg.github.io/draft-irtf-cfrg-hybrid-kems/draft-irtf-cfrg-hybrid-kems.html#appendix-A) specify that it should be replaced with SHAKE256(randomness) for EncapsDerand.\r\n> \r\n> BTW, a nit, in [5.1.1](https://cfrg.github.io/draft-irtf-cfrg-hybrid-kems/draft-irtf-cfrg-hybrid-kems.html#section-5.1.1) of the other document, we are not explicitly told the length of seed_full.\r\n> \r\n> ```\r\n> seed_full = PRG(seed)\r\n> ```\r\n\r\nThis messes us the binding properties of having a single seed for the keypair expanded via the first PRG, the output of which is handed to each component keygen-  the fact that the curve keygen also calls some PRG or XOF is cooincidental, and the different function calls are serving different functions",
+          "createdAt": "2025-10-21T01:07:21Z",
+          "updatedAt": "2025-10-21T01:07:21Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7H6WR9",
+          "commit": {
+            "abbreviatedOid": "b7e2998"
+          },
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "I still find it a bit redundant to take a seed from a PRG in expandDecapsKeyG or from a random source in prepareEncapsG, and then pass it to a PRG again. It feels like an artifact of the abstractions of the two documents this is split over.\r\n\r\nWhat if RandomScalar took a PRG? In expandDecapsKeyG, it requires no changes: first read KEM_PQ.Nseed, then pass to RandomScalar. In prepareEncapsG, we can pass a random source as a PRG, and then in [Appendix A](https://cfrg.github.io/draft-irtf-cfrg-hybrid-kems/draft-irtf-cfrg-hybrid-kems.html#appendix-A) specify that it should be replaced with SHAKE256(randomness) for EncapsDerand.\r\n\r\nBTW, a nit, in [5.1.1](https://cfrg.github.io/draft-irtf-cfrg-hybrid-kems/draft-irtf-cfrg-hybrid-kems.html#section-5.1.1) of the other document, we are not explicitly told the length of seed_full.\r\n\r\n```\r\nseed_full = PRG(seed)\r\n```",
+          "createdAt": "2025-10-19T05:47:25Z",
+          "updatedAt": "2025-10-19T05:47:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOMmh5WM6ue6ht",
+      "title": "Update the reference implementation",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/31",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is a pretty much top-to-bottom rewrite of the reference implementation.  The new module structure is basically:\r\n\r\n* `group`, `kem`, `prg`, `kdf` - Wrappers for the primitives\r\n* `hybrid` - Definitions of the hybrid frameworks from the generic draft\r\n* `lib.rs` - Definitions of the concrete hybrid KEMs in this document.\r\n\r\nAs I was rewriting, I validated that the new implementation could verify test vectors from the old implementation, so hopefully nothing that worked before is broken.\r\n\r\nIn response to feedback from @ounsworth, I extended the test vector format to also expose the PQ and T subkeys produced by the decapsulation key expansion from seed.",
+      "createdAt": "2025-10-19T04:17:50Z",
+      "updatedAt": "2025-10-19T04:20:35Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "458e68f912474368d0999233622f537a933d5a31",
       "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
-      "headRefName": "no-wide-reduction",
-      "headRefOid": "21d13b45e9c0d2af03d8bfdd01bef3a0e45b0d1d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefName": "update-ref-impl",
+      "headRefOid": "69683e9deb5f62c213ded1a044a9975247dbcb10",
+      "closedAt": "2025-10-19T04:20:35Z",
+      "mergedAt": "2025-10-19T04:20:35Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "37bd5b42876e0fa713887aa4aa29e05891339f22"
+      },
+      "comments": [
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This PR also changes `Nseed` for the NIST groups to be equal to `Nscalar`.  It somehow got set to 150% of `Nscalar` in the current version, for reasons that are unclear to me.  Maybe @chris-wood remembers?\r\n",
+          "createdAt": "2025-10-19T04:20:02Z",
+          "updatedAt": "2025-10-19T04:20:02Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOMmh5WM6uttki",
+      "title": "Typos and Acknowledgements.",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/32",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-20T21:19:04Z",
+      "updatedAt": "2025-10-20T21:20:08Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "229317edc1935cdc54f1ed96e2a838264289295c",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "typos",
+      "headRefOid": "d57227a18abf5a9e365a1342536c3efc198dffec",
+      "closedAt": "2025-10-20T21:20:08Z",
+      "mergedAt": "2025-10-20T21:20:08Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "388aa32cd2de716638663866f5c3d39eed880f11"
+      },
       "comments": [],
       "reviews": []
     }
