@@ -406,7 +406,7 @@ This hybrid KEM combines ML-KEM-1024 with P-384 using the CG framework from
 {{HYBRID-KEMS}}. It has the following components:
 
 * `Group_T`: P-384 {{group-nist}}
-* `KEM_PQ: ML-KEM-1024 {{mlkem}}
+* `KEM_PQ`: ML-KEM-1024 {{mlkem}}
 * `PRG`: SHAKE-256 {{FIPS202}}
 * `KDF`: SHA3-256 {{FIPS202}}
 * `Label`: ` \| /-\` (0x207C202F2D5C)
@@ -454,9 +454,9 @@ Labels" registry:
 
 | Label      | Fw | PQ Component | T Component | KDF      | PRG       | Nseed | Nss | Reference |
 |============|====|==============|=============|==========|===========|=======|=====|===========|
-| "\|-()-\|" | CG | ML-KEM-768   | Curve25519  | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
+| "\|-()-\|" | CG | ML-KEM-768   | P-256       | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
 | "\\.//^\\" | CG | ML-KEM-768   | Curve25519  | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
-| " \| /-\\" | CG | ML-KEM-768   | Curve25519  | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
+| " \| /-\\" | CG | ML-KEM-1024  | P-384       | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
 {: #iana-table title="Hybrid KEM Labels" }
 
 [ RFC EDITOR: Please replace "XXXX" above with the number assigned to this RFC ]
