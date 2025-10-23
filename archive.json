@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-21T01:37:38.364211+00:00",
+  "timestamp": "2025-10-23T01:36:43.342753+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -1980,6 +1980,132 @@
       "mergeCommit": {
         "oid": "388aa32cd2de716638663866f5c3d39eed880f11"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOMmh5WM6u3SQo",
+      "title": "Use long seeds for NIST curves rejection sampling in RandomScalar",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/33",
+      "state": "OPEN",
+      "author": "FiloSottile",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-21T14:51:14Z",
+      "updatedAt": "2025-10-21T15:05:21Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "388aa32cd2de716638663866f5c3d39eed880f11",
+      "headRepository": "FiloSottile/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "main",
+      "headRefOid": "0114ace661fae91d3e9b388f7f34a328b6ecc90e",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7IWJiU",
+          "commit": {
+            "abbreviatedOid": "2f9440d"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-21T14:54:59Z",
+          "updatedAt": "2025-10-21T14:55:25Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "Doesn't this need a bump also? Should this be 256 bytes?\n\n\n```suggestion\n - `Nseed`: 256\n```\n",
+              "createdAt": "2025-10-21T14:55:00Z",
+              "updatedAt": "2025-10-21T14:55:25Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7IWR-E",
+          "commit": {
+            "abbreviatedOid": "2f9440d"
+          },
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-21T15:03:11Z",
+          "updatedAt": "2025-10-21T15:03:11Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "Nreject is 0 for P-384, thanks to its order very close to the next power of two. Clarified.",
+              "createdAt": "2025-10-21T15:03:11Z",
+              "updatedAt": "2025-10-21T15:03:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7IWU0E",
+          "commit": {
+            "abbreviatedOid": "0114ace"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-21T15:05:07Z",
+          "updatedAt": "2025-10-21T15:05:07Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "great cheers",
+              "createdAt": "2025-10-21T15:05:07Z",
+              "updatedAt": "2025-10-21T15:05:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7IWVIr",
+          "commit": {
+            "abbreviatedOid": "0114ace"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "lgtm",
+          "createdAt": "2025-10-21T15:05:21Z",
+          "updatedAt": "2025-10-21T15:05:21Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 34,
+      "id": "PR_kwDOMmh5WM6vI3XL",
+      "title": "Fixing typos",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/34",
+      "state": "OPEN",
+      "author": "samuel-lee-msft",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-22T19:51:21Z",
+      "updatedAt": "2025-10-22T19:51:22Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "388aa32cd2de716638663866f5c3d39eed880f11",
+      "headRepository": "samuel-lee-msft/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "patch-1",
+      "headRefOid": "f025bf977d7360b632bcf3715fae8b807cd16c4b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
