@@ -206,33 +206,29 @@ The Nominal Group algorithms are the same for both groups:
 - `Exp(p, x) -> q`: This function computes scalar multiplication between the
   input element (or point) `p` and the scalar `x`, according to the group law
   for the curve specified in {{SP800-186}}.
-- `RandomScalar(seed) -> k`: Implemented using rejection sampling from a PRG,
+- `RandomScalar(seed) -> k`: Implemented using rejection sampling from a seed,
   as described below.
 - `ElementToSharedSecret(p) -> ss`: The shared secret is the X coordinate of
   the elliptic curve point `p`, encoded as an `Nss`-byte string using the
   Field-Element-to-Octet-String function in {{SEC1}}.
 
-The RandomScalar algorithm depends on an pseudo-random generator (PRG), with the
-following API:
-
-- `Init(seed) -> state`: Initialize a new state of the pseudo-random generator
-  based on the provided seed.
-- `Read(state, n) -> data`: Read `n` pseudo-random bytes from the PRG, updating
-  `state` to reflect that this read has happened.
-
-A hybrid KEM using these curves MUST specify the PRG that should be used.  All
-of the hybrid KEMs in this document use SHAKE256 {{FIPS202}}.
-
-Given a PRG, the RandomScalar algorithm is defined as follows:
+Given a seed, the RandomScalar algorithm is defined as follows:
 
 ~~~ pseudocode
 def RandomScalar(seed):
-  state = XOF.Init(seed)
-  sk = OS2IP(XOF.Read(state, Nscalar))
+  rejects = 0
+  sk = OS2IP(seed[:Nscalar])
   while sk == 0 || sk >= order:
-    sk = OS2IP(XOF.Read(state, Nscalar))
+    rejects += 1
+    if rejects > Nreject: fail
+    sk = OS2IP(seed[Nscalar * rejects : Nscalar * rejects + Nscalar])
   return (sk, pk(sk))
 ~~~
+
+RandomScalar fails with cryptographically negligible probability, as long as the
+input seed is uniformly random. (The chance of a single rejection is < 2^-32 for
+P-256 and < 2^-192 for P-384. The chance of more than Nreject rejections is thus
+< 2^-128 for P-256 and < 2^-192 for P-384.)
 
 The OS2IP function converts a byte string to a non-negative integer, as
 described in {{!RFC8017}}, assuming big-endian byte order.  The `order` variable
@@ -250,7 +246,8 @@ P-384:
 
 The group constants for the P-256 group are as follows:
 
-- `Nseed`: 32
+- `Nseed`: 128
+- `Nreject`: 3
 - `Nscalar`: 32
 - `Nelem`: 65
 - `Nss`: 32
@@ -258,6 +255,7 @@ The group constants for the P-256 group are as follows:
 The group constants for the P-384 group are as follows:
 
 - `Nseed`: 48
+- `Nreject`: 0
 - `Nscalar`: 48
 - `Nelem`: 97
 - `Nss`: 48
