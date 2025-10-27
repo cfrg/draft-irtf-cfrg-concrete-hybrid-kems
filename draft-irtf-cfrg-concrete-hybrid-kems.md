@@ -216,12 +216,13 @@ Given a seed, the RandomScalar algorithm is defined as follows:
 
 ~~~ pseudocode
 def RandomScalar(seed):
-  rejects = 0
-  sk = OS2IP(seed[:Nscalar])
+  start = 0
+  end = Nscalar
+  sk = OS2IP(seed[start : end])
+
   while sk == 0 || sk >= order:
-    rejects += 1
-    start = Nscalar * rejects
-    end = start + Nscalar
+    start = end
+    end = end + Nscalar
     if end > len(seed):
         raise DeriveKeyPairError
     sk = OS2IP(seed[start : end])
