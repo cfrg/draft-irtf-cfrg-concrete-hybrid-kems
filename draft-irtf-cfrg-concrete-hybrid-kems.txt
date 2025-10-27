@@ -5,8 +5,8 @@
 Crypto Forum                                                 D. Connolly
 Internet-Draft                                                 SandboxAQ
 Intended status: Informational                                 R. Barnes
-Expires: 23 April 2026                                             Cisco
-                                                         20 October 2025
+Expires: 30 April 2026                                             Cisco
+                                                         27 October 2025
 
 
            Concrete Hybrid PQ/T Key Encapsulation Mechanisms
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 April 2026.
+   This Internet-Draft will expire on 30 April 2026.
 
 Copyright Notice
 
@@ -404,7 +404,7 @@ Table of Contents
 
    *  Group_T: P-384 Section 3.1.1
 
-   *  `KEM_PQ: ML-KEM-1024 Section 3.2.1
+   *  KEM_PQ: ML-KEM-1024 Section 3.2.1
 
    *  PRG: SHAKE-256 [FIPS202]
 
@@ -471,14 +471,14 @@ Table of Contents
    |Label   |Fw|PQ       |T         |KDF     |PRG   |Nseed|Nss|Reference|
    |        |  |Component|Component |        |      |     |   |         |
    +========+==+=========+==========+========+======+=====+===+=========+
-   |"|-()-|"|CG|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
+   |"|-()-|"|CG|ML-      |P-256     |SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
    |        |  |KEM-768  |          |        |256   |     |   |         |
    +--------+--+---------+----------+--------+------+-----+---+---------+
    |"\.//^\"|CG|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
    |        |  |KEM-768  |          |        |256   |     |   |         |
    +--------+--+---------+----------+--------+------+-----+---+---------+
-   |" | /-\"|CG|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
-   |        |  |KEM-768  |          |        |256   |     |   |         |
+   |" | /-\"|CG|ML-      |P-384     |SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
+   |        |  |KEM-1024 |          |        |256   |     |   |         |
    +--------+--+---------+----------+--------+------+-----+---+---------+
 
                          Table 1: Hybrid KEM Labels
@@ -503,9 +503,9 @@ Table of Contents
    [HYBRID-KEMS]
               Connolly, D., Barnes, R., and P. Grubbs, "Hybrid PQ/T Key
               Encapsulation Mechanisms", Work in Progress, Internet-
-              Draft, draft-irtf-cfrg-hybrid-kems-05, 20 July 2025,
+              Draft, draft-irtf-cfrg-hybrid-kems-07, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              hybrid-kems-05>.
+              hybrid-kems-07>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
