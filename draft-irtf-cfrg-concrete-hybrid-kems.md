@@ -476,6 +476,19 @@ key generation followed by an encapsulation:
 * `ciphertext` - the ciphertext produced by the encapsulation operation
 * `shared_secret` - the shared secret produced by the encapsulation operation
 
+The `seed` and `randomness` values are opaque random values, as are the
+`decapsulation_key` and `shared_secret` fields (as defined by the hybrid KEM
+specifications).  The `encapsulation_key` and `ciphertext` fields reflect the
+concatenated encapsulation keys and ciphertexts (in (PQ, T) order) called for in
+the hybrid KEM specifications.
+
+The `decapsulation_key_pq` values are ML-KEM expanded private keys in the format
+defined by {{FIPS203}}.  The `decapsulation_key_t` values for X25519 are simply
+opaque 32-byte strings.  The `decapsulation_key_t` values for the NIST curves
+are big-endian integers reflecting the private scalar value for the private key.
+This format is identical to the `privateKey` value used in the PKCS#8 format for
+private keys {{?RFC5915}}.
+
 {::include test-vectors.md}
 
 # Acknowledgments
@@ -483,4 +496,5 @@ key generation followed by an encapsulation:
 
 Thanks to Chris Wood and Britta Hale for contributions to early versions of this
 document. Thanks to Filippo Valsorda for the ASCII art labels for the
-non-X-Wing hybrid KEMs.
+non-X-Wing hybrid KEMs. Thanks to Mike Ounsworth, Bas Westerbaan, and Chris
+Patton for independent validation of the test vectors.
