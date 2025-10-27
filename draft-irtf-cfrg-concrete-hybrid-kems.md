@@ -224,7 +224,7 @@ def RandomScalar(seed):
     start = end
     end = end + Nscalar
     if end > len(seed):
-        raise Exception("Rejection sampling failed") 
+        raise Exception("Rejection sampling failed")
     sk = OS2IP(seed[start : end])
   return (sk, pk(sk))
 ~~~
