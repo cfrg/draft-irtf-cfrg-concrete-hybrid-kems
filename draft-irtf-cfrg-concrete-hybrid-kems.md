@@ -220,8 +220,11 @@ def RandomScalar(seed):
   sk = OS2IP(seed[:Nscalar])
   while sk == 0 || sk >= order:
     rejects += 1
-    if rejects > Nreject: fail
-    sk = OS2IP(seed[Nscalar * rejects : Nscalar * rejects + Nscalar])
+    start = Nscalar * rejects
+    end = start + Nscalar
+    if end > len(seed):
+        raise DeriveKeyPairError
+    sk = OS2IP(seed[start : end])
   return (sk, pk(sk))
 ~~~
 
@@ -247,7 +250,6 @@ P-384:
 The group constants for the P-256 group are as follows:
 
 - `Nseed`: 128
-- `Nreject`: 3
 - `Nscalar`: 32
 - `Nelem`: 65
 - `Nss`: 32
@@ -255,7 +257,6 @@ The group constants for the P-256 group are as follows:
 The group constants for the P-384 group are as follows:
 
 - `Nseed`: 48
-- `Nreject`: 0
 - `Nscalar`: 48
 - `Nelem`: 97
 - `Nss`: 48
