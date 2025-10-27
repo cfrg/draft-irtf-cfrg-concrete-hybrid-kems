@@ -1355,7 +1355,7 @@ def RandomScalar(seed):
     start = end
     end = end + Nscalar
     if end &gt; len(seed):
-        raise DeriveKeyPairError
+        raise Exception("Rejection sampling failed")
     sk = OS2IP(seed[start : end])
   return (sk, pk(sk))
 </pre><a href="#section-3.1.1-6" class="pilcrow">¶</a>
