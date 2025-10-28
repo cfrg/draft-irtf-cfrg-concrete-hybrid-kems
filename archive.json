@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-23T01:36:43.342753+00:00",
+  "timestamp": "2025-10-28T01:36:20.749638+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -1988,24 +1988,26 @@
       "id": "PR_kwDOMmh5WM6u3SQo",
       "title": "Use long seeds for NIST curves rejection sampling in RandomScalar",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/33",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "FiloSottile",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-10-21T14:51:14Z",
-      "updatedAt": "2025-10-21T15:05:21Z",
+      "updatedAt": "2025-10-27T20:22:05Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "388aa32cd2de716638663866f5c3d39eed880f11",
       "headRepository": "FiloSottile/draft-irtf-cfrg-concrete-hybrid-kems",
       "headRefName": "main",
       "headRefOid": "0114ace661fae91d3e9b388f7f34a328b6ecc90e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-10-27T20:22:04Z",
+      "mergedAt": "2025-10-27T20:22:04Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "d6e5b74947f6a9d5f1b5bff85b772c90637d46a0"
+      },
       "comments": [],
       "reviews": [
         {
@@ -2080,6 +2082,19 @@
           "createdAt": "2025-10-21T15:05:21Z",
           "updatedAt": "2025-10-21T15:05:21Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7Jx-63",
+          "commit": {
+            "abbreviatedOid": "0114ace"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-27T20:21:44Z",
+          "updatedAt": "2025-10-27T20:21:44Z",
+          "comments": []
         }
       ]
     },
@@ -2088,26 +2103,207 @@
       "id": "PR_kwDOMmh5WM6vI3XL",
       "title": "Fixing typos",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/34",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "samuel-lee-msft",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-10-22T19:51:21Z",
-      "updatedAt": "2025-10-22T19:51:22Z",
+      "updatedAt": "2025-10-27T20:21:58Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "388aa32cd2de716638663866f5c3d39eed880f11",
       "headRepository": "samuel-lee-msft/draft-irtf-cfrg-concrete-hybrid-kems",
       "headRefName": "patch-1",
       "headRefOid": "f025bf977d7360b632bcf3715fae8b807cd16c4b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-10-27T20:21:58Z",
+      "mergedAt": "2025-10-27T20:21:58Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "679b65935d863e6de4f17751c1604f25d8aee4cd"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7Jx9ao",
+          "commit": {
+            "abbreviatedOid": "f025bf9"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-27T20:19:45Z",
+          "updatedAt": "2025-10-27T20:19:45Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "id": "PR_kwDOMmh5WM6v_fCU",
+      "title": "Improve documentation of test vectors",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/35",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "@ounsworth noted that this was missing.",
+      "createdAt": "2025-10-27T20:57:36Z",
+      "updatedAt": "2025-10-27T23:08:07Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "d6e5b74947f6a9d5f1b5bff85b772c90637d46a0",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "doc-tv",
+      "headRefOid": "45fcefff745685e508467758129e1bbc6178c7f9",
+      "closedAt": "2025-10-27T21:33:27Z",
+      "mergedAt": "2025-10-27T21:33:27Z",
+      "mergedBy": "dconnolly",
+      "mergeCommit": {
+        "oid": "d9c074b79e649347106cce123b709f1050d1109c"
+      },
+      "comments": [
+        {
+          "author": "ounsworth",
+          "authorAssociation": "NONE",
+          "body": "Looks great to me.\r\nThe text \"big-endian as in PKCS#8\" would indeed have saved me a bunch of time flailing around 9180 trying to figure out what this could be.",
+          "createdAt": "2025-10-27T23:08:07Z",
+          "updatedAt": "2025-10-27T23:08:07Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7Jy2qf",
+          "commit": {
+            "abbreviatedOid": "45fceff"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-27T21:33:19Z",
+          "updatedAt": "2025-10-27T21:33:19Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "id": "PR_kwDOMmh5WM6wAFQK",
+      "title": "Rejection sampling tweaks and reference implementation",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/36",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR is a follow-on to #33, with a few minor changes.\r\n\r\n* I don't think we need `Nreject`.  It is defined by the length of the seed.\r\n* Minor revisions to make pseudocode more readable\r\n* Updated reference implementation to follow this pattern explicitly.\r\n* Regenerated test vectors",
+      "createdAt": "2025-10-27T22:01:27Z",
+      "updatedAt": "2025-10-27T22:27:58Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "d9c074b79e649347106cce123b709f1050d1109c",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "big-seed-bis",
+      "headRefOid": "bd66d66ad6b845d57ab92b2d74fa57416d7af8ad",
+      "closedAt": "2025-10-27T22:27:58Z",
+      "mergedAt": "2025-10-27T22:27:57Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "b33b3192d254fa1e6c178dbdd5de169ebe5cb4c2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7JzHkH",
+          "commit": {
+            "abbreviatedOid": "3d85262"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-27T22:06:17Z",
+          "updatedAt": "2025-10-27T22:08:16Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Does this error type/variant need further definition?",
+              "createdAt": "2025-10-27T22:06:17Z",
+              "updatedAt": "2025-10-27T22:08:16Z"
+            },
+            {
+              "originalPosition": 52,
+              "body": "We remove `reject` in the text but add it here? \ud83e\udd14",
+              "createdAt": "2025-10-27T22:07:49Z",
+              "updatedAt": "2025-10-27T22:08:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7JzJjc",
+          "commit": {
+            "abbreviatedOid": "3d85262"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-27T22:10:30Z",
+          "updatedAt": "2025-10-27T22:10:30Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Hm, [RFC 9180 has an Errors section](https://rfcs.online/rfcs/rfc9180.html#section-8.2), but I'm inclined to just leave this, or make it even more generic.  Note that in the reference impl, I just `panic!()`, since this only happens with negligible probability.",
+              "createdAt": "2025-10-27T22:10:30Z",
+              "updatedAt": "2025-10-27T22:10:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7JzJ5F",
+          "commit": {
+            "abbreviatedOid": "3d85262"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-27T22:11:00Z",
+          "updatedAt": "2025-10-27T22:11:00Z",
+          "comments": [
+            {
+              "originalPosition": 52,
+              "body": "This is just Rust-macro-invocation-writing convenience.",
+              "createdAt": "2025-10-27T22:11:00Z",
+              "updatedAt": "2025-10-27T22:11:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7JzXAZ",
+          "commit": {
+            "abbreviatedOid": "3d85262"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-10-27T22:26:53Z",
+          "updatedAt": "2025-10-27T22:26:53Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Made this more generic.",
+              "createdAt": "2025-10-27T22:26:53Z",
+              "updatedAt": "2025-10-27T22:26:53Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
