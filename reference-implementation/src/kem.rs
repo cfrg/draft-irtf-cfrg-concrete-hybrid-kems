@@ -102,9 +102,7 @@ macro_rules! define_ml_kem {
                 use ml_kem::$mlkem;
 
                 assert_eq!(seed.len(), Self::SEED_SIZE);
-                let d = ml_kem::B32::try_from(&seed[..32]).expect("Invalid seed slice");
-                let z = ml_kem::B32::try_from(&seed[32..]).expect("Invalid seed slice");
-                let (_dk_inner, ek_inner) = $mlkem::generate_deterministic(&d, &z);
+                let (_dk_inner, ek_inner) = $mlkem::from_seed(seed.try_into().unwrap());
 
                 let ek = ek_inner.as_bytes().as_slice().to_vec();
                 (seed.to_vec(), ek, ())
@@ -118,7 +116,7 @@ macro_rules! define_ml_kem {
                 let ek_inner: ml_kem::kem::EncapsulationKey<$params> =
                     ml_kem::kem::EncapsulationKey::from_bytes(ek.as_slice().try_into().expect("Invalid EK size"));
                 let (ct_inner, ss_inner) = ek_inner
-                    .encapsulate(&mut RngWrapper(rng))
+                    .encapsulate(rng)
                     .expect("Encapsulation failed");
 
                 let ss = ss_inner.as_slice().to_vec();
@@ -135,9 +133,7 @@ macro_rules! define_ml_kem {
 
                 assert_eq!(dk.len(), Self::DECAPSULATION_KEY_SIZE);
                 assert_eq!(ct.len(), Self::CIPHERTEXT_SIZE);
-                let d = ml_kem::B32::try_from(&dk[..32]).expect("Invalid DK slice");
-                let z = ml_kem::B32::try_from(&dk[32..]).expect("Invalid DK slice");
-                let (dk_inner, _ek_inner) = $mlkem::generate_deterministic(&d, &z);
+                let (dk_inner, _ek_inner) = $mlkem::from_seed(dk.as_slice().try_into().unwrap());
 
                 let ct_inner = ml_kem::Ciphertext::<$mlkem>::try_from(ct.as_slice()).expect("Invalid CT");
                 let ss_inner = dk_inner

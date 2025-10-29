@@ -131,7 +131,7 @@ macro_rules! define_nist_group {
                 use $mod::{
                     elliptic_curve::ops::Reduce,
                     elliptic_curve::sec1::{FromEncodedPoint, ToEncodedPoint},
-                    AffinePoint, EncodedPoint, FieldBytes, ProjectivePoint, Scalar,
+                    AffinePoint, EncodedPoint, ProjectivePoint, Scalar,
                 };
 
                 assert_eq!(element.len(), Self::ELEMENT_SIZE);
@@ -140,7 +140,7 @@ macro_rules! define_nist_group {
                 let encoded_point =
                     EncodedPoint::from_bytes(element).expect("Invalid point encoding");
                 let point = AffinePoint::from_encoded_point(&encoded_point).expect("Invalid point");
-                let scalar_value = Scalar::reduce_bytes(FieldBytes::from_slice(scalar));
+                let scalar_value = Scalar::reduce_bytes(scalar.as_slice().try_into().unwrap());
 
                 // Convert to projective and back for scalar multiplication
                 let proj_point = ProjectivePoint::from(point);
