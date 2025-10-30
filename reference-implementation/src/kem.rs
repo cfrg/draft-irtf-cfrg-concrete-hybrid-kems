@@ -3,7 +3,7 @@ use ml_kem::{
     kem::{Decapsulate, Encapsulate},
     EncapsulateDeterministic, EncodedSizeUser, KemCore,
 };
-use rand::CryptoRng;
+use rand::{CryptoRng, Rng};
 
 pub type Seed = Vec<u8>;
 pub type EncapsulationKey = Vec<u8>;
@@ -30,6 +30,14 @@ pub trait Kem: SeedSize + SharedSecretSize {
     fn derive_key_pair(seed: &[u8]) -> (DecapsulationKey, EncapsulationKey, Self::KeyInfo);
     fn encaps(ek: &EncapsulationKey, rng: &mut impl CryptoRng) -> (SharedSecret, Ciphertext);
     fn decaps(dk: &DecapsulationKey, ct: &Ciphertext) -> SharedSecret;
+
+    fn generate_key_pair(
+        rng: &mut impl CryptoRng,
+    ) -> (DecapsulationKey, EncapsulationKey, Self::KeyInfo) {
+        let mut seed = vec![0; Self::SEED_SIZE];
+        rng.fill(seed.as_mut_slice());
+        Self::derive_key_pair(&seed)
+    }
 }
 
 pub trait EncapsDerand: Kem {
@@ -43,33 +51,6 @@ pub trait TKem: Kem {}
 
 /// Marker trait for post-quantum KEMs
 pub trait PqKem: Kem {}
-
-/// RNG wrapper to bridge between rand_core versions
-pub struct RngWrapper<'a, R: rand::CryptoRng>(pub &'a mut R);
-
-impl<'a, R> old_rand_core::RngCore for RngWrapper<'a, R>
-where
-    R: rand::CryptoRng,
-{
-    fn next_u32(&mut self) -> u32 {
-        self.0.next_u32()
-    }
-
-    fn next_u64(&mut self) -> u64 {
-        self.0.next_u64()
-    }
-
-    fn fill_bytes(&mut self, dest: &mut [u8]) {
-        self.0.fill_bytes(dest)
-    }
-
-    fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), old_rand_core::Error> {
-        self.0.fill_bytes(dest);
-        Ok(())
-    }
-}
-
-impl<'a, R> old_rand_core::CryptoRng for RngWrapper<'a, R> where R: rand::CryptoRng {}
 
 macro_rules! define_ml_kem {
     ($mlkem:ident, $params:ty) => {
@@ -152,7 +133,7 @@ macro_rules! define_ml_kem {
             fn encaps_derand(
                 ek: &EncapsulationKey,
                 randomness: &[u8],
-            ) -> (Ciphertext, SharedSecret) {
+            ) -> (SharedSecret, Ciphertext) {
                 assert_eq!(
                     ek.len(),
                     <Self as Kem>::ENCAPSULATION_KEY_SIZE
@@ -172,7 +153,7 @@ macro_rules! define_ml_kem {
                 let ct = ct_inner.as_slice().to_vec();
                 let ss = ss_inner.as_slice().to_vec();
 
-                (ct, ss)
+                (ss, ct)
             }
         }
     }
