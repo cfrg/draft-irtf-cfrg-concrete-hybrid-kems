@@ -3,7 +3,7 @@ use ml_kem::{
     kem::{Decapsulate, Encapsulate},
     EncapsulateDeterministic, EncodedSizeUser, KemCore,
 };
-use rand::CryptoRng;
+use rand::{CryptoRng, Rng};
 
 pub type Seed = Vec<u8>;
 pub type EncapsulationKey = Vec<u8>;
@@ -30,6 +30,14 @@ pub trait Kem: SeedSize + SharedSecretSize {
     fn derive_key_pair(seed: &[u8]) -> (DecapsulationKey, EncapsulationKey, Self::KeyInfo);
     fn encaps(ek: &EncapsulationKey, rng: &mut impl CryptoRng) -> (SharedSecret, Ciphertext);
     fn decaps(dk: &DecapsulationKey, ct: &Ciphertext) -> SharedSecret;
+
+    fn generate_key_pair(
+        rng: &mut impl CryptoRng,
+    ) -> (DecapsulationKey, EncapsulationKey, Self::KeyInfo) {
+        let mut seed = vec![0; Self::SEED_SIZE];
+        rng.fill(seed.as_mut_slice());
+        Self::derive_key_pair(&seed)
+    }
 }
 
 pub trait EncapsDerand: Kem {
