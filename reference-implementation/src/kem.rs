@@ -247,8 +247,8 @@ pub mod test {
         let randomness = vec![42u8; K::RANDOMNESS_SIZE];
 
         // Test deterministic encapsulation
-        let (ct1, ss1) = K::encaps_derand(&ek, &randomness);
-        let (ct2, ss2) = K::encaps_derand(&ek, &randomness);
+        let (ss1, ct1) = K::encaps_derand(&ek, &randomness);
+        let (ss2, ct2) = K::encaps_derand(&ek, &randomness);
 
         assert_eq!(
             ct1, ct2,
@@ -277,7 +277,7 @@ pub mod test {
 
         // Test that different randomness produces different outputs
         let randomness2 = vec![43u8; K::RANDOMNESS_SIZE];
-        let (ct4, ss4) = K::encaps_derand(&ek, &randomness2);
+        let (ss4, ct4) = K::encaps_derand(&ek, &randomness2);
 
         assert_ne!(
             ct1, ct4,

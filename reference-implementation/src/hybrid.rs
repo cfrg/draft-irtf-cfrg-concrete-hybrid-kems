@@ -63,7 +63,7 @@ fn prepare_encaps_group_derand<PQ: PqKem + EncapsDerand, T: NominalGroup>(
 
     let (randomness_pq, seed_e) = split(randomness, PQ::RANDOMNESS_SIZE, T::SEED_SIZE);
 
-    let (ct_pq, ss_pq) = PQ::encaps_derand(&ek_pq, &randomness_pq);
+    let (ss_pq, ct_pq) = PQ::encaps_derand(&ek_pq, &randomness_pq);
 
     let sk_e = T::random_scalar(&seed_e);
     let ct_t = T::exp(&T::generator(), &sk_e);
