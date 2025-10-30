@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-28T01:36:20.749638+00:00",
+  "timestamp": "2025-10-30T01:42:04.946198+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -1573,7 +1573,7 @@
       "labels": [],
       "body": "We already have the weird label for X25519 + ML-KEM-768, and it looks\r\nlike the conversation around names will drag on for a while longer, so\r\nlet's just make labels consistent and name-agnostic, so we can request\r\nIANA codepoints and ship implementations without blocking on names.\r\n\r\nX25519 + ML-KEM-768 is a rebel X-Wing fighter.\r\n\r\n    \\./\r\n    /^\\\r\n\r\nP-256 + ML-KEM-1024 is an imperial TIE fighter.\r\n\r\n    |-()-|\r\n\r\nP-384 + ML-KEM-1024 is a heavy imperial Lambda shuttle.\r\n\r\n     |\r\n    /-\\\r\n\r\nThey are all six characters, and not more annoying than the X-Wing one\r\nthat implementers have to deal with anyway.\r\n",
       "createdAt": "2025-10-17T14:30:29Z",
-      "updatedAt": "2025-10-17T20:07:44Z",
+      "updatedAt": "2025-10-29T19:52:18Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "e5cf606105c70d43db56a2e2357922d6c46ffee6",
@@ -1649,6 +1649,20 @@
           "body": "I will update https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/27 to leave the labels alone.",
           "createdAt": "2025-10-17T20:07:44Z",
           "updatedAt": "2025-10-17T20:07:44Z"
+        },
+        {
+          "author": "ounsworth",
+          "authorAssociation": "NONE",
+          "body": "OMG are you freaking kidding?\r\n\r\nPlease tell me this is a joke. Then please remove this from the draft.\r\n\r\nI have been bending over backwards to make the LAMPS thing match the HPKE thing, including multiple rounds of interop-testing and changing the LAMPS reference impl and test vectors to match yours. I have now delayed publication of the LAMPS draft by several months to accommodate interop with the HPKE draft. The LAMPS Composite-KEM doc went into WGLC on Oct 17 now using HPKE-style labels of the form \"QSF-MLKEM768-P256-SHA3256\" instead of the OID-based labels we had before. Then on Oct 20 you publish a new version that goes and changes the labels to this nonsense. Can you guys please at least pretend like you care about interop between these two docs?\r\n\r\nMy specific objections to more ASCII art labels:\r\n\r\n1. We're already having interop problems at the hackathon because of the backslash in the xwing label -- for example, in python you have to put the constant in your source code as \"\\\\.//^\\\\\" to prevent it from interpreting that as an escaped dot and double-quote. We've also had similar problems representing this in HTML and markdown docs. Now you want more labels that have both backslashes and now spaces. This is GOING to lead to at least incompatibilities if not CVEs.\r\n\r\n2. The label is not human-readable; it doesn't tell my anything about the content, nor will it be easy to debug mistakes in source code or configurations. At this point, assigning a numeric codepoint would be preferrable.\r\n\r\n3. This does not establish a pattern that is easily extensible to future hybrid combinations.\r\n\r\n\r\nCan you please put your labels back so that they match the LAMPS draft using the pattern \"QSF-MLKEM768-P256-SHA3256\".",
+          "createdAt": "2025-10-29T17:18:01Z",
+          "updatedAt": "2025-10-29T17:18:01Z"
+        },
+        {
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Apologies @ounsworth, I think you might be reading an earlier version of the pull request! Thank you for so kindly reminding us of how to behave and for directing us on how to proceed properly, but I can assure you we are very serious engineers that would never resort to a whimsical solution for a months-long interoperability impasse.\r\n\r\nIn fact, the labels are the following numerical codepoints, to be encoded in little-endian.\r\n\r\n* X25519 + ML-KEM-768: 0x7C2D28292D7C\r\n* P-256 + ML-KEM-1024: 0x5C2E2F2F5E5C\r\n* P-384 + ML-KEM-1024: 0x207C202F2D5C\r\n\r\n**The first one has been in use for months in multiple libraries, so there is no changing it.** The other ones are picked from a (not FIPS compliant!) random number generator to be consistent in format with the first one.\r\n\r\nThe ones you suggest, \"QSF-MLKEM768-P256-SHA3256\" and \"QSF-MLKEM1024-P512-SHA3256\", besides being weird and inconsistent, can't be stabilized at this time, because the WG is still discussing changing the \"QSF\" name. So in fact, we selected these labels because we _do_ care about interoperability and wanted to make it possible for implementations and documents (like yours) shipping soon to interoperate.",
+          "createdAt": "2025-10-29T19:52:18Z",
+          "updatedAt": "2025-10-29T19:52:18Z"
         }
       ],
       "reviews": [
@@ -2302,6 +2316,132 @@
               "updatedAt": "2025-10-27T22:26:53Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "id": "PR_kwDOMmh5WM6weKOz",
+      "title": "Remove ASCII labels",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/37",
+      "state": "OPEN",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As discussed in #28, there are challenges with special characters in the label strings as written.  This PR removes the ASCII and just presents them as hex strings.",
+      "createdAt": "2025-10-29T21:02:34Z",
+      "updatedAt": "2025-10-29T21:02:35Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "b33b3192d254fa1e6c178dbdd5de169ebe5cb4c2",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "no-ascii",
+      "headRefOid": "864848d7518a345ccc5444c72ce4ad9fe6f7a132",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 38,
+      "id": "PR_kwDOMmh5WM6wf7Io",
+      "title": "Update reference implementation dependencies",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/38",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "... and fix the resulting errors.",
+      "createdAt": "2025-10-29T23:50:43Z",
+      "updatedAt": "2025-10-29T23:54:24Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "b33b3192d254fa1e6c178dbdd5de169ebe5cb4c2",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "cargo-fix",
+      "headRefOid": "53f0ba6483a3dd9c65d76cce60acde969942e9d5",
+      "closedAt": "2025-10-29T23:51:11Z",
+      "mergedAt": "2025-10-29T23:51:11Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "60e38f9a5024633f59b440395edf3c568efb2908"
+      },
+      "comments": [
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Verified that this builds and produces the same test vectors.",
+          "createdAt": "2025-10-29T23:51:08Z",
+          "updatedAt": "2025-10-29T23:51:08Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7KeMrA",
+          "commit": {
+            "abbreviatedOid": "53f0ba6"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-29T23:54:24Z",
+          "updatedAt": "2025-10-29T23:54:24Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDOMmh5WM6wf8KO",
+      "title": "Remove unused RngWrapper struct",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/39",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-29T23:53:11Z",
+      "updatedAt": "2025-10-30T01:01:53Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "60e38f9a5024633f59b440395edf3c568efb2908",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "cargo-fix",
+      "headRefOid": "b3b4818cd76a04e2ca33be82568c706d6ccaa204",
+      "closedAt": "2025-10-30T01:01:53Z",
+      "mergedAt": "2025-10-30T01:01:53Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "ad1eecfbd1476ac8d73c0fac1125204aeb4b9940"
+      },
+      "comments": [
+        {
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Now with some minor updates / bugfixes to support the HPKE reference implementation.",
+          "createdAt": "2025-10-30T01:01:50Z",
+          "updatedAt": "2025-10-30T01:01:50Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7KeNGL",
+          "commit": {
+            "abbreviatedOid": "b32f13b"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-29T23:55:09Z",
+          "updatedAt": "2025-10-29T23:55:09Z",
+          "comments": []
         }
       ]
     }
