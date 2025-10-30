@@ -248,7 +248,7 @@ where
 {
     const RANDOMNESS_SIZE: usize = PQ::RANDOMNESS_SIZE + T::SEED_SIZE;
 
-    fn encaps_derand(ek: &EncapsulationKey, randomness: &[u8]) -> (Ciphertext, SharedSecret) {
+    fn encaps_derand(ek: &EncapsulationKey, randomness: &[u8]) -> (SharedSecret, Ciphertext) {
         assert_eq!(ek.len(), Self::ENCAPSULATION_KEY_SIZE);
         assert_eq!(randomness.len(), Self::RANDOMNESS_SIZE);
 
@@ -260,7 +260,7 @@ where
         let mut ct_h = ct_pq;
         ct_h.append(&mut ct_t.clone());
 
-        (ct_h, ss_h)
+        (ss_h, ct_h)
     }
 }
 
@@ -336,7 +336,7 @@ where
 {
     const RANDOMNESS_SIZE: usize = PQ::RANDOMNESS_SIZE + T::SEED_SIZE;
 
-    fn encaps_derand(ek: &EncapsulationKey, randomness: &[u8]) -> (Ciphertext, SharedSecret) {
+    fn encaps_derand(ek: &EncapsulationKey, randomness: &[u8]) -> (SharedSecret, Ciphertext) {
         assert_eq!(ek.len(), Self::ENCAPSULATION_KEY_SIZE);
         assert_eq!(randomness.len(), Self::RANDOMNESS_SIZE);
 
@@ -348,7 +348,7 @@ where
         let mut ct_h = ct_pq;
         ct_h.append(&mut ct_t.clone());
 
-        (ct_h, ss_h)
+        (ss_h, ct_h)
     }
 }
 

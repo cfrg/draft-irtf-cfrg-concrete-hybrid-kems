@@ -133,7 +133,7 @@ macro_rules! define_ml_kem {
             fn encaps_derand(
                 ek: &EncapsulationKey,
                 randomness: &[u8],
-            ) -> (Ciphertext, SharedSecret) {
+            ) -> (SharedSecret, Ciphertext) {
                 assert_eq!(
                     ek.len(),
                     <Self as Kem>::ENCAPSULATION_KEY_SIZE
@@ -153,7 +153,7 @@ macro_rules! define_ml_kem {
                 let ct = ct_inner.as_slice().to_vec();
                 let ss = ss_inner.as_slice().to_vec();
 
-                (ct, ss)
+                (ss, ct)
             }
         }
     }
