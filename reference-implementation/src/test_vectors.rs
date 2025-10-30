@@ -45,7 +45,7 @@ impl HybridKemTestVector {
         let seed = vec![index; K::SEED_SIZE];
         let randomness = vec![index.wrapping_add(100); K::RANDOMNESS_SIZE];
         let (dk, ek, info) = K::derive_key_pair(&seed);
-        let (ct, ss) = K::encaps_derand(&ek, &randomness);
+        let (ss, ct) = K::encaps_derand(&ek, &randomness);
 
         HybridKemTestVector {
             seed,
