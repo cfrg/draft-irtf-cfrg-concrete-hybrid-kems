@@ -5,8 +5,8 @@
 Crypto Forum                                                 D. Connolly
 Internet-Draft                                                 SandboxAQ
 Intended status: Informational                                 R. Barnes
-Expires: 3 May 2026                                                Cisco
-                                                         30 October 2025
+Expires: 5 May 2026                                                Cisco
+                                                         1 November 2025
 
 
            Concrete Hybrid PQ/T Key Encapsulation Mechanisms
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 May 2026.
+   This Internet-Draft will expire on 5 May 2026.
 
 Copyright Notice
 
@@ -354,7 +354,7 @@ Table of Contents
 
    *  KDF: SHA3-256 [FIPS202]
 
-   *  Label: |-()-| (0x7C2D28292D7C)
+   *  Label: MLKEM768-P256 (hex: 4d4c4b454d3736382d50323536)
 
    The KEM constants for the resulting hybrid KEM are as follows:
 
@@ -382,7 +382,7 @@ Table of Contents
 
    *  KDF: SHA3-256 [FIPS202]
 
-   *  Label: \.//^\ (0x5C2E2F2F5E5C)
+   *  Label: \.//^\ (hex: 5C2E2F2F5E5C)
 
    The following constants for the hybrid KEM are also defined:
 
@@ -409,7 +409,7 @@ Table of Contents
 
    *  KDF: SHA3-256 [FIPS202]
 
-   *  Label: ` | /-` (0x207C202F2D5C)
+   *  Label: MLKEM1024-P384 (hex: 4d4c4b454d313032342d50333834)
 
    The following constants for the hybrid KEM are also defined:
 
@@ -745,8 +745,8 @@ A.1.  MLKEM768-P256
                 d2a64ed368b71315d80cee846007cff1d2eea2c3f0f92153730
                 4ae598f98dd10d1f102811a4e2d161c3fd8bbb193d4b25bee95
                 0ac839c0f9d
-   shared_secret = 82a196c4d27db03d02e663b3fd43cd0de5578ca2a29bf1b8
-                   77cd40f5b08bf935
+   shared_secret = 9bd018e869bb01b63fb8f5da374a73d347ea14cb2bc570b1
+                   3d0908e2288ec456
 
    seed = 010101010101010101010101010101010101010101010101010101010
           1010101
@@ -867,8 +867,8 @@ A.1.  MLKEM768-P256
                 edaf7f1ab49d5f631f1122d2e0cb452a2ce5490497b32df2253
                 72b80b86e5a710a64e8b4d92318414a179479b96827f3379de2
                 47163949084
-   shared_secret = 343d741637afb6794593120a154513cc51db02af529de728
-                   2b8d14539b710e58
+   shared_secret = d33a83edb4fb5a7508686ba4ddff001c17ba8890e9e3be06
+                   7d50c959b512f9be
 
    seed = 020202020202020202020202020202020202020202020202020202020
           2020202
@@ -989,8 +989,8 @@ A.1.  MLKEM768-P256
                 3d1d3ce03ffac9a747f4c1993fddb2ec93a4116a86f022a77c3
                 c17191559a4c2a1aa57e79b8d1977da2c959172f478e341e270
                 28d69fffb7b
-   shared_secret = e8a935b096967bdfb8a9f118680e15d272e7ea592d253fd6
-                   bbd4150b1fdbd6bf
+   shared_secret = d17a7ca859a18cfbb5fc7bcba2ec54aa0e9ac44959023199
+                   fff5b60db9f24401
 
    seed = 030303030303030303030303030303030303030303030303030303030
           3030303
@@ -1111,8 +1111,8 @@ A.1.  MLKEM768-P256
                 a7859f7a0fb6475d53b4fd55236ecf4f33183c1d719ee10683a
                 6b689b463a823665a40b63735647c2930f3c4b1d8787d4199bf
                 c2db8499e61
-   shared_secret = 5f221ed7f1c436a989804341eb3b25f9d0b58b72db41fedc
-                   ac6823f2baa9b774
+   shared_secret = b3db69cc0385b1ba716128b70bd4b93288f945f418cef51d
+                   122ca7a4de564a81
 
    seed = 040404040404040404040404040404040404040404040404040404040
           4040404
@@ -1233,8 +1233,8 @@ A.1.  MLKEM768-P256
                 be9fb7f064113526389dab6ff0a2dd6dde42c5e579bf996d6ea
                 33dc52c8b15c92b6172be0781e33960066650088274ae577e64
                 65e8fcfcae7
-   shared_secret = ea4fea6b9c452a5fc364d126d9e2175db555609c3fd707ce
-                   02ccfa5431432d9c
+   shared_secret = 794e2f99d9a890c338c24a018035f8f51db576faf0cde96c
+                   f777a81bdccce864
 
    seed = 050505050505050505050505050505050505050505050505050505050
           5050505
@@ -1355,8 +1355,8 @@ A.1.  MLKEM768-P256
                 7aea82d793c00281add579d5b6724edf7a5baae285fbc7aebfd
                 9c9304f962b145573b14191fae24fe3a912920593fbb7cc1418
                 6b3374849b7
-   shared_secret = 89f0abfdbbd11fdd4c43fb569fbf6a72aff6b1d461f86df1
-                   93f4bf52f3188669
+   shared_secret = 6f1c317d16608f309e6b59a48be62722081f4e2de9e2742a
+                   6d0e94679ba856f7
 
    seed = 060606060606060606060606060606060606060606060606060606060
           6060606
@@ -1477,8 +1477,8 @@ A.1.  MLKEM768-P256
                 2d69af2ab208a19243a0371c1c70ad3821863aa851b5447c53c
                 391417dcf8e0506aab617792f24c80e4122f99ebb25341898e3
                 0d8dbda4def
-   shared_secret = a9c907c907ed2b3010bd45ddc9e5041584e4b7db51fc0023
-                   29c509c1a70bf2d2
+   shared_secret = e324b3ae9780cc6d0a54aa4262db9c9c5948ebd45df2f3d1
+                   0eb22ee23bdaddea
 
    seed = 070707070707070707070707070707070707070707070707070707070
           7070707
@@ -1599,8 +1599,8 @@ A.1.  MLKEM768-P256
                 62115bb6dfa3236bd67d6324c60df93974d6e02c4633cbfb821
                 200ce8b43977992a98e1c712fd8187eaf9542db5f05267f6fcc
                 09dc523c960
-   shared_secret = 9a74af71b3581a277c9b186964f3b2f27a7fda2d2f667c66
-                   f4f93e5c7d7f57c6
+   shared_secret = 5f8deab6c11f05ee208ba968d28917f8219ba2c0c30d4165
+                   1c3382f4d56483c6
 
    seed = 080808080808080808080808080808080808080808080808080808080
           8080808
@@ -1721,8 +1721,8 @@ A.1.  MLKEM768-P256
                 b8210f6b88c29739ef9e92b3953c7e073ae38dde178f60320fc
                 974a311b78d6820593ce11cff1ef147dca0d291186a45d823ee
                 52d4faeb861
-   shared_secret = e7add21f9ec2cb2dad59f9c32705974b132df855a4881039
-                   9f2ec7b07ec19cb5
+   shared_secret = f9d4fe89be29e5438f8ed2ee8d368c365e550b6336c55a4d
+                   91f3d96dafb3191a
 
    seed = 090909090909090909090909090909090909090909090909090909090
           9090909
@@ -1843,8 +1843,8 @@ A.1.  MLKEM768-P256
                 6bc86cc55c519f1a01125995311ba37d96aa59ff464baf8885f
                 3bdd10b1c92f0b286990048d58105a7ab5ec1755763ecb4d20f
                 d1817d6b2fd
-   shared_secret = 386b6042edd26da4b3c40497f928ad446c077357f31ea606
-                   2ae267e878f7faf3
+   shared_secret = a0071e94b4d0275ed91dfe4f3fe87dd4a534269c7a5991fd
+                   c27ac31933fad24c
 
 A.2.  MLKEM768-X25519
 
@@ -3167,8 +3167,8 @@ A.3.  MLKEM1024-P384
                 1387bf4acc650ec1edae7c99aa3a48306ee1d1a5e513c0c6901
                 f64d0a3ee285de3c11d49f90cd4323dafda14832f0d8b760c0e
                 5a48633c967cfaf
-   shared_secret = 0f28af2551a7b0d0674e6158892bafd89bc0e78c8a9c11c7
-                   1a45300d6b2af48b
+   shared_secret = 8c028c6ea72a1c59408e2b15dd8fed8008517e861cd2329b
+                   159bda1919ea656c
 
    seed = 010101010101010101010101010101010101010101010101010101010
           1010101
@@ -3327,8 +3327,8 @@ A.3.  MLKEM1024-P384
                 7bbccc8b357b6e49ed038b5bf39d7b22836f0309969ef69f189
                 8cca11479f4db4ce2eaa3e7987dd35516c0b8f3157886e5732c
                 d865f794a2a29ed
-   shared_secret = f873fe74855dbd509096aba5eb258668f634cc0f99eab986
-                   29468a10cccbc354
+   shared_secret = b258b8edf4851b7c1a86cc820743811c52d4bff678e8b94c
+                   f6bb5f3714b7dbd6
 
    seed = 020202020202020202020202020202020202020202020202020202020
           2020202
@@ -3487,8 +3487,8 @@ A.3.  MLKEM1024-P384
                 aca594e6f6bf709c634f8fc292d6c0b83b120d5f26f21682007
                 e17d25807dd9b42365550ee4954c5537e2d846ca833330bc465
                 fea5d7d6a5c5bf3
-   shared_secret = d4c07bd3ecef40cb93bb040661ae5764a02080f7ac42605a
-                   c36d4d1fe49e29b2
+   shared_secret = 64a60015ced50f3972d4bb5cfb566f2a800056693945b309
+                   abd0ddeee3c1062a
 
    seed = 030303030303030303030303030303030303030303030303030303030
           3030303
@@ -3647,8 +3647,8 @@ A.3.  MLKEM1024-P384
                 29dd6d7b39df6ee9818eb4539eced50a45fe98cd5f5f786f1d2
                 832bbfe1b058b8e0dca415a90f99fa7aa33e5219aecff4f39fa
                 8b5c3edf699a9ff
-   shared_secret = 85b68b57113f5bd3d1af4d392fb7b3ff67866e4408c4821d
-                   18350a9cd6925fbb
+   shared_secret = fc5e3871973b49b494090579634603099faf8f0bb022c4da
+                   ba472cb771f1bac7
 
    seed = 040404040404040404040404040404040404040404040404040404040
           4040404
@@ -3807,8 +3807,8 @@ A.3.  MLKEM1024-P384
                 4a88c321600ddf539ac791808fdf8b189c8ad00dc5397814d33
                 0521c1e357f39b9c60867b78895038ef2468175040231cdee02
                 250b2dabb6f6ff5
-   shared_secret = 5aaf5d40c412fc0e26ff8c39c031f1291486388a038bdf0e
-                   e564104cdd261832
+   shared_secret = c3f7adc77f966a24f642197c478583b6eb8c2fe3fab19809
+                   25b628b9ed5ffeef
 
    seed = 050505050505050505050505050505050505050505050505050505050
           5050505
@@ -3967,8 +3967,8 @@ A.3.  MLKEM1024-P384
                 0811bb60555ff065939a2587a42b5184449fb2795853647a62b
                 002f4b5c791869a9df2cb91fe757eb2c84299819332193e9465
                 ffa0af6b6948fa5
-   shared_secret = f5f050ac1dbe2bd08d6621f5fc7d8d20317459b884af3a01
-                   d4df157fb4934d9e
+   shared_secret = a75ad7dfa8fdd4756fe5c0bdcf287e258562c5b3b394bfd9
+                   49231966dcac02df
 
    seed = 060606060606060606060606060606060606060606060606060606060
           6060606
@@ -4127,8 +4127,8 @@ A.3.  MLKEM1024-P384
                 05e2cb191ed3428379eee81be9797e045622bfc163fdf6f4d4c
                 c72784e2a47f1804db75d94a278a63952c7e310820983d3fcb1
                 18aa0f69567e41a
-   shared_secret = dc8cc0b14cf5cb8d011541f2d09b76851a1e3e632abbd9d0
-                   0016780d5c1e7200
+   shared_secret = 8f81b7d72b0c023dbe66df377cfaed177c7516a06650aafe
+                   c6046410dd0da9b0
 
    seed = 070707070707070707070707070707070707070707070707070707070
           7070707
@@ -4287,8 +4287,8 @@ A.3.  MLKEM1024-P384
                 d529a1341d48e54d2f5aa141e925fe47cc85329490de157d7cb
                 d77c9216fdfe4e8dc03c3b29966d08237a9db8222fe4bfd74b9
                 2d221d80a4aaf59
-   shared_secret = 69bd8518b799ed81333a6121de6d41b5ef228882129651aa
-                   bd81a8255137cd5c
+   shared_secret = 0e5a2eb3ae0f3af82978e6a71b5e2a0830850af49d877a0d
+                   eec5144061ce44f0
 
    seed = 080808080808080808080808080808080808080808080808080808080
           8080808
@@ -4447,8 +4447,8 @@ A.3.  MLKEM1024-P384
                 87f86e8dc86a14e6e4cfbbc73f8c02d6fef675f6e74605203b6
                 70fe50f33a7b8bc670cbb6d0ced5ada15cf8e436e0e1a55c9eb
                 c67ce0a8fb93754
-   shared_secret = 80b054abc2b6eab360942933c040c4716bfa539a33659708
-                   7772ad2938634afb
+   shared_secret = 3fa279b00ab2798d2d70a2578ea2c76539cbea4bd86d1aa0
+                   9e92bf0cc40e6626
 
    seed = 090909090909090909090909090909090909090909090909090909090
           9090909
@@ -4607,8 +4607,8 @@ A.3.  MLKEM1024-P384
                 bc96ea7eced9db4885ef5a79517bd153037c7a5b719a2e71721
                 e95e8635464576e833114ded11f2304b549ed682dd8e1ff40f9
                 3e5dfa49ce9b19e
-   shared_secret = aaca0450cb6d755227f988bdac0a93c3d2663c3c1f45213d
-                   3820e7a073856b52
+   shared_secret = 3722070676e89cc0c97613a0207dbd89222219920caf5e9a
+                   8c6aa9d1e1a42bd5
 
 Acknowledgments
 
