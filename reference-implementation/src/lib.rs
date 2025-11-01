@@ -33,7 +33,7 @@ impl kem::SharedSecretSize for MlKem768P256Constants {
 }
 
 impl hybrid::HybridKemConstants for MlKem768P256Constants {
-    const LABEL: &'static [u8] = b"|-()-|";
+    const LABEL: &'static [u8] = b"MLKEM768-P256";
 }
 
 pub type MlKem768P256 =
@@ -51,7 +51,7 @@ impl kem::SharedSecretSize for MlKem768X25519Constants {
 }
 
 impl hybrid::HybridKemConstants for MlKem768X25519Constants {
-    const LABEL: &'static [u8] = b"\\.//^\\";
+    const LABEL: &'static [u8] = br"\.//^\";
 }
 
 pub type MlKem768X25519 =
@@ -69,7 +69,7 @@ impl kem::SharedSecretSize for MlKem1024P384Constants {
 }
 
 impl hybrid::HybridKemConstants for MlKem1024P384Constants {
-    const LABEL: &'static [u8] = b" | /-\\";
+    const LABEL: &'static [u8] = b"MLKEM1024-P384";
 }
 
 pub type MlKem1024P384 =
@@ -78,7 +78,24 @@ pub type MlKem1024P384 =
 #[cfg(test)]
 mod test {
     use super::*;
+    use hex_literal::hex;
     use kem::test::test_all;
+
+    // Verify that the labels as done with b"" above produce the right hex values
+    #[test]
+    fn hybrid_labels() {
+        use hybrid::HybridKemConstants;
+
+        assert_eq!(
+            MlKem768P256Constants::LABEL,
+            &hex!("4d4c4b454d3736382d50323536")
+        );
+        assert_eq!(MlKem768X25519Constants::LABEL, &hex!("5C2E2F2F5E5C"));
+        assert_eq!(
+            MlKem1024P384Constants::LABEL,
+            &hex!("4d4c4b454d313032342d50333834")
+        );
+    }
 
     #[test]
     fn mlkem768_p256() {

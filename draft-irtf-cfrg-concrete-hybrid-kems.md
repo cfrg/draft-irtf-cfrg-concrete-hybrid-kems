@@ -370,7 +370,7 @@ This hybrid KEM combines ML-KEM-768 with P-256 using the CG framework from
 * `KEM_PQ`: ML-KEM-768 {{mlkem}}
 * `PRG`: SHAKE-256 {{FIPS202}}
 * `KDF`: SHA3-256 {{FIPS202}}
-* `Label`: `|-()-|` (0x7C2D28292D7C)
+* `Label`: `MLKEM768-P256` (hex: 4d4c4b454d3736382d50323536)
 
 The KEM constants for the resulting hybrid KEM are as follows:
 
@@ -390,7 +390,7 @@ It has the following components:
 * `Group_T`: Curve25519 {{group-curve25519}}
 * `PRG`: SHAKE-256 {{FIPS202}}
 * `KDF`: SHA3-256 {{FIPS202}}
-* `Label`: `\.//^\` (0x5C2E2F2F5E5C)
+* `Label`: `\.//^\` (hex: 5C2E2F2F5E5C)
 
 The following constants for the hybrid KEM are also defined:
 
@@ -409,7 +409,7 @@ This hybrid KEM combines ML-KEM-1024 with P-384 using the CG framework from
 * `KEM_PQ`: ML-KEM-1024 {{mlkem}}
 * `PRG`: SHAKE-256 {{FIPS202}}
 * `KDF`: SHA3-256 {{FIPS202}}
-* `Label`: ` \| /-\` (0x207C202F2D5C)
+* `Label`: `MLKEM1024-P384` (hex: 4d4c4b454d313032342d50333834)
 
 The following constants for the hybrid KEM are also defined:
 
