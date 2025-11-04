@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-02T01:44:16.745836+00:00",
+  "timestamp": "2025-11-04T01:39:36.971518+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -103,15 +103,15 @@
       "id": "I_kwDOMmh5WM693yJc",
       "title": "Additional concrete instances",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/9",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bifurcation",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "The document currently defines three concrete hybrid KEMs.  All of these hybrid KEMs are based on ML-KEM, and all of them use the QSF generic framework.\n\nOn the one hand, it could be helpful to define additional concrete hybrid KEMs to demonstrate when the other frameworks would be preferred.  For example:\n\n* A X25519 + Classic McEleice combination, for use in an environment where public keys are reused, would provide a case where PRE is clearly superior to GHP, since Classic McEliece does not have C2PRI, but does have giant public keys.\n* An RSA-OAEP + HQC combination would show the need for GHP, since RSA-OAEP is not a nominal group, and HQC does not have C2PRI resistance, but HQC keys are not big enough for pre-hashing to provide a significant advantage.\n\nOn the other hand, we should not create concrete hybrid KEMs that nobody is going to use.  If there is not a requirement by applications for all of the frameworks in the generic document, we could remove any frameworks that are not needed.\n",
       "createdAt": "2025-06-28T22:02:23Z",
-      "updatedAt": "2025-07-20T23:56:05Z",
-      "closedAt": null,
+      "updatedAt": "2025-11-02T22:10:20Z",
+      "closedAt": "2025-11-02T22:10:19Z",
       "comments": [
         {
           "author": "bwesterb",
@@ -140,6 +140,13 @@
           "body": "> The reason HQC does not trivially have C2PIR is that it does not hash the 16-byte salt into shared secret (it does hash in all the other parts of the ciphertext).\n> \n> However, not hashing that in causes other trouble as well (e.g., an oracle that tells if a ciphertext is valid or not), so I would not be surprised if that would get changed in standardization. And I think explicitly rejecting variant of HQC is C2PIR (changing the salt really screws with the re-encryption).\n\n\nCorrect; the HQC team has stated they intend to fix the PKE salt hashing as part of turning the fourth round submission version into an IPD, so we'll see if that lands to affect these properties\n\n",
           "createdAt": "2025-07-20T23:55:53Z",
           "updatedAt": "2025-07-20T23:56:05Z"
+        },
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We have not seen demand for other concrete instances beyond the three we have already, any others can go in future documents",
+          "createdAt": "2025-11-02T22:10:20Z",
+          "updatedAt": "2025-11-02T22:10:20Z"
         }
       ]
     },
@@ -174,7 +181,7 @@
       "id": "I_kwDOMmh5WM6-Go7N",
       "title": "Update implementation and test vectors",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/11",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dconnolly",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -183,8 +190,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-06-30T18:07:02Z",
-      "updatedAt": "2025-06-30T18:07:13Z",
-      "closedAt": null,
+      "updatedAt": "2025-11-02T22:09:22Z",
+      "closedAt": "2025-11-02T22:09:22Z",
       "comments": []
     },
     {
@@ -1446,7 +1453,7 @@
       "labels": [],
       "body": "This just ticks the boxes that are laid out in the generic doc.  The citations are copy/pasted from there.",
       "createdAt": "2025-10-17T01:55:17Z",
-      "updatedAt": "2025-10-17T01:55:24Z",
+      "updatedAt": "2025-11-02T21:46:36Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "878ccd0ac8c500bca30f51a77f9714544a4b0b55",
@@ -2324,25 +2331,33 @@
       "id": "PR_kwDOMmh5WM6weKOz",
       "title": "Remove ASCII labels",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/37",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "bifurcation",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "As discussed in #28, there are challenges with special characters in the label strings as written.  This PR removes the ASCII and just presents them as hex strings.",
       "createdAt": "2025-10-29T21:02:34Z",
-      "updatedAt": "2025-10-29T21:02:35Z",
+      "updatedAt": "2025-11-02T23:06:57Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "b33b3192d254fa1e6c178dbdd5de169ebe5cb4c2",
       "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "headRefName": "no-ascii",
       "headRefOid": "864848d7518a345ccc5444c72ce4ad9fe6f7a132",
-      "closedAt": null,
+      "closedAt": "2025-11-02T23:06:57Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Now redundant after #41 ",
+          "createdAt": "2025-11-02T23:06:57Z",
+          "updatedAt": "2025-11-02T23:06:57Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -2485,7 +2500,7 @@
       "labels": [],
       "body": "As of right now, the poll results indicate that folks prefer semantic ASCII labels.  This PR implements that preference.  \r\n\r\n<img width=\"993\" height=\"485\" alt=\"image\" src=\"https://github.com/user-attachments/assets/71a280a4-1eef-476d-a036-894980db9ccb\" />\r\n\r\nIn contrast to #37, it does not remove the ASCII description.  Open to feedback on that point.\r\n\r\nAs suggested on the mailing list, this drops the `0x` prefix and just says \"hex:\".",
       "createdAt": "2025-10-30T19:37:36Z",
-      "updatedAt": "2025-11-01T18:04:46Z",
+      "updatedAt": "2025-11-02T23:11:45Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "975eccbeb4691230abf7ae309d1a22520f7c029d",
