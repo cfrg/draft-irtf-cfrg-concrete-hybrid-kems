@@ -3,7 +3,7 @@
 
 use base64::prelude::*;
 use concrete_hybrid_kem::group::NominalGroup;
-use concrete_hybrid_kem::hybrid::HybridKem;
+use concrete_hybrid_kem::hybrid::{HybridKem, GC};
 use concrete_hybrid_kem::kem::{Kem, SeedSize, SharedSecretSize};
 use concrete_hybrid_kem::{MlKem1024P384, MlKem768P256, MlKem768X25519};
 use serde::{Deserialize, Serialize};
@@ -135,6 +135,9 @@ trait CompoundDKVerifier {
     type HybridKem: HybridKem + SeedSize + SharedSecretSize;
     type Group: NominalGroup;
     type PqKem: concrete_hybrid_kem::kem::PqKem;
+    type Prg: concrete_hybrid_kem::prg::Prg;
+    type Kdf: concrete_hybrid_kem::kdf::Kdf;
+    type Constants: concrete_hybrid_kem::hybrid::HybridKemConstants;
 
     fn label() -> &'static [u8];
     fn parse_trad_sk(sk_bytes: &[u8]) -> Result<Vec<u8>, String>;
@@ -146,6 +149,9 @@ impl CompoundDKVerifier for MlKem768X25519Verifier {
     type HybridKem = MlKem768X25519;
     type Group = concrete_hybrid_kem::group::X25519;
     type PqKem = concrete_hybrid_kem::kem::MlKem768;
+    type Prg = concrete_hybrid_kem::prg::Shake256;
+    type Kdf = concrete_hybrid_kem::kdf::Sha3_256;
+    type Constants = concrete_hybrid_kem::MlKem768X25519Constants;
 
     fn label() -> &'static [u8] {
         b"\x5C\x2E\x2F\x2F\x5E\x5C"
@@ -162,6 +168,9 @@ impl CompoundDKVerifier for MlKem768P256Verifier {
     type HybridKem = MlKem768P256;
     type Group = concrete_hybrid_kem::group::P256;
     type PqKem = concrete_hybrid_kem::kem::MlKem768;
+    type Prg = concrete_hybrid_kem::prg::Shake256;
+    type Kdf = concrete_hybrid_kem::kdf::Sha3_256;
+    type Constants = concrete_hybrid_kem::MlKem768P256Constants;
 
     fn label() -> &'static [u8] {
         b"MLKEM768-P256"
@@ -178,6 +187,9 @@ impl CompoundDKVerifier for MlKem1024P384Verifier {
     type HybridKem = MlKem1024P384;
     type Group = concrete_hybrid_kem::group::P384;
     type PqKem = concrete_hybrid_kem::kem::MlKem1024;
+    type Prg = concrete_hybrid_kem::prg::Shake256;
+    type Kdf = concrete_hybrid_kem::kdf::Sha3_256;
+    type Constants = concrete_hybrid_kem::MlKem1024P384Constants;
 
     fn label() -> &'static [u8] {
         b"MLKEM1024-P384"
@@ -238,10 +250,8 @@ fn verify_test_vector<V: CompoundDKVerifier>(
     }
     println!("  ✓ Traditional public key verified");
 
-    // Step 5: Reconstruct and verify encapsulation key
-    let (_, ek_pq, _) = V::PqKem::derive_key_pair(&compound_dk.mlkem_seed);
-    let mut ek_reconstructed = ek_pq;
-    ek_reconstructed.extend_from_slice(&compound_dk.trad_pk);
+    // Step 5: Reconstruct and verify encapsulation key using the hybrid KEM
+    let ek_reconstructed = GC::<V::PqKem, V::Group, V::Prg, V::Kdf, V::Constants>::encapsulation_key_from_compound(dk_bytes, &trad_sk);
 
     if ek_reconstructed != ek_expected {
         return Err(format!(
@@ -252,31 +262,13 @@ fn verify_test_vector<V: CompoundDKVerifier>(
     }
     println!("  ✓ Encapsulation key matches");
 
-    // Step 6: Decapsulate ciphertext components
-    let pq_ct_size = V::HybridKem::CIPHERTEXT_SIZE - V::Group::ELEMENT_SIZE;
-    let ct_pq = &c[..pq_ct_size];
-    let ct_t = &c[pq_ct_size..];
+    // Step 6: Decapsulate using the hybrid KEM's decaps_compound method
+    let ss_computed = GC::<V::PqKem, V::Group, V::Prg, V::Kdf, V::Constants>::decaps_compound(dk_bytes, &c.to_vec(), &trad_sk);
 
-    let ss_pq = V::PqKem::decaps(&compound_dk.mlkem_seed, &ct_pq.to_vec());
-    let ss_t_elem = V::Group::exp(&ct_t.to_vec(), &trad_sk);
-    let ss_t = V::Group::element_to_shared_secret(&ss_t_elem);
-
-    // Step 7: Combine using C2-PRI combiner (matching GC hybrid KEM)
-    use concrete_hybrid_kem::kdf::{Kdf, Sha3_256};
-    let ss_combined = Sha3_256::compute(
-        ss_pq
-            .iter()
-            .chain(ss_t.iter())
-            .chain(ct_t.iter())
-            .chain(compound_dk.trad_pk.iter())
-            .chain(V::label().iter())
-            .cloned(),
-    );
-
-    if ss_combined != k_expected {
+    if ss_computed != k_expected {
         return Err(format!(
             "Shared secret mismatch:\n  Computed: {}\n  Expected: {}",
-            hex::encode(&ss_combined),
+            hex::encode(&ss_computed),
             hex::encode(k_expected)
         ));
     }

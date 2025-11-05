@@ -162,6 +162,25 @@ fn c2pri_combiner<K: Kdf>(
     )
 }
 
+/// Common decapsulation logic for GC hybrid KEM
+/// Takes the component keys and ciphertext, performs decapsulation and combining
+fn decaps_with_keys_group<PQ: PqKem, T: NominalGroup, K: Kdf>(
+    dk_pq: &DecapsulationKey,
+    dk_t: &Scalar,
+    ek_t: &Element,
+    ct: &Ciphertext,
+    label: &[u8],
+) -> SharedSecret {
+    // Split ciphertext into components
+    let (ct_pq, ct_t) = split(ct, PQ::CIPHERTEXT_SIZE, T::ELEMENT_SIZE);
+
+    // Decapsulate components
+    let (ss_pq, ss_t) = prepare_decaps_group::<PQ, T>(&ct_pq, &ct_t, dk_pq, dk_t);
+
+    // Combine using C2-PRI
+    c2pri_combiner::<K>(&ss_pq, &ss_t, &ct_t, ek_t, label)
+}
+
 pub trait HybridKemConstants: SeedSize + SharedSecretSize {
     const LABEL: &'static [u8];
 }
@@ -318,11 +337,12 @@ where
     fn decaps(dk: &DecapsulationKey, ct: &Ciphertext) -> SharedSecret {
         assert_eq!(dk.len(), Self::DECAPSULATION_KEY_SIZE);
         assert_eq!(ct.len(), Self::CIPHERTEXT_SIZE);
-        let (ct_pq, ct_t) = split(ct, PQ::CIPHERTEXT_SIZE, T::ELEMENT_SIZE);
+
+        // Expand seed-based DK to get component keys
         let (dk_pq, dk_t, _ek_pq, ek_t) = expand_decaps_key_group::<PQ, T, P>(dk);
-        let (ss_pq, ss_t) = prepare_decaps_group::<PQ, T>(&ct_pq, &ct_t, &dk_pq, &dk_t);
-        let ss_h = c2pri_combiner::<K>(&ss_pq, &ss_t, &ct_t, &ek_t, C::LABEL);
-        ss_h
+
+        // Use common decapsulation logic
+        decaps_with_keys_group::<PQ, T, K>(&dk_pq, &dk_t, &ek_t, ct, C::LABEL)
     }
 }
 
@@ -349,6 +369,47 @@ where
         ct_h.append(&mut ct_t.clone());
 
         (ss_h, ct_h)
+    }
+}
+
+impl<PQ, T, P, K, C> GC<PQ, T, P, K, C>
+where
+    PQ: PqKem,
+    T: NominalGroup,
+    P: Prg,
+    K: Kdf,
+    C: HybridKemConstants,
+{
+    /// Decapsulate using a compound decapsulation key (LAMPS format)
+    ///
+    /// Compound DK format: mlkemSeed (64 bytes) || lenTradPK (2 bytes, LE) || tradPK || tradSK
+    pub fn decaps_compound(compound_dk: &[u8], ct: &Ciphertext, trad_sk: &Scalar) -> SharedSecret {
+        assert_eq!(ct.len(), PQ::CIPHERTEXT_SIZE + T::ELEMENT_SIZE);
+
+        // Extract ML-KEM seed from compound DK (first 64 bytes)
+        let dk_pq = compound_dk[0..64].to_vec();
+
+        // Get traditional EK (stored in compound DK after length field)
+        let trad_pk_len = u16::from_le_bytes([compound_dk[64], compound_dk[65]]) as usize;
+        let ek_t = compound_dk[66..66 + trad_pk_len].to_vec();
+
+        // Use common decapsulation logic
+        decaps_with_keys_group::<PQ, T, K>(&dk_pq, trad_sk, &ek_t, ct, C::LABEL)
+    }
+
+    /// Generate encapsulation key from compound decapsulation key
+    pub fn encapsulation_key_from_compound(compound_dk: &[u8], trad_sk: &Scalar) -> EncapsulationKey {
+        // Extract ML-KEM seed and derive ML-KEM EK
+        let dk_pq = compound_dk[0..64].to_vec();
+        let (_, ek_pq, _) = PQ::derive_key_pair(&dk_pq);
+
+        // Compute traditional public key
+        let ek_t = T::exp(&T::generator(), trad_sk);
+
+        // Combine
+        let mut ek = ek_pq;
+        ek.extend_from_slice(&ek_t);
+        ek
     }
 }
 

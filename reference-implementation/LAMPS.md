@@ -146,16 +146,23 @@ The ciphertext is decapsulated to produce a shared secret:
 
 ### Architecture
 
-The verification code uses the hybrid KEM types defined in `lib.rs` (`MlKem768X25519`, `MlKem768P256`, `MlKem1024P384`) to ensure type safety and correctness. Each hybrid KEM type has a corresponding `CompoundDKVerifier` implementation that provides:
+The verification leverages the hybrid KEM implementation in `hybrid.rs` by calling the hybrid KEM's methods directly:
 
-- Type-level linkage to the hybrid KEM, group, and PQ KEM components
-- Algorithm-specific label for the C2-PRI combiner
-- Parsing logic for the traditional component's private key format
+1. **Extended GC hybrid KEM** with compound DK support:
+   - `GC::decaps_compound()` - Decapsulates using LAMPS compound DK format
+   - `GC::encapsulation_key_from_compound()` - Generates EK from compound DK
+   - `decaps_with_keys_group()` - **Common decapsulation logic** shared by both `decaps()` and `decaps_compound()`
 
-This design provides:
-- **Type safety**: Uses the hybrid KEM types for validation
-- **Single verification function**: No need for separate X25519 vs EC variants
-- **Extensibility**: Easy to add new hybrid KEM algorithms
+2. **Type-safe verification** using `CompoundDKVerifier` trait:
+   - Links each test vector to its corresponding hybrid KEM type
+   - Provides algorithm-specific parameters (PqKem, Group, Prg, Kdf, Constants)
+   - Handles traditional key parsing (X25519 raw vs ECDH DER format)
+
+**Key design principle**: The core decapsulation logic exists in one place (`decaps_with_keys_group()`), ensuring:
+- **Correctness**: Uses the actual hybrid KEM implementation, not a reimplementation
+- **No code duplication**: Both seed-based and compound DK formats use the same decapsulation logic
+- **Type safety**: Compiler-enforced linkage between test vectors and hybrid KEM types
+- **Extensibility**: Easy to add new hybrid KEM algorithms or key formats
 
 ### Key Components
 
@@ -182,10 +189,17 @@ trait CompoundDKVerifier {
 
 #### Key Functions
 
+**In `hybrid.rs` (library code)**:
+- `decaps_with_keys_group()`: Common decapsulation logic (used by both formats)
+- `GC::decaps()`: Decapsulates using seed-based DK (calls `decaps_with_keys_group`)
+- `GC::decaps_compound()`: Decapsulates using LAMPS compound DK (calls `decaps_with_keys_group`)
+- `GC::encapsulation_key_from_compound()`: Reconstructs EK from compound DK
+
+**In `verify_composite_vectors.rs` (test binary)**:
 - `parse_compound_dk()`: Parses the compound decapsulation key format
 - `parse_ec_private_key()`: Parses ECPrivateKey DER structure
 - `parse_x_private_key()`: Parses X25519/X448 raw private keys
-- `verify_test_vector<V>()`: Generic verification function that uses the hybrid KEM types
+- `verify_test_vector<V>()`: Generic verification function that calls hybrid KEM methods
 
 ### Combiner Algorithm
 
