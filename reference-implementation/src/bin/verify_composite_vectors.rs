@@ -3,8 +3,9 @@
 
 use base64::prelude::*;
 use concrete_hybrid_kem::group::NominalGroup;
-use concrete_hybrid_kem::kdf::Kdf;
-use concrete_hybrid_kem::kem::PqKem;
+use concrete_hybrid_kem::hybrid::HybridKem;
+use concrete_hybrid_kem::kem::{Kem, SeedSize, SharedSecretSize};
+use concrete_hybrid_kem::{MlKem1024P384, MlKem768P256, MlKem768X25519};
 use serde::{Deserialize, Serialize};
 use std::env;
 use std::fs;
@@ -129,191 +130,152 @@ fn parse_ec_private_key(sk_bytes: &[u8]) -> Result<Vec<u8>, String> {
     Ok(sk_bytes[offset..offset + pk_len].to_vec())
 }
 
-/// Generate encapsulation key from compound DK for X25519/X448 based KEMs
-fn generate_ek_x<MLKEM>(
-    mlkem_seed: &[u8],
-    trad_sk: &[u8],
-) -> Result<Vec<u8>, String>
-where
-    MLKEM: PqKem,
-{
-    // Generate ML-KEM encapsulation key from seed
-    let (_, ek_pq, _) = MLKEM::derive_key_pair(mlkem_seed);
+/// Information needed to verify a compound DK test vector for a specific hybrid KEM
+trait CompoundDKVerifier {
+    type HybridKem: HybridKem + SeedSize + SharedSecretSize;
+    type Group: NominalGroup;
+    type PqKem: concrete_hybrid_kem::kem::PqKem;
 
-    // For X25519, the public key is just the scalar multiplied by the base point
-    use concrete_hybrid_kem::group::X25519;
-    let trad_pk = X25519::exp(&X25519::generator(), &trad_sk.to_vec());
-
-    // Combine: EK_PQ || EK_trad
-    let mut ek = ek_pq;
-    ek.extend_from_slice(&trad_pk);
-
-    Ok(ek)
+    fn label() -> &'static [u8];
+    fn parse_trad_sk(sk_bytes: &[u8]) -> Result<Vec<u8>, String>;
 }
 
-/// Generate encapsulation key from compound DK for EC-based KEMs
-fn generate_ek_ec<MLKEM, G>(
-    mlkem_seed: &[u8],
-    trad_sk_scalar: &[u8],
-) -> Result<Vec<u8>, String>
-where
-    MLKEM: PqKem,
-    G: NominalGroup,
-{
-    // Generate ML-KEM encapsulation key from seed
-    let (_, ek_pq, _) = MLKEM::derive_key_pair(mlkem_seed);
+/// Verifier for MlKem768X25519
+struct MlKem768X25519Verifier;
+impl CompoundDKVerifier for MlKem768X25519Verifier {
+    type HybridKem = MlKem768X25519;
+    type Group = concrete_hybrid_kem::group::X25519;
+    type PqKem = concrete_hybrid_kem::kem::MlKem768;
 
-    // Generate EC public key from scalar
-    let trad_pk = G::exp(&G::generator(), &trad_sk_scalar.to_vec());
+    fn label() -> &'static [u8] {
+        b"\x5C\x2E\x2F\x2F\x5E\x5C"
+    }
 
-    // Combine: EK_PQ || EK_trad
-    let mut ek = ek_pq;
-    ek.extend_from_slice(&trad_pk);
-
-    Ok(ek)
+    fn parse_trad_sk(sk_bytes: &[u8]) -> Result<Vec<u8>, String> {
+        parse_x_private_key(sk_bytes)
+    }
 }
 
-/// Compute C2-PRI combiner for verification
-fn c2pri_combiner(
-    ss_pq: &[u8],
-    ss_t: &[u8],
-    ct_t: &[u8],
-    ek_t: &[u8],
-    label: &[u8],
-) -> Vec<u8> {
-    use concrete_hybrid_kem::kdf::Sha3_256;
-    Sha3_256::compute(
+/// Verifier for MlKem768P256
+struct MlKem768P256Verifier;
+impl CompoundDKVerifier for MlKem768P256Verifier {
+    type HybridKem = MlKem768P256;
+    type Group = concrete_hybrid_kem::group::P256;
+    type PqKem = concrete_hybrid_kem::kem::MlKem768;
+
+    fn label() -> &'static [u8] {
+        b"MLKEM768-P256"
+    }
+
+    fn parse_trad_sk(sk_bytes: &[u8]) -> Result<Vec<u8>, String> {
+        parse_ec_private_key(sk_bytes)
+    }
+}
+
+/// Verifier for MlKem1024P384
+struct MlKem1024P384Verifier;
+impl CompoundDKVerifier for MlKem1024P384Verifier {
+    type HybridKem = MlKem1024P384;
+    type Group = concrete_hybrid_kem::group::P384;
+    type PqKem = concrete_hybrid_kem::kem::MlKem1024;
+
+    fn label() -> &'static [u8] {
+        b"MLKEM1024-P384"
+    }
+
+    fn parse_trad_sk(sk_bytes: &[u8]) -> Result<Vec<u8>, String> {
+        parse_ec_private_key(sk_bytes)
+    }
+}
+
+/// Verify a test vector using the hybrid KEM implementation
+fn verify_test_vector<V: CompoundDKVerifier>(
+    tc_id: &str,
+    ek_expected: &[u8],
+    dk_bytes: &[u8],
+    c: &[u8],
+    k_expected: &[u8],
+) -> Result<(), String> {
+    println!("\nVerifying test vector: {}", tc_id);
+
+    // Step 1: Validate sizes against hybrid KEM constants
+    if ek_expected.len() != V::HybridKem::ENCAPSULATION_KEY_SIZE {
+        return Err(format!(
+            "EK length mismatch: expected {}, got {}",
+            V::HybridKem::ENCAPSULATION_KEY_SIZE,
+            ek_expected.len()
+        ));
+    }
+
+    if c.len() != V::HybridKem::CIPHERTEXT_SIZE {
+        return Err(format!(
+            "Ciphertext length mismatch: expected {}, got {}",
+            V::HybridKem::CIPHERTEXT_SIZE,
+            c.len()
+        ));
+    }
+
+    if k_expected.len() != V::HybridKem::SHARED_SECRET_SIZE {
+        return Err(format!(
+            "Shared secret length mismatch: expected {}, got {}",
+            V::HybridKem::SHARED_SECRET_SIZE,
+            k_expected.len()
+        ));
+    }
+
+    // Step 2: Parse the compound decapsulation key
+    let compound_dk = parse_compound_dk(dk_bytes)?;
+    println!("  ✓ Parsed compound DK");
+
+    // Step 3: Parse traditional private key
+    let trad_sk = V::parse_trad_sk(&compound_dk.trad_sk)?;
+    println!("  ✓ Parsed traditional private key ({} bytes)", trad_sk.len());
+
+    // Step 4: Generate and verify traditional public key
+    let trad_pk_generated = V::Group::exp(&V::Group::generator(), &trad_sk);
+    if trad_pk_generated != compound_dk.trad_pk {
+        return Err("Traditional public key mismatch".to_string());
+    }
+    println!("  ✓ Traditional public key verified");
+
+    // Step 5: Reconstruct and verify encapsulation key
+    let (_, ek_pq, _) = V::PqKem::derive_key_pair(&compound_dk.mlkem_seed);
+    let mut ek_reconstructed = ek_pq;
+    ek_reconstructed.extend_from_slice(&compound_dk.trad_pk);
+
+    if ek_reconstructed != ek_expected {
+        return Err(format!(
+            "EK mismatch:\n  Reconstructed: {}\n  Expected:     {}",
+            hex::encode(&ek_reconstructed),
+            hex::encode(ek_expected)
+        ));
+    }
+    println!("  ✓ Encapsulation key matches");
+
+    // Step 6: Decapsulate ciphertext components
+    let pq_ct_size = V::HybridKem::CIPHERTEXT_SIZE - V::Group::ELEMENT_SIZE;
+    let ct_pq = &c[..pq_ct_size];
+    let ct_t = &c[pq_ct_size..];
+
+    let ss_pq = V::PqKem::decaps(&compound_dk.mlkem_seed, &ct_pq.to_vec());
+    let ss_t_elem = V::Group::exp(&ct_t.to_vec(), &trad_sk);
+    let ss_t = V::Group::element_to_shared_secret(&ss_t_elem);
+
+    // Step 7: Combine using C2-PRI combiner (matching GC hybrid KEM)
+    use concrete_hybrid_kem::kdf::{Kdf, Sha3_256};
+    let ss_combined = Sha3_256::compute(
         ss_pq
             .iter()
             .chain(ss_t.iter())
             .chain(ct_t.iter())
-            .chain(ek_t.iter())
-            .chain(label.iter())
+            .chain(compound_dk.trad_pk.iter())
+            .chain(V::label().iter())
             .cloned(),
-    )
-}
-
-/// Verify a test vector for X25519-based hybrid KEM
-fn verify_test_vector_x<MLKEM>(
-    tc_id: &str,
-    ek_expected: &[u8],
-    dk_bytes: &[u8],
-    c: &[u8],
-    k_expected: &[u8],
-    label: &[u8],
-    pq_ct_size: usize,
-) -> Result<(), String>
-where
-    MLKEM: PqKem,
-{
-    println!("\nVerifying test vector: {}", tc_id);
-
-    // Step 1: Parse the compound decapsulation key
-    let compound_dk = parse_compound_dk(dk_bytes)?;
-    println!("  ✓ Parsed compound DK");
-
-    // Step 2: Parse traditional private key
-    let trad_sk = parse_x_private_key(&compound_dk.trad_sk)?;
-    println!("  ✓ Parsed traditional private key ({} bytes)", trad_sk.len());
-
-    // Step 3: Generate encapsulation key and verify
-    let ek_generated = generate_ek_x::<MLKEM>(&compound_dk.mlkem_seed, &trad_sk)?;
-    if ek_generated != ek_expected {
-        return Err(format!(
-            "EK mismatch:\n  Generated: {}\n  Expected:  {}",
-            hex::encode(&ek_generated),
-            hex::encode(ek_expected)
-        ));
-    }
-    println!("  ✓ Encapsulation key matches");
-
-    // Step 4: Decapsulate and verify shared secret
-    // Split ciphertext into PQ and traditional parts
-    let ct_pq = &c[..pq_ct_size];
-    let ct_t = &c[pq_ct_size..];
-
-    // Decapsulate ML-KEM part
-    let ss_pq = MLKEM::decaps(&compound_dk.mlkem_seed, &ct_pq.to_vec());
-
-    // Decapsulate traditional part (DH)
-    use concrete_hybrid_kem::group::X25519;
-    let ss_t_elem = X25519::exp(&ct_t.to_vec(), &trad_sk);
-    let ss_t = X25519::element_to_shared_secret(&ss_t_elem);
-
-    // Get traditional EK from compound_dk
-    let ek_t = &compound_dk.trad_pk;
-
-    // Combine using C2-PRI combiner
-    let ss_combined = c2pri_combiner(&ss_pq, &ss_t, ct_t, ek_t, label);
+    );
 
     if ss_combined != k_expected {
         return Err(format!(
-            "Shared secret mismatch:\n  Generated: {}\n  Expected:  {}",
-            hex::encode(&ss_combined),
-            hex::encode(k_expected)
-        ));
-    }
-    println!("  ✓ Shared secret matches");
-
-    Ok(())
-}
-
-/// Verify a test vector for EC-based hybrid KEM
-fn verify_test_vector_ec<MLKEM, G>(
-    tc_id: &str,
-    ek_expected: &[u8],
-    dk_bytes: &[u8],
-    c: &[u8],
-    k_expected: &[u8],
-    label: &[u8],
-    pq_ct_size: usize,
-) -> Result<(), String>
-where
-    MLKEM: PqKem,
-    G: NominalGroup,
-{
-    println!("\nVerifying test vector: {}", tc_id);
-
-    // Step 1: Parse the compound decapsulation key
-    let compound_dk = parse_compound_dk(dk_bytes)?;
-    println!("  ✓ Parsed compound DK");
-
-    // Step 2: Parse traditional private key (EC DER format)
-    let trad_sk_scalar = parse_ec_private_key(&compound_dk.trad_sk)?;
-    println!("  ✓ Parsed traditional private key ({} bytes)", trad_sk_scalar.len());
-
-    // Step 3: Generate encapsulation key and verify
-    let ek_generated = generate_ek_ec::<MLKEM, G>(&compound_dk.mlkem_seed, &trad_sk_scalar)?;
-    if ek_generated != ek_expected {
-        return Err(format!(
-            "EK mismatch:\n  Generated: {}\n  Expected:  {}",
-            hex::encode(&ek_generated),
-            hex::encode(ek_expected)
-        ));
-    }
-    println!("  ✓ Encapsulation key matches");
-
-    // Step 4: Decapsulate and verify shared secret
-    // Split ciphertext into PQ and traditional parts
-    let ct_pq = &c[..pq_ct_size];
-    let ct_t = &c[pq_ct_size..];
-
-    // Decapsulate ML-KEM part
-    let ss_pq = MLKEM::decaps(&compound_dk.mlkem_seed, &ct_pq.to_vec());
-
-    // Decapsulate traditional part (ECDH)
-    let ss_t_elem = G::exp(&ct_t.to_vec(), &trad_sk_scalar);
-    let ss_t = G::element_to_shared_secret(&ss_t_elem);
-
-    // Get traditional EK from compound_dk
-    let ek_t = &compound_dk.trad_pk;
-
-    // Combine using C2-PRI combiner
-    let ss_combined = c2pri_combiner(&ss_pq, &ss_t, ct_t, ek_t, label);
-
-    if ss_combined != k_expected {
-        return Err(format!(
-            "Shared secret mismatch:\n  Generated: {}\n  Expected:  {}",
+            "Shared secret mismatch:\n  Computed: {}\n  Expected: {}",
             hex::encode(&ss_combined),
             hex::encode(k_expected)
         ));
@@ -362,15 +324,7 @@ fn main() {
         let c = BASE64_STANDARD.decode(&tv.c).expect("Failed to decode c");
         let k = BASE64_STANDARD.decode(&tv.k).expect("Failed to decode k");
 
-        match verify_test_vector_x::<concrete_hybrid_kem::kem::MlKem768>(
-            &tv.tc_id,
-            &ek,
-            &dk,
-            &c,
-            &k,
-            b"\x5C\x2E\x2F\x2F\x5E\x5C", // Label for MLKEM768-X25519
-            1088,                         // ML-KEM768 ciphertext size
-        ) {
+        match verify_test_vector::<MlKem768X25519Verifier>(&tv.tc_id, &ek, &dk, &c, &k) {
             Ok(()) => println!("  ✅ PASSED"),
             Err(e) => {
                 println!("  ❌ FAILED: {}", e);
@@ -393,18 +347,7 @@ fn main() {
         let c = BASE64_STANDARD.decode(&tv.c).expect("Failed to decode c");
         let k = BASE64_STANDARD.decode(&tv.k).expect("Failed to decode k");
 
-        match verify_test_vector_ec::<
-            concrete_hybrid_kem::kem::MlKem768,
-            concrete_hybrid_kem::group::P256,
-        >(
-            &tv.tc_id,
-            &ek,
-            &dk,
-            &c,
-            &k,
-            b"MLKEM768-P256", // Label for MLKEM768-P256
-            1088,             // ML-KEM768 ciphertext size
-        ) {
+        match verify_test_vector::<MlKem768P256Verifier>(&tv.tc_id, &ek, &dk, &c, &k) {
             Ok(()) => println!("  ✅ PASSED"),
             Err(e) => {
                 println!("  ❌ FAILED: {}", e);
@@ -427,18 +370,7 @@ fn main() {
         let c = BASE64_STANDARD.decode(&tv.c).expect("Failed to decode c");
         let k = BASE64_STANDARD.decode(&tv.k).expect("Failed to decode k");
 
-        match verify_test_vector_ec::<
-            concrete_hybrid_kem::kem::MlKem1024,
-            concrete_hybrid_kem::group::P384,
-        >(
-            &tv.tc_id,
-            &ek,
-            &dk,
-            &c,
-            &k,
-            b"MLKEM1024-P384", // Label for MLKEM1024-P384
-            1568,              // ML-KEM1024 ciphertext size
-        ) {
+        match verify_test_vector::<MlKem1024P384Verifier>(&tv.tc_id, &ek, &dk, &c, &k) {
             Ok(()) => println!("  ✅ PASSED"),
             Err(e) => {
                 println!("  ❌ FAILED: {}", e);

@@ -144,16 +144,48 @@ The ciphertext is decapsulated to produce a shared secret:
 - **Binary**: `src/bin/verify_composite_vectors.rs`
 - **Dependencies added**: `base64 = "0.22"`
 
-### Key Functions
+### Architecture
+
+The verification code uses the hybrid KEM types defined in `lib.rs` (`MlKem768X25519`, `MlKem768P256`, `MlKem1024P384`) to ensure type safety and correctness. Each hybrid KEM type has a corresponding `CompoundDKVerifier` implementation that provides:
+
+- Type-level linkage to the hybrid KEM, group, and PQ KEM components
+- Algorithm-specific label for the C2-PRI combiner
+- Parsing logic for the traditional component's private key format
+
+This design provides:
+- **Type safety**: Uses the hybrid KEM types for validation
+- **Single verification function**: No need for separate X25519 vs EC variants
+- **Extensibility**: Easy to add new hybrid KEM algorithms
+
+### Key Components
+
+#### Trait: `CompoundDKVerifier`
+
+Provides algorithm-specific information for verifying compound DK test vectors:
+
+```rust
+trait CompoundDKVerifier {
+    type HybridKem: HybridKem + SeedSize + SharedSecretSize;
+    type Group: NominalGroup;
+    type PqKem: concrete_hybrid_kem::kem::PqKem;
+
+    fn label() -> &'static [u8];
+    fn parse_trad_sk(sk_bytes: &[u8]) -> Result<Vec<u8>, String>;
+}
+```
+
+#### Verifier Implementations
+
+- `MlKem768X25519Verifier`: For id-MLKEM768-X25519-SHA3-256
+- `MlKem768P256Verifier`: For id-MLKEM768-ECDH-P256-SHA3-256
+- `MlKem1024P384Verifier`: For id-MLKEM1024-ECDH-P384-SHA3-256
+
+#### Key Functions
 
 - `parse_compound_dk()`: Parses the compound decapsulation key format
 - `parse_ec_private_key()`: Parses ECPrivateKey DER structure
 - `parse_x_private_key()`: Parses X25519/X448 raw private keys
-- `generate_ek_x()`: Generates encapsulation key for X25519-based KEMs
-- `generate_ek_ec()`: Generates encapsulation key for EC-based KEMs
-- `c2pri_combiner()`: Implements the C2-PRI combiner with SHA3-256
-- `verify_test_vector_x()`: Verifies X25519-based test vectors
-- `verify_test_vector_ec()`: Verifies EC-based test vectors
+- `verify_test_vector<V>()`: Generic verification function that uses the hybrid KEM types
 
 ### Combiner Algorithm
 
