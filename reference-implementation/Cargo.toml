@@ -29,6 +29,7 @@ old_rand_core = { package = "rand_core", version = "0.6" }
 hex = { version = "0.4", features = ["serde"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+base64 = "0.22"
 num-bigint = "0.4.6"
 hex-literal = "1.0.0"
 hybrid-array = "0.2.3"
@@ -50,3 +51,7 @@ path = "src/bin/verify_vectors.rs"
 [[bin]]
 name = "vectors_to_markdown"
 path = "src/bin/vectors_to_markdown.rs"
+
+[[bin]]
+name = "verify_composite_vectors"
+path = "src/bin/verify_composite_vectors.rs"
