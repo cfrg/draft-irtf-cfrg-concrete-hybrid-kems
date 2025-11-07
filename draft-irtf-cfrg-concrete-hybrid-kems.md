@@ -293,7 +293,7 @@ algorithms defined in that specification map to the KEM abstraction in
 - `GenerateKeyPair() -> (ek, dk)`: Implemented as KeyGen in Section 7.1 of
   {{FIPS203}}.
 - `DeriveKeyPair(seed) -> (ek, dk)`: Implemented as
-  KeyGen_internal(seed[0:32], seed[32:64]), where KeyGen_internal is defined
+  `KeyGen_internal(seed[0:32], seed[32:64])`, where KeyGen_internal is defined
   in Section 6 of {{FIPS203}}.
 - `Encaps(ek) -> (ct, ss)`: Implemented as Encaps in Section 7.2 of
   {{FIPS203}}.
@@ -459,7 +459,7 @@ Labels" registry:
 | " \| /-\\" | CG | ML-KEM-1024  | P-384       | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
 {: #iana-table title="Hybrid KEM Labels" }
 
-[ RFC EDITOR: Please replace "XXXX" above with the number assigned to this RFC ]
+\[ RFC EDITOR: Please replace "XXXX" above with the number assigned to this RFC \]
 
 --- back
 
