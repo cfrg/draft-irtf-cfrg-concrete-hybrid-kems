@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-04T01:39:36.971518+00:00",
+  "timestamp": "2025-11-09T01:43:13.082055+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -2637,6 +2637,58 @@
       "mergeCommit": {
         "oid": "975eccbeb4691230abf7ae309d1a22520f7c029d"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 43,
+      "id": "PR_kwDOMmh5WM6yMdVv",
+      "title": "Update labels in IANA considerations section",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/43",
+      "state": "OPEN",
+      "author": "divergentdave",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "This updates the labels to be added to the IANA registry to match the changes made in #41.",
+      "createdAt": "2025-11-07T18:07:44Z",
+      "updatedAt": "2025-11-07T18:07:44Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "588ec12361d81f8f11de99b5807ab92d7e5290bb",
+      "headRepository": "divergentdave/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "update-labels-iana-considerations",
+      "headRefOid": "d428b43ad942b8df6ee9b26debf81fc6f86dd839",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 44,
+      "id": "PR_kwDOMmh5WM6yMjjU",
+      "title": "Fix warnings related to square brackets",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/44",
+      "state": "OPEN",
+      "author": "divergentdave",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "This fixes a few warnings from kramdown-rfc related to square brackets being interpreted as links.",
+      "createdAt": "2025-11-07T18:14:03Z",
+      "updatedAt": "2025-11-07T18:14:04Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "588ec12361d81f8f11de99b5807ab92d7e5290bb",
+      "headRepository": "divergentdave/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "fix-warnings",
+      "headRefOid": "cfbc2a64fc297328cd65a488dd959279e3c7e5c1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
