@@ -3,8 +3,16 @@ name: Reference Implementation tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'test-vectors.json'
+      - 'reference-implementation/**'
+      - '.github/workflows/ci.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'test-vectors.json'
+      - 'reference-implementation/**'
+      - '.github/workflows/ci.yml'
 
 jobs:
   test:
