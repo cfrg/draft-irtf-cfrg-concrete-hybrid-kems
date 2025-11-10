@@ -35,6 +35,7 @@ hybrid-array = "0.2.3"
 elliptic-curve = "0.13.8"
 
 [dev-dependencies]
+x-wing = "0.1.0-pre.2"
 
 [lib]
 name = "concrete_hybrid_kem"
