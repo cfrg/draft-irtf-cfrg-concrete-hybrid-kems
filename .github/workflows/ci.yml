@@ -39,3 +39,7 @@ jobs:
     - name: Run tests
       run: cargo test
       working-directory: ./reference-implementation
+
+    - name: Verify test vectors
+      run: cargo run --bin verify_vectors -- ../test-vectors.json
+      working-directory: ./reference-implementation
