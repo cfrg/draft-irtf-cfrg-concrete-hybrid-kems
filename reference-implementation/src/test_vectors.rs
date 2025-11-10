@@ -4,6 +4,7 @@ use crate::hybrid::HybridKem;
 use serde::{Deserialize, Serialize};
 
 /// An enumeration of the ways test vector validation can fail
+#[derive(Debug)]
 pub enum VerifyError {
     EncapsulationKey(Vec<u8>, Vec<u8>),
     DecapsulationKey(Vec<u8>, Vec<u8>),
@@ -78,7 +79,7 @@ impl HybridKemTestVector {
         }
 
         // Verify deterministic encapsulation
-        let (ct, ss) = K::encaps_derand(&ek, &self.randomness);
+        let (ss, ct) = K::encaps_derand(&ek, &self.randomness);
 
         if ct != self.ciphertext {
             return Err(VerifyError::Ciphertext(ct, self.ciphertext.clone()));
@@ -111,4 +112,49 @@ pub struct TestVectors {
     pub mlkem768_p256: Vec<HybridKemTestVector>,
     pub mlkem768_x25519: Vec<HybridKemTestVector>,
     pub mlkem1024_p384: Vec<HybridKemTestVector>,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{MlKem1024P384, MlKem768P256, MlKem768X25519};
+
+    #[test]
+    fn round_trip() {
+        // Generate test vectors for all KEMs
+        let test_vectors = TestVectors {
+            mlkem768_p256: (0..2)
+                .map(|i| HybridKemTestVector::generate::<MlKem768P256>(i))
+                .collect(),
+            mlkem768_x25519: (0..2)
+                .map(|i| HybridKemTestVector::generate::<MlKem768X25519>(i))
+                .collect(),
+            mlkem1024_p384: (0..2)
+                .map(|i| HybridKemTestVector::generate::<MlKem1024P384>(i))
+                .collect(),
+        };
+
+        // JSON serialize / deserialize round trip
+        let serialized = serde_json::to_string_pretty(&test_vectors).unwrap();
+        let deserialized: TestVectors = serde_json::from_str(&serialized).unwrap();
+
+        // Verify all test vectors
+        for (i, vector) in deserialized.mlkem768_p256.iter().enumerate() {
+            vector
+                .verify::<MlKem768P256>()
+                .expect(&format!("MlKem768P256 {} failed", i));
+        }
+
+        for (i, vector) in deserialized.mlkem768_x25519.iter().enumerate() {
+            vector
+                .verify::<MlKem768X25519>()
+                .expect(&format!("MlKem768X25519 {} failed", i));
+        }
+
+        for (i, vector) in deserialized.mlkem1024_p384.iter().enumerate() {
+            vector
+                .verify::<MlKem1024P384>()
+                .expect(&format!("MlKem1024P384 {} failed", i));
+        }
+    }
 }
