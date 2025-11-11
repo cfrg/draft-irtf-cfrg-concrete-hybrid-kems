@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-09T01:43:13.082055+00:00",
+  "timestamp": "2025-11-11T01:41:31.389218+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -2689,6 +2689,62 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 45,
+      "id": "PR_kwDOMmh5WM6yiCjN",
+      "title": "Improve testing",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/45",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "* Add a test of compatibility with X-Wing\r\n* Add a round-trip test to the test vectors file\r\n* Add CI that runs cargo-test and verifies the test vectors",
+      "createdAt": "2025-11-10T13:15:39Z",
+      "updatedAt": "2025-11-10T13:44:11Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "588ec12361d81f8f11de99b5807ab92d7e5290bb",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "x-wing-test",
+      "headRefOid": "bfedaccf0c542cd49d8e0a7c3c97e84553c25e62",
+      "closedAt": "2025-11-10T13:44:11Z",
+      "mergedAt": "2025-11-10T13:44:11Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "f60f7eb656c73e81b6dc4ccaf5ddb482e9b5a518"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 46,
+      "id": "PR_kwDOMmh5WM6yie4p",
+      "title": "Move X-Wing compat test into library",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/46",
+      "state": "MERGED",
+      "author": "bifurcation",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-10T13:48:01Z",
+      "updatedAt": "2025-11-10T13:49:39Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "f60f7eb656c73e81b6dc4ccaf5ddb482e9b5a518",
+      "headRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "x-wing-test",
+      "headRefOid": "bee8520e14b3b0b68b4953a9d1cf381038f68269",
+      "closedAt": "2025-11-10T13:49:39Z",
+      "mergedAt": "2025-11-10T13:49:39Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "44fa9197a6382d904efafc228c3996060c1e9083"
+      },
       "comments": [],
       "reviews": []
     }
