@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-11T01:41:31.389218+00:00",
+  "timestamp": "2025-11-18T01:40:11.168997+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -440,6 +440,70 @@
           "updatedAt": "2025-10-16T21:37:26Z"
         }
       ]
+    },
+    {
+      "number": 47,
+      "id": "I_kwDOMmh5WM7YbLCW",
+      "title": "Section 6 still lists the old labels",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/47",
+      "state": "OPEN",
+      "author": "FiloSottile",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-concrete-hybrid-kems-02#section-6 has the old labels",
+      "createdAt": "2025-11-16T19:07:15Z",
+      "updatedAt": "2025-11-16T19:07:15Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 48,
+      "id": "I_kwDOMmh5WM7YbLS9",
+      "title": "Nscalar is defined for Curve25519 but unused",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/48",
+      "state": "OPEN",
+      "author": "FiloSottile",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Nscalar is only used by the NIST P RandomScalar function.",
+      "createdAt": "2025-11-16T19:08:00Z",
+      "updatedAt": "2025-11-16T19:08:00Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 49,
+      "id": "I_kwDOMmh5WM7YbL4l",
+      "title": "Curve25519 RandomScalar definition is confusing",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/49",
+      "state": "OPEN",
+      "author": "FiloSottile",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> RandomScalar(seed) -> k: Implemented by sampling and outputting 32 random bytes from a cryptographically secure pseudorandom number generator.\n\nThere is no sampling and no CSPRNG in Curve25519's RandomScalar. RandomScalar already takes a uniformly random seed. Curve25519's RandomScalar is the identity function.",
+      "createdAt": "2025-11-16T19:09:19Z",
+      "updatedAt": "2025-11-16T19:09:19Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 50,
+      "id": "I_kwDOMmh5WM7YbMzZ",
+      "title": "g is not defined for groups",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/50",
+      "state": "OPEN",
+      "author": "FiloSottile",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The other doc references Group_T.g but it doesn't look like this is defined anywhere in this one.",
+      "createdAt": "2025-11-16T19:11:40Z",
+      "updatedAt": "2025-11-16T19:11:40Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
