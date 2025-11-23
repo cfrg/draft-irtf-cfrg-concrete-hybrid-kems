@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-18T01:40:11.168997+00:00",
+  "timestamp": "2025-11-23T01:52:51.973953+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -502,6 +502,38 @@
       "body": "The other doc references Group_T.g but it doesn't look like this is defined anywhere in this one.",
       "createdAt": "2025-11-16T19:11:40Z",
       "updatedAt": "2025-11-16T19:11:40Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 51,
+      "id": "I_kwDOMmh5WM7Zn-Ty",
+      "title": "randomness in vectors for MLKEM768-P256",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/51",
+      "state": "CLOSED",
+      "author": "panva",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "They're 128 bytes, but should be 64? Implementation clicks the moment i trim them down to 64. Treading lightly here, happy to be proven wrong. ",
+      "createdAt": "2025-11-21T10:38:11Z",
+      "updatedAt": "2025-11-21T11:46:20Z",
+      "closedAt": "2025-11-21T11:46:20Z",
+      "comments": []
+    },
+    {
+      "number": 52,
+      "id": "I_kwDOMmh5WM7ZqDfx",
+      "title": "reference implementation and vectors for MLKEM768-P256",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/52",
+      "state": "OPEN",
+      "author": "panva",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Going down a rabbit hole here (#51 being my first snafoo)\n\nhttps://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/blob/44fa9197a6382d904efafc228c3996060c1e9083/reference-implementation/src/group.rs#L166\n\nIs this correct? This turns P-256 group's Nseed to 96, instead of 128\n\nhttps://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/blob/44fa9197a6382d904efafc228c3996060c1e9083/reference-implementation/src/group.rs#L73\n\nhttps://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/blob/44fa9197a6382d904efafc228c3996060c1e9083/draft-irtf-cfrg-concrete-hybrid-kems.md?plain=1#L251-L256",
+      "createdAt": "2025-11-21T13:24:36Z",
+      "updatedAt": "2025-11-21T13:25:45Z",
       "closedAt": null,
       "comments": []
     }
@@ -2809,6 +2841,32 @@
       "mergeCommit": {
         "oid": "44fa9197a6382d904efafc228c3996060c1e9083"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 53,
+      "id": "PR_kwDOMmh5WM6015D-",
+      "title": "set correct Nseed group constants",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/53",
+      "state": "OPEN",
+      "author": "panva",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #52\r\n\r\nThis only results in the change of MLKEM768-P256 vector `randomness`",
+      "createdAt": "2025-11-21T14:48:27Z",
+      "updatedAt": "2025-11-21T14:48:27Z",
+      "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
+      "baseRefName": "main",
+      "baseRefOid": "44fa9197a6382d904efafc228c3996060c1e9083",
+      "headRepository": "panva/draft-irtf-cfrg-concrete-hybrid-kems",
+      "headRefName": "set-correct-nseed",
+      "headRefOid": "defafa2331185034051bda806211936ec7fbd189",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
