@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-23T01:52:51.973953+00:00",
+  "timestamp": "2025-11-27T01:39:59.223852+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -536,6 +536,30 @@
       "updatedAt": "2025-11-21T13:25:45Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 54,
+      "id": "I_kwDOMmh5WM7ap3RW",
+      "title": "Various constants are inaccurate in latest draft",
+      "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/54",
+      "state": "OPEN",
+      "author": "samuel-lee-msft",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From `ML-KEM-768 and ML-KEM-1024 {#mlkem}`:\n```diff\nThe KEM constants for ML-KEM-768 are as follows:\n\n`Nseed`: 64\n-`Nek`: 1216\n+`Nek`: 1184\n-`Ndk`: 32\n+`Ndk`: 2400? 64?\n-`Nct`: 1120\n+`Nct`: 1088\n`Nss`: 32\n\nThe KEM constants for ML-KEM-1024 are as follows:\n\n`Nseed`: 64\n-`Nek`: 1629\n+`Nek`: 1568\n-`Ndk`: 32\n+`Ndk`: 3168? 64?\n-`Nct`: 1629\n+`Nct`: 1568\n`Nss`: 32\n```\n`Nek` and `Nct` are just wrong.\n\n`Ndk` is very unclear with the current references to FIPS 203.\nI am not sure the size is relevant for the combiner given that the ML-KEM component's private key should not be serialized on its own, so the size should be an internal detail to the combined algorithm (it is only used internally in the implementation of the combined Decaps function in the CG framework afaict).\n\nSimilarly for `MLKEM768-P256`:\n```diff\n`Nseed`: 32\n-`Nek`: 1217\n+`Nek`: 1249        (1184 + 65)\n`Ndk`: 32\n-`Nct`: 1121\n+`Nct`: 1153        (1088 + 65)\n`Nss`: 32\n```\n\nand for `MLKEM1024-P384`:\n```diff\n`Nseed`: 32\n-`Nek`: 1629\n+`Nek`: 1665        (1568 + 97)\n`Ndk`: 32\n-`Nct`: 1629\n+`Nct`: 1665        (1568 + 97)\n`Nss`: 32\n```\n\nFWIW, these numbers match @FiloSottile 's https://github.com/FiloSottile/hpke/blob/main/hpke-pq.md doc",
+      "createdAt": "2025-11-26T17:21:10Z",
+      "updatedAt": "2025-11-26T18:08:10Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "FiloSottile",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Agreed that Ndk (for both ML-KEM and groups) is irrelevant to this specification, and could just be removed. The only decapsulation key format is the 32-byte seed, which is then expanded into Nseed+Nseed parts.",
+          "createdAt": "2025-11-26T18:08:09Z",
+          "updatedAt": "2025-11-26T18:08:09Z"
+        }
+      ]
     }
   ],
   "pulls": [
