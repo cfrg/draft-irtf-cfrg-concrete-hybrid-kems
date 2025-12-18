@@ -66,11 +66,11 @@ impl NominalGroup for X25519 {
 }
 
 macro_rules! define_nist_group {
-    ($group:ident, $mod:ident, $nreject:literal, $curve:ident) => {
+    ($group:ident, $mod:ident, $nseed:literal, $curve:ident) => {
         pub struct $group;
 
         impl SeedSize for $group {
-            const SEED_SIZE: usize = $nreject * Self::SCALAR_SIZE;
+            const SEED_SIZE: usize = $nseed;
         }
 
         impl SharedSecretSize for $group {
@@ -163,8 +163,8 @@ macro_rules! define_nist_group {
     };
 }
 
-define_nist_group! { P256, p256, 3, NistP256 }
-define_nist_group! { P384, p384, 1, NistP384 }
+define_nist_group! { P256, p256, 128, NistP256 }
+define_nist_group! { P384, p384, 48, NistP384 }
 
 #[cfg(test)]
 mod test {
