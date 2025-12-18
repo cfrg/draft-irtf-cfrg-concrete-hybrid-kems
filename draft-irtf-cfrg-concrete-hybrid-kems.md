@@ -454,9 +454,9 @@ Labels" registry:
 
 | Label      | Fw | PQ Component | T Component | KDF      | PRG       | Nseed | Nss | Reference |
 |============|====|==============|=============|==========|===========|=======|=====|===========|
-| "\|-()-\|" | CG | ML-KEM-768   | P-256       | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
+| "MLKEM768-P256" | CG | ML-KEM-768   | P-256       | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
 | "\\.//^\\" | CG | ML-KEM-768   | Curve25519  | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
-| " \| /-\\" | CG | ML-KEM-1024  | P-384       | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
+| "MLKEM1024-P384" | CG | ML-KEM-1024  | P-384       | SHA3-256 | SHAKE-256 | 32    | 32  | [RFCXXXX] |
 {: #iana-table title="Hybrid KEM Labels" }
 
 \[ RFC EDITOR: Please replace "XXXX" above with the number assigned to this RFC \]
