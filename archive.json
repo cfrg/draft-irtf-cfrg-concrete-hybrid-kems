@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-27T01:39:59.223852+00:00",
+  "timestamp": "2025-12-21T01:52:37.393954+00:00",
   "repo": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
   "labels": [
     {
@@ -446,16 +446,24 @@
       "id": "I_kwDOMmh5WM7YbLCW",
       "title": "Section 6 still lists the old labels",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/47",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "FiloSottile",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-concrete-hybrid-kems-02#section-6 has the old labels",
       "createdAt": "2025-11-16T19:07:15Z",
-      "updatedAt": "2025-11-16T19:07:15Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-12-18T15:25:20Z",
+      "closedAt": "2025-12-18T15:25:20Z",
+      "comments": [
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closed in #43 ",
+          "createdAt": "2025-12-18T15:25:20Z",
+          "updatedAt": "2025-12-18T15:25:20Z"
+        }
+      ]
     },
     {
       "number": 48,
@@ -497,11 +505,13 @@
       "state": "OPEN",
       "author": "FiloSottile",
       "authorAssociation": "CONTRIBUTOR",
-      "assignees": [],
+      "assignees": [
+        "dconnolly"
+      ],
       "labels": [],
       "body": "The other doc references Group_T.g but it doesn't look like this is defined anywhere in this one.",
       "createdAt": "2025-11-16T19:11:40Z",
-      "updatedAt": "2025-11-16T19:11:40Z",
+      "updatedAt": "2025-12-18T15:29:47Z",
       "closedAt": null,
       "comments": []
     },
@@ -526,16 +536,24 @@
       "id": "I_kwDOMmh5WM7ZqDfx",
       "title": "reference implementation and vectors for MLKEM768-P256",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/issues/52",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "panva",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Going down a rabbit hole here (#51 being my first snafoo)\n\nhttps://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/blob/44fa9197a6382d904efafc228c3996060c1e9083/reference-implementation/src/group.rs#L166\n\nIs this correct? This turns P-256 group's Nseed to 96, instead of 128\n\nhttps://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/blob/44fa9197a6382d904efafc228c3996060c1e9083/reference-implementation/src/group.rs#L73\n\nhttps://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/blob/44fa9197a6382d904efafc228c3996060c1e9083/draft-irtf-cfrg-concrete-hybrid-kems.md?plain=1#L251-L256",
       "createdAt": "2025-11-21T13:24:36Z",
-      "updatedAt": "2025-11-21T13:25:45Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-12-18T15:20:49Z",
+      "closedAt": "2025-12-18T15:20:49Z",
+      "comments": [
+        {
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@bifurcation @FiloSottile ",
+          "createdAt": "2025-12-18T15:19:33Z",
+          "updatedAt": "2025-12-18T15:19:33Z"
+        }
+      ]
     },
     {
       "number": 54,
@@ -2765,52 +2783,97 @@
       "id": "PR_kwDOMmh5WM6yMdVv",
       "title": "Update labels in IANA considerations section",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/43",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "divergentdave",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This updates the labels to be added to the IANA registry to match the changes made in #41.",
       "createdAt": "2025-11-07T18:07:44Z",
-      "updatedAt": "2025-11-07T18:07:44Z",
+      "updatedAt": "2025-12-18T15:21:16Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "588ec12361d81f8f11de99b5807ab92d7e5290bb",
       "headRepository": "divergentdave/draft-irtf-cfrg-concrete-hybrid-kems",
       "headRefName": "update-labels-iana-considerations",
       "headRefOid": "d428b43ad942b8df6ee9b26debf81fc6f86dd839",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-12-18T15:21:16Z",
+      "mergedAt": "2025-12-18T15:21:16Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "77020cbfde6b7fbe9fae940d7c4b5756ae96a7b6"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7WMRKz",
+          "commit": {
+            "abbreviatedOid": "d428b43"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "lgtm // @bifurcation ",
+          "createdAt": "2025-12-18T15:17:20Z",
+          "updatedAt": "2025-12-18T15:17:20Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMmh5WM7WMVDE",
+          "commit": {
+            "abbreviatedOid": "d428b43"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-18T15:21:08Z",
+          "updatedAt": "2025-12-18T15:21:08Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 44,
       "id": "PR_kwDOMmh5WM6yMjjU",
       "title": "Fix warnings related to square brackets",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/44",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "divergentdave",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This fixes a few warnings from kramdown-rfc related to square brackets being interpreted as links.",
       "createdAt": "2025-11-07T18:14:03Z",
-      "updatedAt": "2025-11-07T18:14:04Z",
+      "updatedAt": "2025-12-18T15:18:04Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "588ec12361d81f8f11de99b5807ab92d7e5290bb",
       "headRepository": "divergentdave/draft-irtf-cfrg-concrete-hybrid-kems",
       "headRefName": "fix-warnings",
       "headRefOid": "cfbc2a64fc297328cd65a488dd959279e3c7e5c1",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-12-18T15:18:04Z",
+      "mergedAt": "2025-12-18T15:18:04Z",
+      "mergedBy": "dconnolly",
+      "mergeCommit": {
+        "oid": "4c0fc9cc5a39a6b21bda57290d661c265a6a4633"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7WMR0H",
+          "commit": {
+            "abbreviatedOid": "cfbc2a6"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-18T15:17:59Z",
+          "updatedAt": "2025-12-18T15:17:59Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 45,
@@ -2873,26 +2936,42 @@
       "id": "PR_kwDOMmh5WM6015D-",
       "title": "set correct Nseed group constants",
       "url": "https://github.com/cfrg/draft-irtf-cfrg-concrete-hybrid-kems/pull/53",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "panva",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Closes #52\r\n\r\nThis only results in the change of MLKEM768-P256 vector `randomness`",
       "createdAt": "2025-11-21T14:48:27Z",
-      "updatedAt": "2025-11-21T14:48:27Z",
+      "updatedAt": "2025-12-18T15:22:33Z",
       "baseRepository": "cfrg/draft-irtf-cfrg-concrete-hybrid-kems",
       "baseRefName": "main",
       "baseRefOid": "44fa9197a6382d904efafc228c3996060c1e9083",
       "headRepository": "panva/draft-irtf-cfrg-concrete-hybrid-kems",
       "headRefName": "set-correct-nseed",
       "headRefOid": "defafa2331185034051bda806211936ec7fbd189",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-12-18T15:20:48Z",
+      "mergedAt": "2025-12-18T15:20:48Z",
+      "mergedBy": "bifurcation",
+      "mergeCommit": {
+        "oid": "56d02b7b7d704bfa9f3058b49d5c2fab28e92c0d"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOMmh5WM7WMUnJ",
+          "commit": {
+            "abbreviatedOid": "defafa2"
+          },
+          "author": "bifurcation",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-18T15:20:41Z",
+          "updatedAt": "2025-12-18T15:20:41Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
