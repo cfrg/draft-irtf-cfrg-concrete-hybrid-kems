@@ -203,12 +203,17 @@ order.
 
 The Nominal Group algorithms are the same for both groups:
 
-- `Exp(p, x) -> q`: This function computes scalar multiplication between the
+`Exp(p, x) -> q`:
+: This function computes scalar multiplication between the
   input element (or point) `p` and the scalar `x`, according to the group law
   for the curve specified in {{SP800-186}}.
-- `RandomScalar(seed) -> k`: Implemented using rejection sampling from a seed,
+  
+`RandomScalar(seed) -> k`:
+: Implemented using rejection sampling from a seed,
   as described below.
-- `ElementToSharedSecret(p) -> ss`: The shared secret is the X coordinate of
+  
+`ElementToSharedSecret(p) -> ss`:
+: The shared secret is the X coordinate of
   the elliptic curve point `p`, encoded as an `Nss`-byte string using the
   Field-Element-to-Octet-String function in {{SEC1}}.
 
@@ -250,34 +255,63 @@ P-384:
 
 The group constants for the P-256 group are as follows:
 
-- `Nseed`: 128
-- `Nscalar`: 32
-- `Nelem`: 65
-- `Nss`: 32
+`Nseed`:
+: 128
+
+`Nscalar`:
+: 32
+
+`Nelem`:
+: 65
+
+`Nss`:
+: 32
+{:compact}
 
 The group constants for the P-384 group are as follows:
 
-- `Nseed`: 48
-- `Nscalar`: 48
-- `Nelem`: 97
-- `Nss`: 48
+`Nseed`:
+: 48
+
+`Nscalar`:
+: 48
+
+`Nelem`:
+: 97
+
+`Nss`: 
+48
+{:compact}
 
 ### Curve25519 Nominal Group {#group-curve25519}
 
 The following functions for the Curve25519 nominal group are defined:
 
-- `Exp(p, x) -> q`: Implemented by X25519(x, p) from {{!RFC7748}}.
-- `RandomScalar(seed) -> k`: Implemented by sampling and outputting 32 random
+`Exp(p, x) -> q`:
+: Implemented by X25519(x, p) from {{!RFC7748}}.
+
+`RandomScalar(seed) -> k`:
+: Implemented by sampling and outputting 32 random
   bytes from a cryptographically secure pseudorandom number generator.
-- `ElementToSharedSecret(p) -> ss`: Implemented by the identity function,
+  
+`ElementToSharedSecret(p) -> ss`:
+: Implemented by the identity function,
   i.e., by outputting P.
 
 The following constants are also defined.
 
-- `Nseed`: 32
-- `Nscalar`: 32
-- `Nelem`: 32
-- `Nss`: 32
+`Nseed`:
+: 32
+
+`Nscalar`:
+: 32
+
+`Nelem`:
+: 32
+
+`Nss`: 
+: 32
+{:compact}
 
 ## Concrete KEM Instances {#nominal-kems}
 
@@ -289,32 +323,58 @@ abstraction from {{HYBRID-KEMS}}.
 The ML-KEM-768 and ML-KEM-1024 KEMs are defined in {{FIPS203}}.  The
 algorithms defined in that specification map to the KEM abstraction in
 {{HYBRID-KEMS}} as follows:
-
-- `GenerateKeyPair() -> (ek, dk)`: Implemented as KeyGen in Section 7.1 of
+`GenerateKeyPair() -> (ek, dk)`:
+: Implemented as KeyGen in Section 7.1 of
   {{FIPS203}}.
-- `DeriveKeyPair(seed) -> (ek, dk)`: Implemented as
+
+`DeriveKeyPair(seed) -> (ek, dk)`:
+: Implemented as
   `KeyGen_internal(seed[0:32], seed[32:64])`, where KeyGen_internal is defined
   in Section 6 of {{FIPS203}}.
-- `Encaps(ek) -> (ct, ss)`: Implemented as Encaps in Section 7.2 of
+
+`Encaps(ek) -> (ct, ss)`:
+: Implemented as Encaps in Section 7.2 of
   {{FIPS203}}.
-- `Decaps(dk, ct) -> ss`: Implemented as Encaps in Section 7.3 of
+
+`Decaps(dk, ct) -> ss`:
+: Implemented as Encaps in Section 7.3 of
   {{FIPS203}}.
 
 The KEM constants for ML-KEM-768 are as follows:
 
-- `Nseed`: 64
-- `Nek`: 1216
-- `Ndk`: 32
-- `Nct`: 1120
-- `Nss`: 32
+`Nseed`:
+:  64
+
+`Nek`:
+: 1216
+
+`Ndk`:
+: 32
+
+`Nct`:
+: 1120
+
+`Nss`:
+: 32
+{:compact}
 
 The KEM constants for ML-KEM-1024 are as follows:
 
-- `Nseed`: 64
-- `Nek`: 1629
-- `Ndk`: 32
-- `Nct`: 1629
-- `Nss`: 32
+`Nseed`:
+: 64
+
+`Nek`:
+: 1629
+
+`Ndk`:
+: 32
+
+`Nct`:
+: 1629
+
+`Nss`: 
+: 32
+{:compact}
 
 ## Concrete PRG instances {#prgs}
 
@@ -326,7 +386,7 @@ abstraction from {{HYBRID-KEMS}} and meet the required security definitions.
 SHAKE256 is an extendable-output function (XOF) defined in the SHA-3
 specification {{FIPS202}}.  It can be used as a PRG for arbitrary values of
 `Nout`.  When SHAKE256 is used as the PRG component in a hybrid KEM, it is
-implcit that `Nout == KEM_T.Nseed + KEM_PQ.Nseed` or `Nout == Group_T.Nseed +
+implicit that `Nout == KEM_T.Nseed + KEM_PQ.Nseed` or `Nout == Group_T.Nseed +
 KEM_PQ.Nseed` as appropriate.
 
 ## Concrete KDF instances {#kdfs}
@@ -366,19 +426,39 @@ use throughout.
 This hybrid KEM combines ML-KEM-768 with P-256 using the CG framework from
 {{HYBRID-KEMS}}. It has the following components:
 
-* `Group_T`: P-256 {{group-nist}}
-* `KEM_PQ`: ML-KEM-768 {{mlkem}}
-* `PRG`: SHAKE-256 {{FIPS202}}
-* `KDF`: SHA3-256 {{FIPS202}}
-* `Label`: `MLKEM768-P256` (hex: 4d4c4b454d3736382d50323536)
+`Group_T`:
+: P-256 {{group-nist}}
+
+`KEM_PQ`:
+: ML-KEM-768 {{mlkem}}
+
+`PRG`:
+: SHAKE-256 {{FIPS202}}
+
+`KDF`:
+: SHA3-256 {{FIPS202}}
+
+`Label`:
+: `MLKEM768-P256` (hex: 4d4c4b454d3736382d50323536)
+{:compact}
 
 The KEM constants for the resulting hybrid KEM are as follows:
 
-- `Nseed`: 32
-- `Nek`: 1217
-- `Ndk`: 32
-- `Nct`: 1121
-- `Nss`: 32
+`Nseed`:
+: 32
+
+`Nek`:
+: 1217
+
+`Ndk`:
+: 32
+
+`Nct`:
+: 1121
+
+`Nss`: 
+: 32
+{:compact}
 
 ## MLKEM768-X25519
 
@@ -386,38 +466,76 @@ This hybrid KEM combines ML-KEM-768 with X25519 using the CG framework from
 {{HYBRID-KEMS}}. It is identical to the X-Wing construction from {{XWING-SPEC}}.
 It has the following components:
 
-* `KEM_PQ`: ML-KEM-768 {{mlkem}}
-* `Group_T`: Curve25519 {{group-curve25519}}
-* `PRG`: SHAKE-256 {{FIPS202}}
-* `KDF`: SHA3-256 {{FIPS202}}
-* `Label`: `\.//^\` (hex: 5C2E2F2F5E5C)
+`KEM_PQ`:
+: ML-KEM-768 {{mlkem}}
+
+`Group_T`:
+: Curve25519 {{group-curve25519}}
+
+`PRG`:
+: SHAKE-256 {{FIPS202}}
+
+`KDF`:
+: SHA3-256 {{FIPS202}}
+
+`Label`:
+: `\.//^\` (hex: 5C2E2F2F5E5C)
+{:compact}
 
 The following constants for the hybrid KEM are also defined:
 
-- `Nseed`: 32
-- `Nek`: 1216
-- `Ndk`: 32
-- `Nct`: 1120
-- `Nss`: 32
+`Nseed`:
+: 32
+
+`Nek`:
+: 1216
+
+`Ndk`: 
+: 32
+`Nct`:
+: 1120
+
+`Nss`:
+: 32
+{:compact}
 
 ## MLKEM1024-P384
 
 This hybrid KEM combines ML-KEM-1024 with P-384 using the CG framework from
 {{HYBRID-KEMS}}. It has the following components:
 
-* `Group_T`: P-384 {{group-nist}}
-* `KEM_PQ`: ML-KEM-1024 {{mlkem}}
-* `PRG`: SHAKE-256 {{FIPS202}}
-* `KDF`: SHA3-256 {{FIPS202}}
-* `Label`: `MLKEM1024-P384` (hex: 4d4c4b454d313032342d50333834)
+`Group_T`:
+: P-384 {{group-nist}}
+
+`KEM_PQ`:
+: ML-KEM-1024 {{mlkem}}
+`PRG`:
+: SHAKE-256 {{FIPS202}}
+
+`KDF`:
+: SHA3-256 {{FIPS202}}
+
+`Label`:
+: `MLKEM1024-P384` (hex: 4d4c4b454d313032342d50333834)
+{:compact}
 
 The following constants for the hybrid KEM are also defined:
 
-- `Nseed`: 32
-- `Nek`: 1629
-- `Ndk`: 32
-- `Nct`: 1629
-- `Nss`: 32
+`Nseed`:
+: 32
+
+`Nek`:
+: 1629
+
+`Ndk`:
+: 32
+
+`Nct`:
+: 1629
+
+`Nss`:
+: 32
+{:compact}
 
 # Security Considerations
 
