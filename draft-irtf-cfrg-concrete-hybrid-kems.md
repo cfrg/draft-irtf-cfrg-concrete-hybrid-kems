@@ -323,6 +323,7 @@ abstraction from {{HYBRID-KEMS}}.
 The ML-KEM-768 and ML-KEM-1024 KEMs are defined in {{FIPS203}}.  The
 algorithms defined in that specification map to the KEM abstraction in
 {{HYBRID-KEMS}} as follows:
+
 `GenerateKeyPair() -> (ek, dk)`:
 : Implemented as KeyGen in Section 7.1 of
   {{FIPS203}}.
