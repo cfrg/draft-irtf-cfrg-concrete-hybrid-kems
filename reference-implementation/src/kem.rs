@@ -43,7 +43,7 @@ pub trait Kem: SeedSize + SharedSecretSize {
 pub trait EncapsDerand: Kem {
     const RANDOMNESS_SIZE: usize;
 
-    fn encaps_derand(ek: &EncapsulationKey, randomness: &[u8]) -> (Ciphertext, SharedSecret);
+    fn encaps_derand(ek: &EncapsulationKey, randomness: &[u8]) -> (SharedSecret, Ciphertext);
 }
 
 /// Marker trait for traditional KEMs
