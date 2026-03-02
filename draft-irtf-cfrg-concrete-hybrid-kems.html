@@ -1360,7 +1360,7 @@ def RandomScalar(seed):
     if end &gt; len(seed):
         raise Exception("Rejection sampling failed")
     sk = OS2IP(seed[start : end])
-  return (sk, pk(sk))
+  return sk
 </pre><a href="#section-3.1.1-6" class="pilcrow">¶</a>
 </div>
 <p id="section-3.1.1-7">RandomScalar fails with cryptographically negligible probability, as long as the
@@ -1470,20 +1470,20 @@ algorithms defined in that specification map to the KEM abstraction in
 <span>[<a href="#HYBRID-KEMS" class="cite xref">HYBRID-KEMS</a>]</span> as follows:<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2.1-2.1">
-              <p id="section-3.2.1-2.1.1"><code>GenerateKeyPair() -&gt; (ek, dk)</code>: Implemented as KeyGen in Section 7.1 of
+              <p id="section-3.2.1-2.1.1"><code>GenerateKeyPair() -&gt; (dk, ek)</code>: Implemented as KeyGen in Section 7.1 of
 <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-3.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.1-2.2">
-              <p id="section-3.2.1-2.2.1"><code>DeriveKeyPair(seed) -&gt; (ek, dk)</code>: Implemented as
+              <p id="section-3.2.1-2.2.1"><code>DeriveKeyPair(seed) -&gt; (dk, ek)</code>: Implemented as
 <code>KeyGen_internal(seed[0:32], seed[32:64])</code>, where KeyGen_internal is defined
 in Section 6 of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-3.2.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.1-2.3">
-              <p id="section-3.2.1-2.3.1"><code>Encaps(ek) -&gt; (ct, ss)</code>: Implemented as Encaps in Section 7.2 of
+              <p id="section-3.2.1-2.3.1"><code>Encaps(ek) -&gt; (ss, ct)</code>: Implemented as Encaps in Section 7.2 of
 <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-3.2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.1-2.4">
-              <p id="section-3.2.1-2.4.1"><code>Decaps(dk, ct) -&gt; ss</code>: Implemented as Encaps in Section 7.3 of
+              <p id="section-3.2.1-2.4.1"><code>Decaps(dk, ct) -&gt; ss</code>: Implemented as Decaps in Section 7.3 of
 <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-3.2.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
