@@ -307,17 +307,17 @@ algorithms defined in that specification map to the KEM abstraction in
 The KEM constants for ML-KEM-768 are as follows:
 
 - `Nseed`: 64
-- `Nek`: 1216
-- `Ndk`: 32
-- `Nct`: 1120
+- `Nek`: 1184
+- `Ndk`: 64
+- `Nct`: 1088
 - `Nss`: 32
 
 The KEM constants for ML-KEM-1024 are as follows:
 
 - `Nseed`: 64
-- `Nek`: 1629
-- `Ndk`: 32
-- `Nct`: 1629
+- `Nek`: 1568
+- `Ndk`: 64
+- `Nct`: 1568
 - `Nss`: 32
 
 ## Concrete PRG instances {#prgs}
@@ -379,9 +379,9 @@ This hybrid KEM combines ML-KEM-768 with P-256 using the CG framework from
 The KEM constants for the resulting hybrid KEM are as follows:
 
 - `Nseed`: 32
-- `Nek`: 1217
+- `Nek`: 1249
 - `Ndk`: 32
-- `Nct`: 1121
+- `Nct`: 1153
 - `Nss`: 32
 
 ## MLKEM768-X25519
@@ -418,9 +418,9 @@ This hybrid KEM combines ML-KEM-1024 with P-384 using the CG framework from
 The following constants for the hybrid KEM are also defined:
 
 - `Nseed`: 32
-- `Nek`: 1629
+- `Nek`: 1665
 - `Ndk`: 32
-- `Nct`: 1629
+- `Nct`: 1665
 - `Nss`: 32
 
 # Security Considerations
