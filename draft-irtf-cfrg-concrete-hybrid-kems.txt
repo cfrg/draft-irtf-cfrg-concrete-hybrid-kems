@@ -278,11 +278,11 @@ Table of Contents
 
    *  Nseed: 64
 
-   *  Nek: 1216
+   *  Nek: 1184
 
-   *  Ndk: 32
+   *  Ndk: 64
 
-   *  Nct: 1120
+   *  Nct: 1088
 
    *  Nss: 32
 
@@ -290,11 +290,11 @@ Table of Contents
 
    *  Nseed: 64
 
-   *  Nek: 1629
+   *  Nek: 1568
 
-   *  Ndk: 32
+   *  Ndk: 64
 
-   *  Nct: 1629
+   *  Nct: 1568
 
    *  Nss: 32
 
@@ -364,11 +364,11 @@ Table of Contents
 
    *  Nseed: 32
 
-   *  Nek: 1217
+   *  Nek: 1249
 
    *  Ndk: 32
 
-   *  Nct: 1121
+   *  Nct: 1153
 
    *  Nss: 32
 
@@ -419,11 +419,11 @@ Table of Contents
 
    *  Nseed: 32
 
-   *  Nek: 1629
+   *  Nek: 1665
 
    *  Ndk: 32
 
-   *  Nct: 1629
+   *  Nct: 1665
 
    *  Nss: 32
 
