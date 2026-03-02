@@ -1426,8 +1426,8 @@ as a 32-byte little-endian integer, as defined in Section 4.1 of <span>[<a href=
               <p id="section-3.1.2-3.1.1"><code>Exp(p, x) -&gt; q</code>: Implemented by X25519(x, p) from <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-3.1.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.1.2-3.2">
-              <p id="section-3.1.2-3.2.1"><code>RandomScalar(seed) -&gt; k</code>: Implemented by sampling and outputting 32 random
-bytes from a cryptographically secure pseudorandom number generator.<a href="#section-3.1.2-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.1.2-3.2.1"><code>RandomScalar(seed) -&gt; k</code>: Implemented by the identity function, i.e., by
+returning the seed.<a href="#section-3.1.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.1.2-3.3">
               <p id="section-3.1.2-3.3.1"><code>ElementToSharedSecret(p) -&gt; ss</code>: Implemented by the identity function,
