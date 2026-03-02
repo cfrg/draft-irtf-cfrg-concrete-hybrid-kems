@@ -199,7 +199,8 @@ define how they meet the Nominal Group interface described in
 Group elements are elliptic curve points, represented as byte strings in the
 uncompressed representation defined by the Elliptic-Curve-Point-to-Octet-String
 function in {{SEC1}}.  Scalars are represented as integers in big-endian byte
-order.
+order.  The generator `g` is the standard base point defined in Section 3.2.1 of
+{{SP800-186}}.
 
 The Nominal Group algorithms are the same for both groups:
 
@@ -263,6 +264,9 @@ The group constants for the P-384 group are as follows:
 - `Nss`: 48
 
 ### Curve25519 Nominal Group {#group-curve25519}
+
+The generator `g` for the Curve25519 nominal group is the value 9, represented
+as a 32-byte little-endian integer, as defined in Section 4.1 of {{!RFC7748}}.
 
 The following functions for the Curve25519 nominal group are defined:
 
