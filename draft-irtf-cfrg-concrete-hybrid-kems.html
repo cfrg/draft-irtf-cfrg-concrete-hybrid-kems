@@ -27,14 +27,14 @@ framework and simplify implementors' choices.
     Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.0.2
     platformdirs 4.5.1
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.32.5
-    wcwidth 0.2.14
+    wcwidth 0.3.0
 -->
 <link href="draft-irtf-cfrg-concrete-hybrid-kems.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -175,7 +175,7 @@ framework and simplify implementors' choices.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -183,7 +183,8 @@ framework and simplify implementors' choices.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -575,6 +576,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -645,7 +647,7 @@ a.pilcrow {
   }
 }
 @media not print {
-  :hover > a.pilcrow {
+  :hover > a.pilcrow, a.pilcrow:focus {
     opacity: 1;
   }
   a.pilcrow[href]:hover {
@@ -1053,11 +1055,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">concrete-hybrid-kems</td>
-<td class="right">December 2025</td>
+<td class="right">March 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Connolly &amp; Barnes</td>
-<td class="center">Expires 21 June 2026</td>
+<td class="center">Expires 3 September 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-irtf-cfrg-concrete-hybrid-kems-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-12-18" class="published">18 December 2025</time>
+<time datetime="2026-03-02" class="published">2 March 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-06-21">21 June 2026</time></dd>
+<dd class="expires"><time datetime="2026-09-03">3 September 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1136,7 @@ framework and simplify implementors' choices.<a href="#section-abstract-1" class
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1143,7 +1145,7 @@ framework and simplify implementors' choices.<a href="#section-abstract-1" class
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1325,7 +1327,8 @@ define how they meet the Nominal Group interface described in
 <p id="section-3.1.1-2">Group elements are elliptic curve points, represented as byte strings in the
 uncompressed representation defined by the Elliptic-Curve-Point-to-Octet-String
 function in <span>[<a href="#SEC1" class="cite xref">SEC1</a>]</span>.  Scalars are represented as integers in big-endian byte
-order.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
+order.  The generator <code>g</code> is the standard base point defined in Section 3.2.1 of
+<span>[<a href="#SP800-186" class="cite xref">SP800-186</a>]</span>.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.1.1-3">The Nominal Group algorithms are the same for both groups:<a href="#section-3.1.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1.1-4.1">
@@ -1415,33 +1418,35 @@ P-384:
           <h4 id="name-curve25519-nominal-group">
 <a href="#section-3.1.2" class="section-number selfRef">3.1.2. </a><a href="#name-curve25519-nominal-group" class="section-name selfRef">Curve25519 Nominal Group</a>
           </h4>
-<p id="section-3.1.2-1">The following functions for the Curve25519 nominal group are defined:<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.1.2-1">The generator <code>g</code> for the Curve25519 nominal group is the value 9, represented
+as a 32-byte little-endian integer, as defined in Section 4.1 of <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.1.2-2">The following functions for the Curve25519 nominal group are defined:<a href="#section-3.1.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1.2-2.1">
-              <p id="section-3.1.2-2.1.1"><code>Exp(p, x) -&gt; q</code>: Implemented by X25519(x, p) from <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-3.1.2-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1.2-3.1">
+              <p id="section-3.1.2-3.1.1"><code>Exp(p, x) -&gt; q</code>: Implemented by X25519(x, p) from <span>[<a href="#RFC7748" class="cite xref">RFC7748</a>]</span>.<a href="#section-3.1.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.1.2-2.2">
-              <p id="section-3.1.2-2.2.1"><code>RandomScalar(seed) -&gt; k</code>: Implemented by sampling and outputting 32 random
-bytes from a cryptographically secure pseudorandom number generator.<a href="#section-3.1.2-2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.1.2-3.2">
+              <p id="section-3.1.2-3.2.1"><code>RandomScalar(seed) -&gt; k</code>: Implemented by sampling and outputting 32 random
+bytes from a cryptographically secure pseudorandom number generator.<a href="#section-3.1.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.1.2-2.3">
-              <p id="section-3.1.2-2.3.1"><code>ElementToSharedSecret(p) -&gt; ss</code>: Implemented by the identity function,
-i.e., by outputting P.<a href="#section-3.1.2-2.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.1.2-3.3">
+              <p id="section-3.1.2-3.3.1"><code>ElementToSharedSecret(p) -&gt; ss</code>: Implemented by the identity function,
+i.e., by outputting P.<a href="#section-3.1.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.1.2-3">The following constants are also defined.<a href="#section-3.1.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.1.2-4">The following constants are also defined.<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1.2-4.1">
-              <p id="section-3.1.2-4.1.1"><code>Nseed</code>: 32<a href="#section-3.1.2-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1.2-5.1">
+              <p id="section-3.1.2-5.1.1"><code>Nseed</code>: 32<a href="#section-3.1.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.1.2-4.2">
-              <p id="section-3.1.2-4.2.1"><code>Nscalar</code>: 32<a href="#section-3.1.2-4.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.1.2-5.2">
+              <p id="section-3.1.2-5.2.1"><code>Nscalar</code>: 32<a href="#section-3.1.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.1.2-4.3">
-              <p id="section-3.1.2-4.3.1"><code>Nelem</code>: 32<a href="#section-3.1.2-4.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.1.2-5.3">
+              <p id="section-3.1.2-5.3.1"><code>Nelem</code>: 32<a href="#section-3.1.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.1.2-4.4">
-              <p id="section-3.1.2-4.4.1"><code>Nss</code>: 32<a href="#section-3.1.2-4.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.1.2-5.4">
+              <p id="section-3.1.2-5.4.1"><code>Nss</code>: 32<a href="#section-3.1.2-5.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1867,7 +1872,7 @@ Labels" registry:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="HYBRID-KEMS">[HYBRID-KEMS]</dt>
         <dd>
-<span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Barnes, R.</span>, and <span class="refAuthor">P. Grubbs</span>, <span class="refTitle">"Hybrid PQ/T Key Encapsulation Mechanisms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-hybrid-kems-07</span>, <time datetime="2025-10-20" class="refDate">20 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-hybrid-kems-07">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-hybrid-kems-07</a>&gt;</span>. </dd>
+<span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Barnes, R.</span>, and <span class="refAuthor">P. Grubbs</span>, <span class="refTitle">"Hybrid PQ/T Key Encapsulation Mechanisms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-hybrid-kems-09</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-hybrid-kems-09">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-hybrid-kems-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -1940,7 +1945,7 @@ Labels" registry:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="XWING-SPEC">[XWING-SPEC]</dt>
       <dd>
-<span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Schwabe, P.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"X-Wing: general-purpose hybrid post-quantum KEM"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-connolly-cfrg-xwing-kem-09</span>, <time datetime="2025-09-01" class="refDate">1 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-connolly-cfrg-xwing-kem-09">https://datatracker.ietf.org/doc/html/draft-connolly-cfrg-xwing-kem-09</a>&gt;</span>. </dd>
+<span class="refAuthor">Connolly, D.</span>, <span class="refAuthor">Schwabe, P.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"X-Wing: general-purpose hybrid post-quantum KEM"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-connolly-cfrg-xwing-kem-10</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-connolly-cfrg-xwing-kem-10">https://datatracker.ietf.org/doc/html/draft-connolly-cfrg-xwing-kem-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

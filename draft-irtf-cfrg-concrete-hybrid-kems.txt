@@ -5,8 +5,8 @@
 Crypto Forum                                                 D. Connolly
 Internet-Draft                                                 SandboxAQ
 Intended status: Informational                                 R. Barnes
-Expires: 21 June 2026                                              Cisco
-                                                        18 December 2025
+Expires: 3 September 2026                                          Cisco
+                                                            2 March 2026
 
 
            Concrete Hybrid PQ/T Key Encapsulation Mechanisms
@@ -55,11 +55,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 June 2026.
+   This Internet-Draft will expire on 3 September 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -155,7 +155,8 @@ Table of Contents
    Group elements are elliptic curve points, represented as byte strings
    in the uncompressed representation defined by the Elliptic-Curve-
    Point-to-Octet-String function in [SEC1].  Scalars are represented as
-   integers in big-endian byte order.
+   integers in big-endian byte order.  The generator g is the standard
+   base point defined in Section 3.2.1 of [SP800-186].
 
    The Nominal Group algorithms are the same for both groups:
 
@@ -224,6 +225,10 @@ Table of Contents
    *  Nss: 48
 
 3.1.2.  Curve25519 Nominal Group
+
+   The generator g for the Curve25519 nominal group is the value 9,
+   represented as a 32-byte little-endian integer, as defined in
+   Section 4.1 of [RFC7748].
 
    The following functions for the Curve25519 nominal group are defined:
 
@@ -502,9 +507,9 @@ Table of Contents
    [HYBRID-KEMS]
               Connolly, D., Barnes, R., and P. Grubbs, "Hybrid PQ/T Key
               Encapsulation Mechanisms", Work in Progress, Internet-
-              Draft, draft-irtf-cfrg-hybrid-kems-07, 20 October 2025,
+              Draft, draft-irtf-cfrg-hybrid-kems-09, 2 March 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              hybrid-kems-07>.
+              hybrid-kems-09>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -580,9 +585,8 @@ Table of Contents
               Connolly, D., Schwabe, P., and B. Westerbaan, "X-Wing:
               general-purpose hybrid post-quantum KEM", Work in
               Progress, Internet-Draft, draft-connolly-cfrg-xwing-kem-
-              09, 1 September 2025,
-              <https://datatracker.ietf.org/doc/html/draft-connolly-
-              cfrg-xwing-kem-09>.
+              10, 2 March 2026, <https://datatracker.ietf.org/doc/html/
+              draft-connolly-cfrg-xwing-kem-10>.
 
 Appendix A.  Test Vectors
 
