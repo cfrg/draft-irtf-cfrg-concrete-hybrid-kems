@@ -227,7 +227,7 @@ def RandomScalar(seed):
     if end > len(seed):
         raise Exception("Rejection sampling failed")
     sk = OS2IP(seed[start : end])
-  return (sk, pk(sk))
+  return sk
 ~~~
 
 RandomScalar fails with cryptographically negligible probability, as long as the
@@ -294,14 +294,14 @@ The ML-KEM-768 and ML-KEM-1024 KEMs are defined in {{FIPS203}}.  The
 algorithms defined in that specification map to the KEM abstraction in
 {{HYBRID-KEMS}} as follows:
 
-- `GenerateKeyPair() -> (ek, dk)`: Implemented as KeyGen in Section 7.1 of
+- `GenerateKeyPair() -> (dk, ek)`: Implemented as KeyGen in Section 7.1 of
   {{FIPS203}}.
-- `DeriveKeyPair(seed) -> (ek, dk)`: Implemented as
+- `DeriveKeyPair(seed) -> (dk, ek)`: Implemented as
   `KeyGen_internal(seed[0:32], seed[32:64])`, where KeyGen_internal is defined
   in Section 6 of {{FIPS203}}.
-- `Encaps(ek) -> (ct, ss)`: Implemented as Encaps in Section 7.2 of
+- `Encaps(ek) -> (ss, ct)`: Implemented as Encaps in Section 7.2 of
   {{FIPS203}}.
-- `Decaps(dk, ct) -> ss`: Implemented as Encaps in Section 7.3 of
+- `Decaps(dk, ct) -> ss`: Implemented as Decaps in Section 7.3 of
   {{FIPS203}}.
 
 The KEM constants for ML-KEM-768 are as follows:
