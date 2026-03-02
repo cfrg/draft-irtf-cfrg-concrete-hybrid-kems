@@ -268,7 +268,7 @@ The following functions for the Curve25519 nominal group are defined:
 
 - `Exp(p, x) -> q`: Implemented by X25519(x, p) from {{!RFC7748}}.
 - `RandomScalar(seed) -> k`: Implemented by the identity function, i.e., by
-  outputting the seed.
+  returning the seed.
 - `ElementToSharedSecret(p) -> ss`: Implemented by the identity function,
   i.e., by outputting P.
 
