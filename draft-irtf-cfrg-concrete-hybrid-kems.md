@@ -267,8 +267,8 @@ The group constants for the P-384 group are as follows:
 The following functions for the Curve25519 nominal group are defined:
 
 - `Exp(p, x) -> q`: Implemented by X25519(x, p) from {{!RFC7748}}.
-- `RandomScalar(seed) -> k`: Implemented by sampling and outputting 32 random
-  bytes from a cryptographically secure pseudorandom number generator.
+- `RandomScalar(seed) -> k`: Implemented by the identity function, i.e., by
+  outputting the seed.
 - `ElementToSharedSecret(p) -> ss`: Implemented by the identity function,
   i.e., by outputting P.
 
