@@ -204,12 +204,17 @@ order.  The generator `g` is the standard base point defined in Section 3.2.1 of
 
 The Nominal Group algorithms are the same for both groups:
 
-- `Exp(p, x) -> q`: This function computes scalar multiplication between the
+`Exp(p, x) -> q`:
+: This function computes scalar multiplication between the
   input element (or point) `p` and the scalar `x`, according to the group law
   for the curve specified in {{SP800-186}}.
-- `RandomScalar(seed) -> k`: Implemented using rejection sampling from a seed,
+
+`RandomScalar(seed) -> k`:
+: Implemented using rejection sampling from a seed,
   as described below.
-- `ElementToSharedSecret(p) -> ss`: The shared secret is the X coordinate of
+
+`ElementToSharedSecret(p) -> ss`:
+: The shared secret is the X coordinate of
   the elliptic curve point `p`, encoded as an `Nss`-byte string using the
   Field-Element-to-Octet-String function in {{SEC1}}.
 
@@ -251,17 +256,33 @@ P-384:
 
 The group constants for the P-256 group are as follows:
 
-- `Nseed`: 128
-- `Nscalar`: 32
-- `Nelem`: 65
-- `Nss`: 32
+`Nseed`:
+: 128
+
+`Nscalar`:
+: 32
+
+`Nelem`:
+: 65
+
+`Nss`:
+: 32
+{:compact}
 
 The group constants for the P-384 group are as follows:
 
-- `Nseed`: 48
-- `Nscalar`: 48
-- `Nelem`: 97
-- `Nss`: 48
+`Nseed`:
+: 48
+
+`Nscalar`:
+: 48
+
+`Nelem`:
+: 97
+
+`Nss`:
+: 48
+{:compact}
 
 ### Curve25519 Nominal Group {#group-curve25519}
 
@@ -270,18 +291,31 @@ as a 32-byte little-endian integer, as defined in Section 4.1 of {{!RFC7748}}.
 
 The following functions for the Curve25519 nominal group are defined:
 
-- `Exp(p, x) -> q`: Implemented by X25519(x, p) from {{!RFC7748}}.
-- `RandomScalar(seed) -> k`: Implemented by the identity function, i.e., by
+`Exp(p, x) -> q`:
+: Implemented by X25519(x, p) from {{!RFC7748}}.
+
+`RandomScalar(seed) -> k`:
+: Implemented by the identity function, i.e., by
   returning the seed.
-- `ElementToSharedSecret(p) -> ss`: Implemented by the identity function,
+
+`ElementToSharedSecret(p) -> ss`:
+: Implemented by the identity function,
   i.e., by outputting P.
 
 The following constants are also defined.
 
-- `Nseed`: 32
-- `Nscalar`: 32
-- `Nelem`: 32
-- `Nss`: 32
+`Nseed`:
+: 32
+
+`Nscalar`:
+: 32
+
+`Nelem`:
+: 32
+
+`Nss`:
+: 32
+{:compact}
 
 ## Concrete KEM Instances {#nominal-kems}
 
@@ -294,31 +328,58 @@ The ML-KEM-768 and ML-KEM-1024 KEMs are defined in {{FIPS203}}.  The
 algorithms defined in that specification map to the KEM abstraction in
 {{HYBRID-KEMS}} as follows:
 
-- `GenerateKeyPair() -> (dk, ek)`: Implemented as KeyGen in Section 7.1 of
+`GenerateKeyPair() -> (dk, ek)`:
+: Implemented as KeyGen in Section 7.1 of
   {{FIPS203}}.
-- `DeriveKeyPair(seed) -> (dk, ek)`: Implemented as
+
+`DeriveKeyPair(seed) -> (dk, ek)`:
+: Implemented as
   `KeyGen_internal(seed[0:32], seed[32:64])`, where KeyGen_internal is defined
   in Section 6 of {{FIPS203}}.
-- `Encaps(ek) -> (ss, ct)`: Implemented as Encaps in Section 7.2 of
+
+`Encaps(ek) -> (ss, ct)`:
+: Implemented as Encaps in Section 7.2 of
   {{FIPS203}}.
-- `Decaps(dk, ct) -> ss`: Implemented as Decaps in Section 7.3 of
+
+`Decaps(dk, ct) -> ss`:
+: Implemented as Decaps in Section 7.3 of
   {{FIPS203}}.
 
 The KEM constants for ML-KEM-768 are as follows:
 
-- `Nseed`: 64
-- `Nek`: 1184
-- `Ndk`: 64
-- `Nct`: 1088
-- `Nss`: 32
+`Nseed`:
+: 64
+
+`Nek`:
+: 1184
+
+`Ndk`:
+: 64
+
+`Nct`:
+: 1088
+
+`Nss`:
+: 32
+{:compact}
 
 The KEM constants for ML-KEM-1024 are as follows:
 
-- `Nseed`: 64
-- `Nek`: 1568
-- `Ndk`: 64
-- `Nct`: 1568
-- `Nss`: 32
+`Nseed`:
+: 64
+
+`Nek`:
+: 1568
+
+`Ndk`:
+: 64
+
+`Nct`:
+: 1568
+
+`Nss`:
+: 32
+{:compact}
 
 ## Concrete PRG instances {#prgs}
 
@@ -330,7 +391,7 @@ abstraction from {{HYBRID-KEMS}} and meet the required security definitions.
 SHAKE256 is an extendable-output function (XOF) defined in the SHA-3
 specification {{FIPS202}}.  It can be used as a PRG for arbitrary values of
 `Nout`.  When SHAKE256 is used as the PRG component in a hybrid KEM, it is
-implcit that `Nout == KEM_T.Nseed + KEM_PQ.Nseed` or `Nout == Group_T.Nseed +
+implicit that `Nout == KEM_T.Nseed + KEM_PQ.Nseed` or `Nout == Group_T.Nseed +
 KEM_PQ.Nseed` as appropriate.
 
 ## Concrete KDF instances {#kdfs}
@@ -378,11 +439,21 @@ This hybrid KEM combines ML-KEM-768 with P-256 using the CG framework from
 
 The KEM constants for the resulting hybrid KEM are as follows:
 
-- `Nseed`: 32
-- `Nek`: 1249
-- `Ndk`: 32
-- `Nct`: 1153
-- `Nss`: 32
+`Nseed`:
+: 32
+
+`Nek`:
+: 1249
+
+`Ndk`:
+: 32
+
+`Nct`:
+: 1153
+
+`Nss`:
+: 32
+{:compact}
 
 ## MLKEM768-X25519
 
@@ -398,11 +469,21 @@ It has the following components:
 
 The following constants for the hybrid KEM are also defined:
 
-- `Nseed`: 32
-- `Nek`: 1216
-- `Ndk`: 32
-- `Nct`: 1120
-- `Nss`: 32
+`Nseed`:
+: 32
+
+`Nek`:
+: 1216
+
+`Ndk`:
+: 32
+
+`Nct`:
+: 1120
+
+`Nss`:
+: 32
+{:compact}
 
 ## MLKEM1024-P384
 
@@ -417,11 +498,21 @@ This hybrid KEM combines ML-KEM-1024 with P-384 using the CG framework from
 
 The following constants for the hybrid KEM are also defined:
 
-- `Nseed`: 32
-- `Nek`: 1665
-- `Ndk`: 32
-- `Nct`: 1665
-- `Nss`: 32
+`Nseed`:
+: 32
+
+`Nek`:
+: 1665
+
+`Ndk`:
+: 32
+
+`Nct`:
+: 1665
+
+`Nss`:
+: 32
+{:compact}
 
 # Security Considerations
 
