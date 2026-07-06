@@ -558,6 +558,19 @@ Labels" registry:
 
 --- back
 
+# Deterministic Encapsulation
+
+Deterministic encapsulation allows for testing encapsulation as well as
+decapsulation.  {{Appendix A of HYBRID-KEMS}} defines deterministic encapsulation
+for a hybrid KEM when it is supported by the constituent algorithms.
+
+The nominal groups and KEMs defined in this document all support deterministic
+encapsulation.  As noted in {{Appendix A of HYBRID-KEMS}}, nominal groups all
+support deterministic encapsulation with `Nrandom = Nseed`.
+
+For ML-KEM, the `EncapsDerand()` function is implemented as Encaps_internal in
+Section 6.2 of {{FIPS203}}, with `Nrandom = 32`.
+
 # Test Vectors
 
 This section provides test vectors for the three concrete hybrid KEM
