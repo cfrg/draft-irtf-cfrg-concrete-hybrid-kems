@@ -5,8 +5,8 @@
 Crypto Forum                                                 D. Connolly
 Internet-Draft                                                 SandboxAQ
 Intended status: Informational                                 R. Barnes
-Expires: 3 September 2026                                          Cisco
-                                                            2 March 2026
+Expires: 7 January 2027                                            Cisco
+                                                             6 July 2026
 
 
            Concrete Hybrid PQ/T Key Encapsulation Mechanisms
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 September 2026.
+   This Internet-Draft will expire on 7 January 2027.
 
 Copyright Notice
 
@@ -91,10 +91,11 @@ Table of Contents
    7.  References
      7.1.  Normative References
      7.2.  Informative References
-   Appendix A.  Test Vectors
-     A.1.  MLKEM768-P256
-     A.2.  MLKEM768-X25519
-     A.3.  MLKEM1024-P384
+   Appendix A.  Deterministic Encapsulation
+   Appendix B.  Test Vectors
+     B.1.  MLKEM768-P256
+     B.2.  MLKEM768-X25519
+     B.3.  MLKEM1024-P384
    Acknowledgments
    Authors' Addresses
 
@@ -445,14 +446,14 @@ Table of Contents
    |Label           |Fw|PQ       |T         |KDF     |PRG   |Nseed|Nss|Reference|
    |                |  |Component|Component |        |      |     |   |         |
    +================+==+=========+==========+========+======+=====+===+=========+
-   |"MLKEM768-P256" |CG|ML-      |P-256     |SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
-   |                |  |KEM-768  |          |        |256   |     |   |         |
+   |"MLKEM768-P256" |CG|ML-      |P-256     |SHA3-256|SHAKE-256|32   |32 |[RFCXXXX]|
+   |                |  |KEM-768  |          |        |      |     |   |         |
    +----------------+--+---------+----------+--------+------+-----+---+---------+
-   |"\.//^\"        |CG|ML-      |Curve25519|SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
-   |                |  |KEM-768  |          |        |256   |     |   |         |
+   |"\.//^\"        |CG|ML-      |Curve25519|SHA3-256|SHAKE-256|32   |32 |[RFCXXXX]|
+   |                |  |KEM-768  |          |        |      |     |   |         |
    +----------------+--+---------+----------+--------+------+-----+---+---------+
-   |"MLKEM1024-P384"|CG|ML-      |P-384     |SHA3-256|SHAKE-|32   |32 |[RFCXXXX]|
-   |                |  |KEM-1024 |          |        |256   |     |   |         |
+   |"MLKEM1024-P384"|CG|ML-      |P-384     |SHA3-256|SHAKE-256|32   |32 |[RFCXXXX]|
+   |                |  |KEM-1024 |          |        |      |     |   |         |
    +----------------+--+---------+----------+--------+------+-----+---+---------+
 
                          Table 1: Hybrid KEM Labels
@@ -477,9 +478,9 @@ Table of Contents
    [HYBRID-KEMS]
               Connolly, D., Barnes, R., and P. Grubbs, "Hybrid PQ/T Key
               Encapsulation Mechanisms", Work in Progress, Internet-
-              Draft, draft-irtf-cfrg-hybrid-kems-09, 2 March 2026,
+              Draft, draft-irtf-cfrg-hybrid-kems-12, 6 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              hybrid-kems-09>.
+              hybrid-kems-12>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -558,7 +559,22 @@ Table of Contents
               10, 2 March 2026, <https://datatracker.ietf.org/doc/html/
               draft-connolly-cfrg-xwing-kem-10>.
 
-Appendix A.  Test Vectors
+Appendix A.  Deterministic Encapsulation
+
+   Deterministic encapsulation allows for testing encapsulation as well
+   as decapsulation.  Appendix A of [HYBRID-KEMS] defines deterministic
+   encapsulation for a hybrid KEM when it is supported by the
+   constituent algorithms.
+
+   The nominal groups and KEMs defined in this document all support
+   deterministic encapsulation.  As noted in Appendix A of
+   [HYBRID-KEMS], nominal groups all support deterministic encapsulation
+   with Nrandom = Nseed.
+
+   For ML-KEM, the EncapsDerand() function is implemented as
+   Encaps_internal in Section 6.2 of [FIPS203], with Nrandom = 32.
+
+Appendix B.  Test Vectors
 
    This section provides test vectors for the three concrete hybrid KEM
    instantiations defined in this document.  Each test vector represents
@@ -598,7 +614,7 @@ Appendix A.  Test Vectors
    to the privateKey value used in the PKCS#8 format for private keys
    [RFC5915].
 
-A.1.  MLKEM768-P256
+B.1.  MLKEM768-P256
 
    seed = 000000000000000000000000000000000000000000000000000000000
           0000000
@@ -1830,7 +1846,7 @@ A.1.  MLKEM768-P256
    shared_secret = a0071e94b4d0275ed91dfe4f3fe87dd4a534269c7a5991fd
                    c27ac31933fad24c
 
-A.2.  MLKEM768-X25519
+B.2.  MLKEM768-X25519
 
    seed = 000000000000000000000000000000000000000000000000000000000
           0000000
@@ -2992,7 +3008,7 @@ A.2.  MLKEM768-X25519
    shared_secret = d1b5f13316ff420d4ca22c9a8e3f93d27f735d1da53ebc97
                    9cce23f9747e3261
 
-A.3.  MLKEM1024-P384
+B.3.  MLKEM1024-P384
 
    seed = 000000000000000000000000000000000000000000000000000000000
           0000000
