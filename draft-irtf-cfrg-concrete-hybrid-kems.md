@@ -299,8 +299,20 @@ The following functions for the Curve25519 nominal group are defined:
   returning the seed.
 
 `ElementToSharedSecret(p) -> ss`:
-: Implemented by the identity function,
-  i.e., by outputting P.
+: Raises an error if `p` is the all-zero value, and otherwise outputs `p`.
+
+Following Section 7.1.4 of {{?RFC9180}}, the X25519 Diffie-Hellman output
+MUST be validated as described in {{!RFC7748}}.  In particular, senders and
+recipients MUST check whether the X25519 shared secret is the all-zero value
+and abort if so.  `ElementToSharedSecret` performs this check, and a hybrid
+KEM propagates the error as specified in {{HYBRID-KEMS}}.  The check MUST NOT
+leak information about `p` beyond whether it is all-zero; for example,
+compare in constant time.
+
+X25519 clamps scalars to multiples of the cofactor, so its output is the
+all-zero value exactly when the input u-coordinate encodes a point of small
+order on Curve25519 or its twist.  The check therefore depends only on the
+public ciphertext or encapsulation key.
 
 The following constants are also defined.
 
@@ -459,6 +471,8 @@ The KEM constants for the resulting hybrid KEM are as follows:
 
 This hybrid KEM combines ML-KEM-768 with X25519 using the CG framework from
 {{HYBRID-KEMS}}. It is identical to the X-Wing construction from {{XWING-SPEC}}.
+Like X-Wing, it rejects an all-zero X25519 shared secret in both
+encapsulation and decapsulation ({{group-curve25519}}).
 It has the following components:
 
 * `KEM_PQ`: ML-KEM-768 {{mlkem}}
@@ -528,6 +542,11 @@ according to the framework to be secure {{HYBRID-KEMS}}.  In brief:
 * KDFs need to be indifferentiable from a random oracle, even by a quantum
   attacker.
 * A PRG needs to be a secure pseudo-random generator
+
+MLKEM768-X25519 is an explicitly rejecting KEM for ciphertexts whose X25519
+component yields the all-zero shared secret ({{group-curve25519}}).  This
+rejection depends only on public values.  For all other ciphertexts, ML-KEM's
+implicit rejection applies.
 
 The components used in this document meet these requirements:
 
